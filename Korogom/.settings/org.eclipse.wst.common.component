@@ -3,7 +3,7 @@
     
     
     
-    <wb-module deploy-name="controller-1.0.0-BUILD-SNAPSHOT">
+    <wb-module deploy-name="korogom-1.0.0-BUILD-SNAPSHOT">
                                         
         
         
@@ -29,8 +29,7 @@
         
         
         <property name="java-output-path" value="target/classes"/>
-                
-        <property name="context-root" value="controller"/>
+        <property name="context-root" value="korogom"/>
                                 	
     
     
