@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.BoardMapper">
+	<select id="resvlist" resultType="domain.BoardDAO">
+		select * from k_board where bsort = 1
+	</select>
+	<insert id="resvinsert">
+		insert into k_board(mno,btitle,bcon,bsort,betc) values(#{mno},#{btitle},#{bcon},#{bsort},#{betc})
+	</insert>
+	<select id="resvread" resultType="domain.BoardDAO">
+		select * from k_board where bno = #{bno}
+	</select>
+	<delete id="resvdelete">
+		delete from k_board where bno = #{bno}
+	</delete>
+	<update id="resvupdate">
+		update k_board
+		 set btitle = #{btitle},
+		 bcon = #{bcon},
+		 betc = #{betc}
+		 where bno = #{bno}
+	</update>
+</mapper>
