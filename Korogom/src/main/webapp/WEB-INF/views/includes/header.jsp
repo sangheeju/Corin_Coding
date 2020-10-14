@@ -81,7 +81,7 @@
 				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">로그인</a>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="/fclass/login_t/regi_loginfrm.jsp">로그인</a>
-						<a class="dropdown-item" href="#">회원가입</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/member/mregister">회원가입</a>
 					</div>
 				</li>
 				<li class="nav-item dropdown">
