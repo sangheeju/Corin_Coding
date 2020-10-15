@@ -17,8 +17,9 @@ public class MemberController {
 	
 	public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
-	@Autowired
+	@Autowired 
 	private MemberService memberService;
+	
 	
 	@RequestMapping(value="mregister", method=RequestMethod.GET)
 	public String mregister() {
@@ -36,4 +37,6 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
+	
+	
 }

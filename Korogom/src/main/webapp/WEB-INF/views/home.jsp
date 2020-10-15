@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>레이아웃테스트</title>
+
 <jsp:include page="includes/header.jsp"></jsp:include>
 </head>
 <body>
@@ -24,6 +25,7 @@
 		<div class="content">
 			내용
 		</div>
+		
 	</div>
 	
 	<!-- footer -->
