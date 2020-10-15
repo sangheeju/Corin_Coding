@@ -1,0 +1,23 @@
+CREATE TABLE `reservation` (
+  `ino` int NOT NULL AUTO_INCREMENT,
+  `istart` varchar(150) NOT NULL,
+  `iend` varchar(20) NOT NULL,
+  `icnt` int NOT NULL,
+  `ipet` varchar(45) NOT NULL,
+  `ifood` varchar(45) NOT NULL,
+  `iadd` varchar(45) NOT NULL,
+  `isend` varchar(45) NOT NULL,
+  `iplus` text,
+  `ibool` int NOT NULL,
+  `mno` int NOT NULL,
+  `pno` int NOT NULL,
+  `roomno` int NOT NULL,
+  `ietc` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`ino`,`mno`,`pno`,`roomno`),
+  KEY `fk_reservation_member1_idx` (`mno`),
+  KEY `fk_reservation_pet1_idx` (`pno`),
+  KEY `fk_reservation_room1_idx` (`roomno`),
+  CONSTRAINT `fk_reservation_member1` FOREIGN KEY (`mno`) REFERENCES `member` (`mno`),
+  CONSTRAINT `fk_reservation_pet1` FOREIGN KEY (`pno`) REFERENCES `pet` (`pno`),
+  CONSTRAINT `fk_reservation_room1` FOREIGN KEY (`roomno`) REFERENCES `room` (`roomno`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
