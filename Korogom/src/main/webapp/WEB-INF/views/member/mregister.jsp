@@ -4,7 +4,11 @@
 
 <%@ include file="../includes/header.jsp" %>
 <div class="container">
+
   <h2>회원가입</h2>
+  <div class="row">
+  <div class="col-sm-4"> img add </div>
+  <div class="col-sm-8">
   <form method="POST">
     <div class="form-group">
       <label for="mid">아이디:</label>
@@ -50,5 +54,6 @@
     <button type="submit" class="btn btn-primary">회원가입</button>
   </form>
 </div>
-
+</div>
+</div>
 <%@ include file="../includes/footer.jsp" %>
