@@ -29,10 +29,11 @@ public class MemberController {
 	@RequestMapping(value="mregister",method=RequestMethod.POST)
 	public String mregister(MemberDAO memberDAO, RedirectAttributes rttr) {
 		int r = memberService.mregister(memberDAO);
-		
+		logger.info(memberDAO.toString()+"로거인포");
 		if(r > 0) {
+			logger.info("==== : 가입 되셨습니다 : ====");
 			rttr.addAttribute("msg", "회원 서비스로 이동합니다");			
 		}
-		return "redirect:home";
+		return "redirect:/";
 	}
 }

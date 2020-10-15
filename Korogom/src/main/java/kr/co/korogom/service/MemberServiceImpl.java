@@ -15,11 +15,11 @@ public class MemberServiceImpl implements MemberService{
 	@Inject
 	private SqlSession sqlSession;
 	
-	private static final String namespace = "kr.co.korogom";
-	
+	private static final String namespace = "kr.co.korogom.member";
+			
 	@Override
 	public int mregister(MemberDAO memberDAO) {		//회원가입
 		// TODO Auto-generated method stub
-		return sqlSession.insert(namespace+".member.mregister", memberDAO);
+		return sqlSession.insert(namespace+".mregister", memberDAO);
 	}
 }
