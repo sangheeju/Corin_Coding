@@ -103,4 +103,18 @@ public class MemberController {
 		}	
 	}
 	
+	@RequestMapping(value="mypage", method=RequestMethod.GET)
+	public String mypage() {
+		logger.info("==== : 마이 페이지로 이동합니다 : ====");
+		return "member/mypage";
+	}
+	
+	@RequestMapping(value="mypage", method=RequestMethod.POST)
+	public String mypage(@RequestParam MemberDAO memberDAO, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+			
+			logger.info("==== : 개인 정보 확인 : ====");
+			return "";
+	}
+
 }

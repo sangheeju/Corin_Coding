@@ -8,15 +8,19 @@
 	</insert>
 	<select id="MidCheck" parameterType="String" resultType="MemberDAO" >
 		SELECT mid 
-		FROM member WHERE mid = #{mid}
+		FROM member 
+		WHERE mid = #{mid}
 	</select>
 	<select id="MnickCheck" parameterType="String" resultType="MemberDAO" >
 		SELECT mnick 
-		FROM member WHERE mnick = #{mnick}		
+		FROM member 
+		WHERE mnick = #{mnick}		
 	</select>
 	<select id="login" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT mid, mnick
-		FROM member WHERE mid= #{mid} AND mpass = #{mpass}
+		FROM member 
+		WHERE mid= #{mid} 
+		AND mpass = #{mpass}
 	</select>
 		<!-- 패스워드 체크
 	<select id="passChk" resultType="java.lang.Integer">
@@ -24,4 +28,10 @@
 		WHERE mid = #{mid}
 		AND mpass = #{mpass}
 	</select> -->
+	<select id="mypage" parameterType="String" resultType="MemberDAO">
+		SELECT mid, mnick, mmail, mphone, mbirth, mclass 
+		FROM member
+		WHERE mid = #{mid}
+	</select>
+	
 </mapper>

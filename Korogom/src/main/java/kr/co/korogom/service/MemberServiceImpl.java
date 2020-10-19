@@ -43,6 +43,12 @@ public class MemberServiceImpl implements MemberService{
 		return sqlSession.selectOne(namespace+".login", map);
 	}
 
+	@Override
+	public String mypage(MemberDAO memberDAO) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".mypage", memberDAO);
+	}
+
 //	@Override
 //	public int passChk(MemberDAO memberDAO) {
 //		// TODO Auto-generated method stub
