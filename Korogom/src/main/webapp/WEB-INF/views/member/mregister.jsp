@@ -9,7 +9,7 @@
 	<div class="row">
 		<div class="col-sm-4">img add</div>
 		<div class="col-sm-8">
-			<form method="POST">
+			<form method="POST" >
 				<div class="form-group">
 					<table>
 						<tr>

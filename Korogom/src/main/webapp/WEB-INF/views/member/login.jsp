@@ -13,6 +13,8 @@
         <input type="checkbox" class="form-check-input" name="remember"> Remember me
       </label>
     </div>    
+    <div id="textbox" >
+    </div>
     <button type="submit" class="btn btn-primary mb-2">로그인</button>
   </form>
 </div>

@@ -1,5 +1,6 @@
 package kr.co.korogom.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -45,24 +46,26 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="mregister",method=RequestMethod.POST)
-	public String mregister(MemberDAO memberDAO, RedirectAttributes rttr) {
+	public String mregister(MemberDAO memberDAO, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
 		int r = memberService.mregister(memberDAO);
-		logger.info(memberDAO.toString()+"로거인포");
 		if(r > 0) {
 			logger.info("==== : 가입 되셨습니다 : ====");
 			rttr.addAttribute("msg", "회원 서비스로 이동합니다");			
+		} else {
+			logger.info("==== : 가입이 취소 되었습니다 : ====");
 		}
-		return "redirect:/";
+		return "redirect:login";
 	}
 	
-	@ResponseBody		//아작스 통신
-	@RequestMapping(value = "/MidCheck", method=RequestMethod.POST)
-	public ModelAndView MidCheck(@RequestBody String paramData, MemberDAO dao) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		memberService.MidCheck(paramData);
-		mav.setViewName("MidCheck");
-		return mav;
-	}
+//	@ResponseBody		//아작스 통신
+//	@RequestMapping(value = "/MidCheck", method=RequestMethod.POST)
+//	public ModelAndView MidCheck(@RequestBody String paramData, MemberDAO dao) throws Exception {
+//		ModelAndView mav = new ModelAndView();
+//		memberService.MidCheck(paramData);
+//		mav.setViewName("MidCheck");
+//		return mav;
+//	}
 	
 	
 	@RequestMapping(value="login", method=RequestMethod.GET)
