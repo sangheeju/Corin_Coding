@@ -22,4 +22,16 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return sqlSession.insert(namespace+".mregister", memberDAO);
 	}
+
+	@Override
+	public MemberDAO MidCheck(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".MidCheck", id);
+	}
+
+	@Override
+	public MemberDAO MnickCheck(String nick) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".MnickCheck", nick);
+	}
 }
