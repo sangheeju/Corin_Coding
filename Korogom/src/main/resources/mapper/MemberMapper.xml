@@ -6,5 +6,22 @@
 		INSERT INTO member(mid,mpass,mnick,mmail,mphone,mbirth,mdel,mdate,mclass)
 		VALUES(#{mid},#{mpass},#{mnick},#{mmail},#{mphone},#{mbirth},#{mdel},curdate(),#{mclass})		
 	</insert>
-
+	<select id="MidCheck" parameterType="String" resultType="MemberDAO" >
+		SELECT mid 
+		FROM member WHERE mid = #{mid}
+	</select>
+	<select id="MnickCheck" parameterType="String" resultType="MemberDAO" >
+		SELECT mnick 
+		FROM member WHERE mnick = #{mnick}		
+	</select>
+	<select id="login" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT mid, mnick
+		FROM member WHERE mid= #{mid} AND mpass = #{mpass}
+	</select>
+		<!-- 패스워드 체크
+	<select id="passChk" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM member
+		WHERE mid = #{mid}
+		AND mpass = #{mpass}
+	</select> -->
 </mapper>

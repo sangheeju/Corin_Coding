@@ -80,7 +80,7 @@
 				<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">로그인</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="/fclass/login_t/regi_loginfrm.jsp">로그인</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/member/login">로그인</a>
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/member/mregister">회원가입</a>
 					</div>
 				</li>
@@ -89,7 +89,7 @@
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="#">*** 정보</a> 
 						<a class="dropdown-item" href="#">관리</a> 
-						<a class="dropdown-item" href="/fclass/login_t/logout.jsp">로그아웃</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
 					</div>
 				</li>
 			</ul>

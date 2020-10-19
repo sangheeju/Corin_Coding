@@ -18,6 +18,9 @@
 	<!-- header -->
 	<div class="header">
 	</div>
+	<c:if test="${user != null}">
+		<c:out value="${mnick }님 어서오세요!" />
+	</c:if>
 	
 	<!-- container -->
 	<div class="container">

@@ -1,5 +1,7 @@
 package kr.co.korogom.service;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -34,4 +36,17 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".MnickCheck", nick);
 	}
+
+	@Override
+	public Map login(Map<String,Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".login", map);
+	}
+
+//	@Override
+//	public int passChk(MemberDAO memberDAO) {
+//		// TODO Auto-generated method stub
+//		int result = sqlSession.selectOne(namespace+".passChk", memberDAO);
+//		return result;
+//	}
 }
