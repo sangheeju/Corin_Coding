@@ -1,15 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <%@ include file="../includes/header.jsp"%>
+<header>
+<script type="text/javascript">
+		$(document).ready(function(){
+			// 취소
+			$(".rcancle").on("click", function(){
+				location.href = "/";
+			})
+			$("#submit").on("click", function(){
+				var idChkVal = $("#midCheck").val();
+				if(idChkVal == "N"){
+					alert("중복확인 버튼을 눌러주세요.");
+				}else if(idChkVal == "Y"){
+					$("#regForm").midCheck();
+				}
+			});
+		
+	
+		
+		function fn_idChk(){
+			$.ajax({
+				url : "${contextPath}/member/midCheck",
+				type : "post",
+				dataType : "json",
+				data : {"mid" : $("#mid").val()},
+				success : function(data){
+					if(data == 1){
+						alert("이미 사용중인 아이디입니다.");
+					}else if(data == 0){
+						$("#midCheck").attr("value", "Y");
+						alert("사용가능한 아이디입니다.");
+					}
+				}
+			})
+		}
+	</script>
+	</header>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <div class="container">
 
 	<h2>회원가입</h2>
 	<div class="row">
 		<div class="col-sm-4">img add</div>
 		<div class="col-sm-8">
-			<form method="POST" >
+		
+		
+			<form method="POST" id="regForm" >
 				<div class="form-group">
 					<table>
 						<tr>
@@ -18,7 +57,7 @@
 								name="mid" placeholder="ID를 입력하세요" required>
 							</td>
 							<td>
-								<button id="duplicate_check" type="button" onclick="idcheck();">중복체크</button>
+								<button type="button" id="midCheck" class="midCheck" onclick="fn_idChk();" value="N">중복체크</button>
 							</td>
 							<td><p>* 영문과 숫자만 사용가능 합니다.</p></td>
 						</tr>
@@ -57,7 +96,7 @@
 									placeholder="별명을 입력하세요." name="mnick" required>						
 							</td>
 							<td>
-								<button id="duplicate_check" type="button" onclick="nicheck();">중복체크</button>
+								<button id="mnickCheck" class="mnickCheck" type="button" onclick="nicheck();">중복체크</button>
 							</td>
 							<td><p>* 한글, 영문, 숫자만 사용가능 합니다.</p></td>
 						</tr>
@@ -67,6 +106,25 @@
 								<!-- 중복이나 형식이 맞지 않을 경우 경고문이 들어갈 자리 -->
 							</td>
 						</tr>
+					</table>
+				</div>
+				<div class="form-group">
+					<table>
+						<tr>
+							<td>
+								<label for="mname">* 이름:</label> 
+							</td>
+							<td>
+								<input type="text"
+									class="form-control" id="mname"
+									placeholder="이름을 입력하세요." name="mname" required>						
+							</td>
+							<td>
+								<button id="duplicate_check" type="button" onclick="namecheck();">본인인증??</button>
+							</td>
+							<td><p>* 한글만 사용가능 합니다.</p></td>
+						</tr>
+						<tr></tr>
 					</table>
 				</div>
 				<div class="form-group">
@@ -102,60 +160,15 @@
 					<input class="form-check-input" type="checkbox" name="mclass"
 						id="mclass" value="1" required>
 					<kbd>확인!</kbd>
+						
 					</label>
 				</div>
-				<button type="submit" class="btn btn-primary">회원가입</button>
+				<button type="submit" class="submit btn btn-primary">회원가입</button>
+				<button class="rcancle btn btn-danger" type="button">가입 취소</button>
 			</form>
 		</div>
 	</div>
 </div>
-<script>
-function idcheck(){
-	id = $("#mid").val();
-	
-	$.ajax({
-	    url: 'MidCheck',
-	    type: 'POST',
-	    dataType: 'text', //서버로부터 내가 받는 데이터의 타입
-	    contentType : 'text/plain; charset=utf-8;',//내가 서버로 보내는 데이터의 타입
-	    data: id ,
 
-	    success: function(data){
-	         if(data == 0){
-	         console.log("아이디 없음");
-	         alert("사용하실 수 있는 아이디입니다.");
-	         }else{
-	         	console.log("아이디 있음");
-	         	alert("중복된 아이디가 존재합니다.");
-	         }
-	    },
-	    error: function (){        	                      
-	    }
-	  });
-}
-function nicheck(){
-	nick = $("#mnick").val();
-	
-	$.ajax({
-	    url: 'MnickCheck',
-	    type: 'POST',
-	    dataType: 'text', //서버로부터 내가 받는 데이터의 타입
-	    contentType : 'text/plain; charset=utf-8;',//내가 서버로 보내는 데이터의 타입
-	    data: nick ,
-
-	    success: function(data){
-	         if(data == 0){
-	         console.log("사용자 없음");
-	         alert("사용하실 수 있는 별명입니다.");
-	         }else{
-	         	console.log("사용자 있음");
-	         	alert("중복된 별명이 존재합니다.");
-	         }
-	    },
-	    error: function (){        	                      
-	    }
-	  });
-}
-</script>
 
 <%@ include file="../includes/footer.jsp"%>

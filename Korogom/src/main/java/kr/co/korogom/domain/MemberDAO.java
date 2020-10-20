@@ -7,6 +7,7 @@ public class MemberDAO {
 	private String mid;			//아이디
 	private String mnick;		//닉네임
 	private String mpass;		//비밀번호
+	private String mname;		//실명
 	private String mmail;		//이메일
 	private int mphone;			//연락처
 	
@@ -101,11 +102,17 @@ public class MemberDAO {
 		this.metc = metc;
 	}
 	
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
 	@Override
 	public String toString() {
-		return "MemberDAO [mno=" + mno + ", mid=" + mid + ", mnick=" + mnick + ", mpass=" + mpass + ", mmail=" + mmail
-				+ ", mphone=" + mphone + ", mbirth=" + mbirth + ", mdel=" + mdel + ", mcnt=" + mcnt + ", mdate=" + mdate
-				+ ", mpet=" + mpet + ", mclass=" + mclass + ", metc=" + metc + "]";
+		return "MemberDAO [mno=" + mno + ", mid=" + mid + ", mnick=" + mnick + ", mpass=" + mpass + ", mname=" + mname
+				+ ", mmail=" + mmail + ", mphone=" + mphone + ", mbirth=" + mbirth + ", mdel=" + mdel + ", mcnt=" + mcnt
+				+ ", mdate=" + mdate + ", mpet=" + mpet + ", mclass=" + mclass + ", metc=" + metc + "]";
 	}
 	
 	

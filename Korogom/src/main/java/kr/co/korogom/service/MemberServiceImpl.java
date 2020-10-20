@@ -26,21 +26,23 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberDAO MidCheck(String id) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".MidCheck", id);
-	}
-
-	@Override
-	public MemberDAO MnickCheck(String nick) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".MnickCheck", nick);
-	}
-
-	@Override
-	public Map login(Map<String,Object> map) {
+	public Map login(Map<String,Object> map) {		//로그인
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".login", map);
+	}
+
+
+	@Override
+	public int midCheck(MemberDAO memberDAO) {		//아이디 중복검사
+		// TODO Auto-generated method stub
+		int result = sqlSession.selectOne(namespace+".midCheck", memberDAO);
+		return result;
+	}
+
+	@Override
+	public int mnickCheck(MemberDAO memberDAO) {	//별명 중복검사
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".mnickCheck", memberDAO);
 	}
 
 	@Override
@@ -48,7 +50,6 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".mypage", memberDAO);
 	}
-
 //	@Override
 //	public int passChk(MemberDAO memberDAO) {
 //		// TODO Auto-generated method stub
