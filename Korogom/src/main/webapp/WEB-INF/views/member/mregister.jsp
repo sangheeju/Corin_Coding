@@ -8,17 +8,21 @@
 		$(document).ready(function(){
 			// 취소
 			$(".rcancle").on("click", function(){
-				location.href = "/";
+				location.href = "${contextPath}/";
 			})
-			$("#submit").on("click", function(){
-				var idChkVal = $("#midCheck").val();
+			$(".removeAll").on("click", function(){
+				location.href = "${contextPath}/member/mregister";
+			})
+			$(".submit").on("click", function(){
+				var idChkVal = $("#midCheck").val();	//아이디 중복확인 클릭 여부
 				if(idChkVal == "N"){
 					alert("중복확인 버튼을 눌러주세요.");
+					return false;
 				}else if(idChkVal == "Y"){
 					$("#regForm").midCheck();
 				}
 			});
-		
+		});
 	
 		
 		function fn_idChk(){
@@ -57,7 +61,7 @@
 								name="mid" placeholder="ID를 입력하세요" required>
 							</td>
 							<td>
-								<button type="button" id="midCheck" class="midCheck" onclick="fn_idChk();" value="N">중복체크</button>
+								<button type="button" id="midCheck" value="N" class="midCheck" onclick="fn_idChk();" >중복체크</button>
 							</td>
 							<td><p>* 영문과 숫자만 사용가능 합니다.</p></td>
 						</tr>
@@ -164,7 +168,8 @@
 					</label>
 				</div>
 				<button type="submit" class="submit btn btn-primary">회원가입</button>
-				<button class="rcancle btn btn-danger" type="button">가입 취소</button>
+				<button class="removeAll btn btn-info" type="button" >내용 지우기</button>
+				<button class="rcancle btn btn-danger" type="button">메인으로</button>
 			</form>
 		</div>
 	</div>

@@ -59,7 +59,7 @@ public class MemberController {
 		int r = memberService.midCheck(memberDAO);
 		if(r == 1) {
 			logger.info("==== : 이미 사용중인 아이디입니다 : ====");
-			return "member/mregister";
+			return "redirect:mregister";
 		} else if (r == 0) {
 			logger.info("==== : 가입 합니다 : ====");
 			memberService.mregister(memberDAO);
