@@ -48,10 +48,10 @@
 
 	<h2>회원가입</h2>
 	<div class="row">
-		<div class="col-sm-4">img add</div>
+		<div class="col-sm-4">
+<img src="../resources/images/dd.jpg" class="rounded" alt="test" width="100%" />
+</div>
 		<div class="col-sm-8">
-		
-		
 			<form method="POST" id="regForm" >
 				<div class="form-group">
 					<table>

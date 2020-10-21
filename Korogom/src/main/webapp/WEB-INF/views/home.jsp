@@ -13,6 +13,7 @@
 <jsp:include page="includes/header.jsp"></jsp:include>
 </head>
 <body>
+
 <div class="frame">
 
 	<!-- header -->
@@ -26,13 +27,13 @@
 	<div class="container">
 		
 		<div class="content">
-			내용
+			<img src="./resources/images/mesoon.jpg" class="rounded" alt="test" width="80%" />
 		</div>
 		
 	</div>
-	
+</div>
 	<!-- footer -->
 	<jsp:include page="includes/footer.jsp"></jsp:include>
-</div>
+
 </body>
 </html>
