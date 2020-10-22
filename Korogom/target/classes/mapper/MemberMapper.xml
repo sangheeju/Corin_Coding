@@ -16,18 +16,25 @@
 		FROM member 
 		WHERE mnick = #{mnick}		
 	</select>
+		<!-- 패스워드 체크
+	<select id="passChk" parameterType="MemberDAO" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM member
+		WHERE mid = #{mid}
+		AND mpass = #{mpass}
+	</select> -->
 	<select id="login" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT mid, mnick
 		FROM member 
 		WHERE mid= #{mid} 
 		AND mpass = #{mpass}
 	</select>
-		<!-- 패스워드 체크
-	<select id="passChk" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM member
-		WHERE mid = #{mid}
-		AND mpass = #{mpass}
-	</select> -->
+	<select id="find_userid" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT mid, mname
+		FROM member 
+		WHERE mname = #{mname} 
+		AND mmail = #{mmail}
+	</select>
+	
 	<select id="mypage" parameterType="String" resultType="MemberDAO">
 		SELECT mid, mnick, mname, mmail, mphone, mbirth, mclass 
 		FROM member

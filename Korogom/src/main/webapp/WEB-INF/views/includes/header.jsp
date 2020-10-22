@@ -96,7 +96,7 @@
 					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">마이페이지</a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item" href="${pageContext.request.contextPath}/member/mypage">${user.mnick }님의 페이지</a> 
-							<a class="dropdown-item" href="#">관리</a> 
+							<a class="dropdown-item" href="${pageContext.request.contextPath}/member/adminPage">관리자메뉴</a> 
 							<a class="dropdown-item" href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
 						</div>
 				</span>

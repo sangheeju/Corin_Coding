@@ -1,6 +1,5 @@
 package kr.co.korogom.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -13,12 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.korogom.domain.MemberDAO;
@@ -117,4 +117,19 @@ public class MemberController {
 			return "";
 	}
 
+	@RequestMapping(value="find_userid", method=RequestMethod.GET)
+	public String find_userid() {
+		logger.info("==== : 아이디 찾기 페이지로 이동합니다 : ====");
+		return "member/find_userid";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="find_userid", method=RequestMethod.POST)
+	public Map find_userid(@ModelAttribute MemberDAO memberDAO, Model model, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		Map findmid = memberService.find_userid(memberDAO);
+			return findmid;
+		
+	}
+	
 }

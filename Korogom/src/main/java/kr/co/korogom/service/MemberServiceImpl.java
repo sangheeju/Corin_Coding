@@ -31,7 +31,6 @@ public class MemberServiceImpl implements MemberService{
 		return sqlSession.selectOne(namespace+".login", map);
 	}
 
-
 	@Override
 	public int midCheck(MemberDAO memberDAO) {		//아이디 중복검사
 		// TODO Auto-generated method stub
@@ -56,4 +55,10 @@ public class MemberServiceImpl implements MemberService{
 //		int result = sqlSession.selectOne(namespace+".passChk", memberDAO);
 //		return result;
 //	}
+
+	@Override
+	public Map find_userid(MemberDAO memberDAO) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".find_userid", memberDAO);
+	}
 }
