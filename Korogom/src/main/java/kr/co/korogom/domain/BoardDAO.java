@@ -1,6 +1,7 @@
 package kr.co.korogom.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -19,4 +20,6 @@ public class BoardDAO {
 	private int bscore;
 	private int bsort;
 	private String betc;
+	
+	private List<BoardAttachVO> attachList;
 }
