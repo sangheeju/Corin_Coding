@@ -125,10 +125,14 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="find_userid", method=RequestMethod.POST)
-	public Map find_userid(@ModelAttribute MemberDAO memberDAO, Model model, HttpServletRequest request) throws Exception {
+	public MemberDAO find_userid(MemberDAO memberDAO, HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		Map findmid = memberService.find_userid(memberDAO);
-			return findmid;
+		logger.info("==== : 아이디찾는중 : ====");
+		
+		MemberDAO find_userid = memberService.find_userid(memberDAO);
+		
+		logger.info("유저아이디찾기: "+find_userid);
+			return find_userid;
 		
 	}
 	

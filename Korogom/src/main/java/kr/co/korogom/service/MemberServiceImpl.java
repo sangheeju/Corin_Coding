@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import kr.co.korogom.domain.MemberDAO;
 import lombok.AllArgsConstructor;
@@ -57,7 +58,7 @@ public class MemberServiceImpl implements MemberService{
 //	}
 
 	@Override
-	public Map find_userid(MemberDAO memberDAO) {
+	public MemberDAO find_userid(MemberDAO memberDAO) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".find_userid", memberDAO);
 	}

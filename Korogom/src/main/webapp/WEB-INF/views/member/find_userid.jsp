@@ -4,26 +4,43 @@
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <title>아이디 찾기</title>
 <script type="text/javascript">
-		$(document).on("click", '#find_userid',function(){
-			
-			var name = $('#mname').val();
-		 	var email = $('#mmail').val();
- 		 	var postData = {'mname': name  ,'mmail' : email };
-		
+
+		$(document).on('click', '#findId',function(){
+			var url = "${contextPath}/member/find_userid";	
+			var mname = $("#mname").val();
+		 	var mmail = $("#mmail").val();
+ 		 	var paramData = {
+ 		 			"mname": mname  ,
+ 		 			"mmail" : mmail 
+ 		 			}; //요청데이터
+
 			$.ajax({
-				url : '${contextPath}/member/find_userid',
-				type : 'post',
-				dataType : 'json',				
-				data : postData,
-				success : function(data){
-					var foundid = data.mid
-					$("#foundid" ).append("<h3>"+"회원님의 정보로 등록된 아이디는 : "+foundid+" 입니다.</h3>")
+				url : url,
+				type : "POST",
+				dataType : "json",				
+				data : paramData,
+				success : function(result){		
+								
+					var htmls = "";
+					
+					if(result == null){
+						alert("<h3> 요청하신 정보가 없습니다. </h3>");
+					}
+					else {
+						$(result).each(function(){
+					htmls = "<h3>"+this.mname+"회원님의 정보로 등록된 아이디는 : "+this.mid+" 입니다.</h3>";		
+						});
+					}				
+					$("#find_userid").html(htmls);	
 				},
-				error: function (){
-		        	alert('요청하신 아이디가 없습니다.' )
+				error: function (data){
+		        	alert("<h3>에러가 발생 했습니다.</h3>"+data);
 		        	}
 			});
+ 		 			
+ 		 			
 		});
+
 	</script>	
 	
 <div class="container-fluid">
@@ -47,10 +64,10 @@
                   <input type="email" id="mmail" name="mmail" class=" form-control" placeholder="Email주소를 입력하세요" required>
                 </div>
 <br>
-                <button id="find_userid" class="submit btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">아이디 확인</button>
+                <button id="findId" class="submit btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">아이디 확인</button>
                 </form>
                 <br>
-                <span id="foundid"></span>
+                <div id="find_userid"></div>
             </div>
           </div>
         </div>
