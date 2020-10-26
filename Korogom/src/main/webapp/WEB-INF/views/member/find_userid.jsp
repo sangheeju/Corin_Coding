@@ -4,11 +4,14 @@
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <title>아이디 찾기</title>
 <script type="text/javascript">
+$(document).ready(function(){
+	find_userid();
 
-		$(document).on('click', '#findId',function(){
-			var url = "${contextPath}/member/find_userid";	
+		$("#findId").on('click', function(){
 			var mname = $("#mname").val();
 		 	var mmail = $("#mmail").val();
+		 	
+			var url = "${contextPath}/member/find_userid";	
  		 	var paramData = {
  		 			"mname": mname  ,
  		 			"mmail" : mmail 
@@ -20,26 +23,27 @@
 				dataType : "json",				
 				data : paramData,
 				success : function(result){		
-								
-					var htmls = "";
-					
-					if(result == null){
-						alert("<h3> 요청하신 정보가 없습니다. </h3>");
-					}
-					else {
-						$(result).each(function(){
-					htmls = "<h3>"+this.mname+"회원님의 정보로 등록된 아이디는 : "+this.mid+" 입니다.</h3>";		
-						});
-					}				
-					$("#find_userid").html(htmls);	
-				},
-				error: function (data){
-		        	alert("<h3>에러가 발생 했습니다.</h3>"+data);
+				
+				if (result != null) {
+					$("#msgdiv").html("<h3>"+mname+"회원님의 정보로 등록된 아이디는 : "+mid+" 입니다.</h3>");
+					$("#msgdiv").show();
+
+				} else if (result == null) {
+					$("#msgdiv").html("<h3>아이디가 없습니다.</h3>");
+					$("#msgdiv").show();
+				}
+			},
+				error: function (result){
+		        	alert("에러가 발생 했습니다."+result);
 		        	}
 			});
- 		 			
- 		 			
 		});
+});
+
+function find_userid(){
+	var url = "${contextPath}/member/find_userid";	
+	
+} //find_userid() END
 
 	</script>	
 	
@@ -67,7 +71,8 @@
                 <button id="findId" class="submit btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">아이디 확인</button>
                 </form>
                 <br>
-                <div id="find_userid"></div>
+                <div id="msgdiv">
+                </div>
             </div>
           </div>
         </div>

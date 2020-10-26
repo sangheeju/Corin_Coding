@@ -58,7 +58,7 @@ public class MemberServiceImpl implements MemberService{
 //	}
 
 	@Override
-	public MemberDAO find_userid(MemberDAO memberDAO) {
+	public Map find_userid(MemberDAO memberDAO) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".find_userid", memberDAO);
 	}

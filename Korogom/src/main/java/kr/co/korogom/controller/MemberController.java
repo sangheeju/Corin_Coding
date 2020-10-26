@@ -1,10 +1,12 @@
 package kr.co.korogom.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -13,12 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.korogom.domain.MemberDAO;
@@ -54,16 +59,25 @@ public class MemberController {
 	}	
 	
 	@RequestMapping(value="mregister",method=RequestMethod.POST)
-	public String mregister(MemberDAO memberDAO, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
+	public String mregister(@Valid MemberDAO dao, 
+							MemberDAO memberDAO,
+							Errors errors,
+							HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		int r = memberService.midCheck(memberDAO);
-		if(r == 1) {
-			logger.info("==== : 이미 사용중인 아이디입니다 : ====");
-			return "redirect:mregister";
-		} else if (r == 0) {
-			logger.info("==== : 가입 합니다 : ====");
-			memberService.mregister(memberDAO);
-		}
+		 if(errors.hasErrors()) {
+	            System.out.println("에러발생");
+	        
+			int r = memberService.midCheck(memberDAO);
+			if(r == 1) {
+				logger.info("==== : 이미 사용중인 아이디입니다 : ====");
+				return "redirect:mregister";
+			} else if (r == 0) {
+				logger.info("==== : 가입 합니다 : ====");
+				memberService.mregister(memberDAO);
+			}
+		 } else {
+	            System.out.println("회원가입성공!!");
+	        }
 		return "redirect:login";
 	}
 	
@@ -125,15 +139,25 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="find_userid", method=RequestMethod.POST)
-	public MemberDAO find_userid(MemberDAO memberDAO, HttpServletRequest request) throws Exception {
+	public Map find_userid(@ModelAttribute("info")MemberDAO memberDAO, HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		logger.info("==== : 아이디찾는중 : ====");
+		return memberService.find_userid(memberDAO);
 		
-		MemberDAO find_userid = memberService.find_userid(memberDAO);
-		
-		logger.info("유저아이디찾기: "+find_userid);
-			return find_userid;
-		
+	}
+	
+	@RequestMapping(value="find_mpass", method=RequestMethod.GET)
+	public String find_mpass() {
+		logger.info("==== : 아이디 찾기 페이지로 이동합니다 : ====");
+		return "member/find_userid";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="find_mpass", method=RequestMethod.POST)
+	public Map find_mpass(@ModelAttribute("info")MemberDAO memberDAO, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		logger.info("==== : 아이디찾는중 : ====");
+		return memberService.find_userid(memberDAO);
 	}
 	
 }

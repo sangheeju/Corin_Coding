@@ -222,6 +222,20 @@
 		    <artifactId>spring-security-config</artifactId>
 		    <version>4.2.4.RELEASE</version>
 		</dependency>
+		
+		 <!-- hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.5.6-Final</version>
+        </dependency>  
+        
+        <!-- hibernate -->
+        <dependency>
+           <groupId>org.hibernate</groupId>
+           <artifactId>hibernate-validator</artifactId>
+           <version>6.0.8.Final</version>
+        </dependency>
 	</dependencies>
     <build>
         <plugins>

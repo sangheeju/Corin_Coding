@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<c:url var="insertUrl" value="mregister" />
 <%@ include file="../includes/header.jsp"%>
 <header>
 <script type="text/javascript">
@@ -52,13 +53,15 @@
 <img src="../resources/images/dd.jpg" class="rounded" alt="test" width="100%" />
 </div>
 		<div class="col-sm-8">
-			<form method="POST" id="regForm" >
+
+			<form:form commandName="memberDAO" action="${insertUrl}" name="memberDAO" method="POST" id="regForm">
 				<div class="form-group">
 					<table>
 						<tr>
 							<td><label for="mid">* 아이디:</label></td>
-							<td><input type="text" class="form-control" id="mid"
-								name="mid" placeholder="ID를 입력하세요" required>
+							<td><form:input type="text" class="form-control" id="mid"
+								name="mid" placeholder="ID를 입력하세요" path="mid" size="20" maxlength="20" required/>
+								<form:errors path="mid" cssClass="error" />
 							</td>
 							<td>
 								<button type="button" id="midCheck" value="N" class="midCheck" onclick="fn_idChk();" >중복체크</button>
@@ -123,9 +126,6 @@
 									class="form-control" id="mname"
 									placeholder="이름을 입력하세요." name="mname" required>						
 							</td>
-							<td>
-								<button id="duplicate_check" type="button" onclick="namecheck();">본인인증??</button>
-							</td>
 							<td><p>* 한글만 사용가능 합니다.</p></td>
 						</tr>
 						<tr></tr>
@@ -170,7 +170,7 @@
 				<button type="submit" class="submit btn btn-primary">회원가입</button>
 				<button class="removeAll btn btn-info" type="button" >내용 지우기</button>
 				<button class="rcancle btn btn-danger" type="button">메인으로</button>
-			</form>
+			</form:form>
 		</div>
 	</div>
 </div>
