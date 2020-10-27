@@ -21,5 +21,6 @@ public interface BoardMapper {
 	public int resvdelete(int bno);
 	public int resvupdate(BoardDAO board);
 	public int resvAttach();
+	public int resvhits(int bno);
 	
 }
