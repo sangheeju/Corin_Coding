@@ -31,13 +31,17 @@
 		<div class="col-sm-8">
 	 <ul class="nav nav-tabs">
 	    <li class="nav-item">
-	      <a class="nav-link active" href="#">사용자 정보</a>
+	      <a class="nav-link" href="${pageContext.request.contextPath}/member/mypage">사용자 정보</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/member/petInfo">반려동물 정보</a>
+	      <a class="nav-link active" href="${pageContext.request.contextPath}/member/petInfo">반려동물 정보</a>
 	    </li>
 	  </ul>
-	  <p><br></p>
+	  <div>
+	  <form action="${pageContext.request.contextPath}/member/pregister" method="GET">
+		 <button class="btn btn-info" type="submit" > 반려동물 등록하기</button>	
+	  </form>
+	  </div>
 			<input class="form-control" id="myInput" type="text"
 				placeholder="검색어 입력.."> <br>
 			<table class="table table-bordered">

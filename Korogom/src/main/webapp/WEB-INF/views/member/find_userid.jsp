@@ -11,7 +11,7 @@ $(document).ready(function(){
 			var mname = $("#mname").val();
 		 	var mmail = $("#mmail").val();
 		 	
-			var url = "${contextPath}/member/find_userid";	
+			var url = "${contextPath}/member/find_userid?";	
  		 	var paramData = {
  		 			"mname": mname  ,
  		 			"mmail" : mmail 
@@ -24,12 +24,13 @@ $(document).ready(function(){
 				data : paramData,
 				success : function(result){		
 				
-				if (result != null) {
-					$("#msgdiv").html("<h3>"+mname+"회원님의 정보로 등록된 아이디는 : "+mid+" 입니다.</h3>");
+				if (result != null) {					
+					$("#msgdiv").text(+mname+"회원님의 정보로 등록된 아이디는 : "+mid+" 입니다.");
+					$("#msgdiv").css('color','red');
 					$("#msgdiv").show();
 
 				} else if (result == null) {
-					$("#msgdiv").html("<h3>아이디가 없습니다.</h3>");
+					$("#msgdiv").text("<h3>아이디가 없습니다.</h3>");
 					$("#msgdiv").show();
 				}
 			},
@@ -40,10 +41,10 @@ $(document).ready(function(){
 		});
 });
 
-function find_userid(){
-	var url = "${contextPath}/member/find_userid";	
+// function find_userid(){
+//	var url = "${contextPath}/member/find_userid";	
 	
-} //find_userid() END
+//} //find_userid() END
 
 	</script>	
 	

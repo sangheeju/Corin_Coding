@@ -41,4 +41,13 @@
 		WHERE mid = #{mid}
 	</select>
 	
+	<select id="petInfo" parameterType="String" resultType="MemberDAO">
+		SELECT pdiv, pname, pbirth, pnum, petc
+		FROM pet
+		WHERE mno = #{mno}
+	</select>
+	<insert id="pregister" parameterType="PetDAO" >
+		INSERT INTO pet(mno, pdiv, pname, pbirth, pnum, pdel, petc) 
+		VALUES((SELECT mno FROM member WHERE mid=#{mid}),#{pdiv},#{pname},#{pbirth},#{pnum},#{pdel}, #{petc})		
+	</insert>
 </mapper>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import kr.co.korogom.domain.MemberDAO;
+import kr.co.korogom.domain.PetDAO;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -58,8 +59,22 @@ public class MemberServiceImpl implements MemberService{
 //	}
 
 	@Override
-	public Map find_userid(MemberDAO memberDAO) {
+	public Map find_userid(Map<String, Object> user) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".find_userid", memberDAO);
+		return sqlSession.selectOne(namespace+".find_userid", user);
 	}
+
+	@Override
+	public String petInfo(MemberDAO memberDAO) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".petInfo", memberDAO);
+	}
+
+	@Override
+	public int pregister(PetDAO petDAO) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(namespace+".pregister", petDAO);
+	}
+
+	
 }

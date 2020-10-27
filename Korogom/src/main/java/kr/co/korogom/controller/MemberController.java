@@ -1,6 +1,7 @@
 package kr.co.korogom.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +29,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.korogom.domain.MemberDAO;
+import kr.co.korogom.domain.PetDAO;
 import kr.co.korogom.service.MemberService;
+import lombok.AllArgsConstructor;
 
 @RequestMapping("/member/*")
 @Controller
+@AllArgsConstructor
 public class MemberController {
 	
 	@Inject
@@ -44,10 +49,31 @@ public class MemberController {
 //	@Inject
 //	BCryptPasswordEncoder pwdEncoder;
 	
+	
+	
 	@RequestMapping(value="mregister", method=RequestMethod.GET)
-	public String mregister() {
+	public String mregister(@ModelAttribute MemberDAO memberDAO) {
 		logger.info("==== : 회원가입 페이지로 이동합니다 : ====");
 		return "member/mregister";
+	}
+		
+	
+	@RequestMapping(value="mregister", method=RequestMethod.POST)
+	// binding한 결과가 result에 담긴다.
+	public String mregister(@ModelAttribute @Valid MemberDAO memberDAO, BindingResult result) {
+		// 에러가 있는지 검사
+		if( result.hasErrors() ) {
+
+			// 에러를 List로 저장
+			List<ObjectError> list = result.getAllErrors();
+			for( ObjectError error : list ) {
+				System.out.println(error);
+			}
+			return "member/mregister";
+		}
+		
+		memberService.mregister(memberDAO);
+		return "redirect:login";
 	}
 	
 	@ResponseBody		//아작스 통신
@@ -57,29 +83,24 @@ public class MemberController {
 		int result = memberService.midCheck(memberDAO);
 		return result;
 	}	
-	
-	@RequestMapping(value="mregister",method=RequestMethod.POST)
-	public String mregister(@Valid MemberDAO dao, 
-							MemberDAO memberDAO,
-							Errors errors,
-							HttpServletRequest request) throws Exception {
-		request.setCharacterEncoding("utf-8");
-		 if(errors.hasErrors()) {
-	            System.out.println("에러발생");
-	        
-			int r = memberService.midCheck(memberDAO);
-			if(r == 1) {
-				logger.info("==== : 이미 사용중인 아이디입니다 : ====");
-				return "redirect:mregister";
-			} else if (r == 0) {
-				logger.info("==== : 가입 합니다 : ====");
-				memberService.mregister(memberDAO);
-			}
-		 } else {
-	            System.out.println("회원가입성공!!");
-	        }
-		return "redirect:login";
-	}
+
+//	@RequestMapping(value="mregister",method=RequestMethod.POST)
+//	public String mregister(MemberDAO memberDAO,
+//							HttpServletRequest request) throws Exception {
+//		request.setCharacterEncoding("utf-8");
+//	        
+//			int r = memberService.midCheck(memberDAO);
+//			if(r == 1) {
+//				logger.info("==== : 이미 사용중인 아이디입니다 : ====");
+//				return "redirect:mregister";
+//			} else if (r == 0) {
+//				logger.info("==== : 가입 합니다 : ====");
+//				memberService.mregister(memberDAO);
+//			} else {
+//	            System.out.println("회원가입이 되지 않습니다. 확인 바랍니다");
+//	        }
+//		return "redirect:login";
+//	}
 	
 	
 	@RequestMapping(value="login", method=RequestMethod.GET)
@@ -139,25 +160,62 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="find_userid", method=RequestMethod.POST)
-	public Map find_userid(@ModelAttribute("info")MemberDAO memberDAO, HttpServletRequest request) throws Exception {
+	public Map find_userid(@RequestParam Map<String,Object> user, HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
+		logger.info("확인용"+user);
 		logger.info("==== : 아이디찾는중 : ====");
-		return memberService.find_userid(memberDAO);
+
+		return memberService.find_userid(user);
 		
 	}
 	
-	@RequestMapping(value="find_mpass", method=RequestMethod.GET)
-	public String find_mpass() {
-		logger.info("==== : 아이디 찾기 페이지로 이동합니다 : ====");
-		return "member/find_userid";
+//	@RequestMapping(value="find_mpass", method=RequestMethod.GET)
+//	public String find_mpass() {
+//		logger.info("==== : 아이디 찾기 페이지로 이동합니다 : ====");
+//		return "member/find_userid";
+//	}
+//	
+//	@ResponseBody
+//	@RequestMapping(value="find_mpass", method=RequestMethod.POST)
+//	public Map find_mpass(@ModelAttribute("info")MemberDAO memberDAO, HttpServletRequest request) throws Exception {
+//		request.setCharacterEncoding("utf-8");
+//		logger.info("==== : 비번찾는중 : ====");
+//		return memberService.find_userid(memberDAO);
+//	}
+	
+	@RequestMapping(value="petInfo", method=RequestMethod.GET)
+	public String petInfo() {
+		logger.info("==== : 반려동물 정보 페이지로 이동합니다 : ====");
+		return "member/petInfo";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="find_mpass", method=RequestMethod.POST)
-	public Map find_mpass(@ModelAttribute("info")MemberDAO memberDAO, HttpServletRequest request) throws Exception {
+	@RequestMapping(value="petInfo", method=RequestMethod.POST)
+	public String petInfo(@RequestParam PetDAO petDAO, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("utf-8");		
+			logger.info("==== : 반려동물 정보 확인 : ====");
+			return "";
+	}
+	
+	@RequestMapping(value="pregister", method=RequestMethod.GET)
+	public String pregister() {
+		logger.info("==== : 반려동물 등록 페이지로 이동합니다 : ====");
+		return "member/pregister";
+	}
+	
+	@RequestMapping(value="pregister", method=RequestMethod.POST)
+	public String pregister(PetDAO petDAO, HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		logger.info("==== : 아이디찾는중 : ====");
-		return memberService.find_userid(memberDAO);
+		logger.info("==dao=="+petDAO);
+		int r = memberService.pregister(petDAO);
+		logger.info("==r=="+r);
+		if (r > 0) {
+			logger.info("==== : 반려동물 등록 성공  : ====");
+			return "redirect:petInfo";
+		} else {
+			logger.info("==== : 반려동물 등록에 실패하셨습니다 다시 확인해주세요  : ====");
+			return "redirect:pregister";
+		}
+
+
 	}
-	
 }

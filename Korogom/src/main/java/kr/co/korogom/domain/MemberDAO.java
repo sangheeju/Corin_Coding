@@ -1,9 +1,12 @@
 package kr.co.korogom.domain;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class MemberDAO {
@@ -15,21 +18,24 @@ public class MemberDAO {
 	private int mno;			//회원번호 (고유)
 	
 //	@Pattern(regexp="^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$", message="영문 숫자 조합으로 6자리 이상 10자리 이하로 아이디를 만들어주세요.")
-	@Size(min=4, message="아이디는 4자 이상 10자 이하로 생성 가능합니다.")
-	private String mid;			//아이디
-	@Pattern(regexp = "\\S{4,10}", message="아이디는 4~10자로 입력해주세요.")
-	private String mnick;		//닉네임
+	@Length(min=5, max=10)
+	@Pattern(regexp="^.*(?=.{5,10})[a-zA-Z0-9].*$")
+	private String mid;			//아이디 5~10자 사이 영문 숫자
 	
-	@Pattern(regexp="^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$", message="영문 숫자 조합으로 6자리 이상 20자리 이하로 비밀번호를 만들어주세요.")
+	@Length(min=2, max=8)
+	@Pattern(regexp = "\\S{4,10}")
+	private String mnick;		//닉네임 2~8자 사이
+	
+	@Pattern(regexp="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,10}")
 	private String mpass;		//비밀번호
 	
-	@Pattern(regexp = "^[가-힣]{2,6}$", message="이름은 2~6자 이내로 입력해주세요.")
-	private String mname;		//실명
+	@Pattern(regexp = "^[가-힣]{2,6}$")
+	private String mname;		//실명 2~6자 이내
 	
-	@Email(message="이메일 형식이 아닙니다.")
+	@Email
 	private String mmail;		//이메일
-	@Pattern(regexp = "\\d{10,11}", message="폰 번호는 숫자만 입력 해 주세요")
-	private int mphone;			//연락처
+	
+	private int mphone;			//연락처 숫자만
 	
 	@DateTimeFormat(pattern="yyyy/mm/dd")
 	private String mbirth;		//생일 : 이벤트용

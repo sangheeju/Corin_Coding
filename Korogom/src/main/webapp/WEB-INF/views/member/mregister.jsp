@@ -2,7 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
-<c:url var="insertUrl" value="mregister" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ include file="../includes/header.jsp"%>
 <header>
 <script type="text/javascript">
@@ -42,9 +45,8 @@
 				}
 			})
 		}
-	</script>
+		</script>
 	</header>
-<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <div class="container">
 
 	<h2>회원가입</h2>
@@ -53,20 +55,31 @@
 <img src="../resources/images/dd.jpg" class="rounded" alt="test" width="100%" />
 </div>
 		<div class="col-sm-8">
-
-			<form:form commandName="memberDAO" action="${insertUrl}" name="memberDAO" method="POST" id="regForm">
+<form:form 
+         modelAttribute="memberDAO"
+         method="POST"
+         action="${ pageContext.servletContext.contextPath }/member/mregister">
+</form:form>
+			<form action="mregister" method="POST" id="regForm">
 				<div class="form-group">
 					<table>
 						<tr>
 							<td><label for="mid">* 아이디:</label></td>
-							<td><form:input type="text" class="form-control" id="mid"
-								name="mid" placeholder="ID를 입력하세요" path="mid" size="20" maxlength="20" required/>
-								<form:errors path="mid" cssClass="error" />
+							<td><input type="text" class="form-control" id="mid"
+								name="mid" placeholder="ID를 입력하세요" size="20" maxlength="20" required/>
+			<spring:hasBindErrors name="memberDAO">
+	            <c:if test="${errors.hasFieldErrors('mid') }">                                     
+	                <spring:message
+                                   code="${errors.getFieldError('id').codes[0]}"
+                                   text="${errors.getFieldError('id' ).defaultMessage  }"
+                           />       
+				</c:if>
+			</spring:hasBindErrors>
 							</td>
 							<td>
 								<button type="button" id="midCheck" value="N" class="midCheck" onclick="fn_idChk();" >중복체크</button>
 							</td>
-							<td><p>* 영문과 숫자만 사용가능 합니다.</p></td>
+							<td><div class="checkId" id="idCheck"><p>* 영문과 숫자만 사용가능 합니다.</p></div></td>
 						</tr>
 						<tr>
 							<td>
@@ -85,6 +98,14 @@
 								<input type="password"
 									class="form-control" id="mpass" placeholder="비밀번호를 입력하세요"
 									name="mpass" required>
+			<spring:hasBindErrors name="memberDAO">
+	            <c:if test="${errors.hasFieldErrors('mpass') }">                                     
+	                <spring:message
+                                   code="${errors.getFieldError('id').codes[0]}"
+                                   text="${errors.getFieldError('id' ).defaultMessage  }"
+                           />       
+				</c:if>
+			</spring:hasBindErrors>
 							</td>
 							<td><p>* 영문과 숫자만 사용가능 합니다.</p></td>
 						</tr>
@@ -100,7 +121,15 @@
 							<td>
 								<input type="text"
 									class="form-control" id="mnick"
-									placeholder="별명을 입력하세요." name="mnick" required>						
+									placeholder="별명을 입력하세요." name="mnick" required>	
+			<spring:hasBindErrors name="memberDAO">
+	            <c:if test="${errors.hasFieldErrors('mnick') }">                                     
+	                <spring:message
+                                   code="${errors.getFieldError('id').codes[0]}"
+                                   text="${errors.getFieldError('id' ).defaultMessage  }"
+                           />       
+				</c:if>
+			</spring:hasBindErrors>					
 							</td>
 							<td>
 								<button id="mnickCheck" class="mnickCheck" type="button" onclick="nicheck();">중복체크</button>
@@ -124,7 +153,15 @@
 							<td>
 								<input type="text"
 									class="form-control" id="mname"
-									placeholder="이름을 입력하세요." name="mname" required>						
+									placeholder="이름을 입력하세요." name="mname" required>	
+			<spring:hasBindErrors name="memberDAO">
+	            <c:if test="${errors.hasFieldErrors('mname') }">                                     
+	                <spring:message
+                                   code="${errors.getFieldError('id').codes[0]}"
+                                   text="${errors.getFieldError('id' ).defaultMessage  }"
+                           />       
+				</c:if>
+			</spring:hasBindErrors>						
 							</td>
 							<td><p>* 한글만 사용가능 합니다.</p></td>
 						</tr>
@@ -135,6 +172,14 @@
 					<label for="mmail">* 이메일 주소:</label> <input type="email"
 						class="form-control" id="mmail" placeholder="메일주소를 입력하세요"
 						name="mmail" required>
+			<spring:hasBindErrors name="memberDAO">
+	            <c:if test="${errors.hasFieldErrors('mmail') }">                                     
+	                <spring:message
+                                   code="${errors.getFieldError('id').codes[0]}"
+                                   text="${errors.getFieldError('id' ).defaultMessage  }"
+                           />       
+				</c:if>
+			</spring:hasBindErrors>	
 					<div class="check_font" id="email_check"></div>
 					<!-- 중복이나 형식이 맞지 않을 경우 경고문이 들어갈 자리 -->
 				</div>
@@ -142,6 +187,14 @@
 					<label for="mphone">* 연락처:</label> <input type="text"
 						class="form-control" id="mphone" placeholder="-없이 번호만 입력 해 주세요"
 						name="mphone" required>
+			<spring:hasBindErrors name="memberDAO">
+	            <c:if test="${errors.hasFieldErrors('mphone') }">                                     
+	                <spring:message
+                                   code="${errors.getFieldError('id').codes[0]}"
+                                   text="${errors.getFieldError('id' ).defaultMessage  }"
+                           />       
+				</c:if>
+			</spring:hasBindErrors>	
 					<div class="check_font" id="num_check"></div>
 					<!-- 중복이나 형식이 맞지 않을 경우 경고문이 들어갈 자리 -->
 				</div>
@@ -170,7 +223,7 @@
 				<button type="submit" class="submit btn btn-primary">회원가입</button>
 				<button class="removeAll btn btn-info" type="button" >내용 지우기</button>
 				<button class="rcancle btn btn-danger" type="button">메인으로</button>
-			</form:form>
+			</form>
 		</div>
 	</div>
 </div>

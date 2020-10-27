@@ -5,5 +5,6 @@
  <configuration>
  	<typeAliases>
  	<typeAlias alias="MemberDAO" type="kr.co.korogom.domain.MemberDAO"></typeAlias>
+ 	<typeAlias alias="PetDAO" type="kr.co.korogom.domain.PetDAO"></typeAlias>
  	</typeAliases>
  </configuration>
