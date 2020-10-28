@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <%@ include file="../includes/header.jsp"%>
 
@@ -25,7 +27,7 @@
 </div>
 		<div class="col-sm-8">
 
-			<form method="POST">
+			<form:form method="POST" modelAttribute="petDAO" action="${ pageContext.servletContext.contextPath }/member/pregister">
 				<div class="form-group">
 				<input type="hidden" name="mid" value="${user.mid }" />
 					<label for="pdiv">반려동물 종류:</label> <select class="form-control" id="pdiv" name="pdiv">
@@ -37,10 +39,13 @@
 					<table>
 						<tr>
 							<td><label for="pname">* 반려동물 이름: </label></td>
-							<td><input type="text" class="form-control" id="pname"
-								name="pname" placeholder="ID를 입력하세요" size="20" maxlength="20" required/>	
+							<td><form:input path="pname" type="text" class="form-control" id="pname"
+								name="pname" placeholder="반려동물 이름을 입력하세요" />	
 							</td>
-							<td><div class="checkId" id="idCheck"><p>* 영문과 한글만 사용가능 합니다.</p></div></td>
+							<td><h6><small>* 영문과 한글만 사용가능 합니다.* 영문, 숫자로 5~10글자 내외
+										<form:errors class="text-danger" path="pname" />
+										</small>
+									</h6></td>
 						</tr>
 					</table>
 					</div>
@@ -82,6 +87,7 @@
 				</div>
 				
 				<button type="submit" class="submit btn btn-primary">반려동물 등록하기</button>
+				</form:form>
 			</div>
 		</div>
 	</div>

@@ -25,9 +25,9 @@ public class MemberDAO {
 	private String mnick;		//닉네임 한영수2~8자 사이
 	
 	@NotEmpty
-	@Length(min=5, max=10)
+	@Length(min=5)
 	@Pattern(regexp="^[0-9a-zA-Z!@#$%^&]*$")
-	private String mpass;		//비밀번호 영문숫자특문 5~10자
+	private String mpass;		//비밀번호 영문숫자특문 5자이상
 	
 	@NotEmpty
 	@Length(min=2, max=6)

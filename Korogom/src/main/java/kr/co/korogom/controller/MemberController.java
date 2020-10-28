@@ -197,17 +197,27 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="pregister", method=RequestMethod.GET)
-	public String pregister() {
+	public String pregister(@ModelAttribute PetDAO petDAO) {
 		logger.info("==== : 반려동물 등록 페이지로 이동합니다 : ====");
 		return "member/pregister";
 	}
 	
 	@RequestMapping(value="pregister", method=RequestMethod.POST)
-	public String pregister(PetDAO petDAO, HttpServletRequest request) throws Exception {
+	public String pregister(@ModelAttribute @Valid PetDAO petDAO, 
+							HttpServletRequest request, 
+							BindingResult result) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		logger.info("==dao=="+petDAO);
+		if( result.hasErrors() ) {
+			// 에러를 List로 저장
+			logger.info("==== : 에러발생  : ====");
+			List<ObjectError> list = result.getAllErrors();
+			for( ObjectError error : list ) {
+				System.out.println(error);
+			}
+			return "redirect:pregister";
+		}
 		int r = memberService.pregister(petDAO);
-		logger.info("==r=="+r);
+
 		if (r > 0) {
 			logger.info("==== : 반려동물 등록 성공  : ====");
 			return "redirect:petInfo";
