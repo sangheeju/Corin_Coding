@@ -28,7 +28,7 @@
 		WHERE mid= #{mid} 
 		AND mpass = #{mpass}
 	</select>
-	<select id="find_userid" parameterType="MemberDAO" resultType="java.util.Map">
+	<select id="find_userid" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT mid, mname
 		FROM member 
 		WHERE mname = #{mname} 

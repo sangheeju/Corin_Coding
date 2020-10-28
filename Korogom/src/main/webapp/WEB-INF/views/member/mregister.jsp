@@ -71,7 +71,7 @@
 									onclick="fn_idChk();">중복체크</form:button>
 							</td>
 							<td><h6>
-										<small>* 영문과 숫자로 5~10글자로 생성 가능합니다.
+										<small>* 영문, 숫자로 5~10글자 내외
 										<form:errors class="text-danger" path="mid" />
 										</small>
 									</h6></td>
@@ -89,8 +89,8 @@
 							<td><form:input path="mpass" type="password" class="form-control" id="mpass"
 								placeholder="비밀번호를 입력하세요" name="mpass" /> 
 								<td><h6 >
-									<small>* 영문과 숫자, 특수문자의 조합으로 8~10자로, 특수문자는!@#$%^&+= 만 사용가능 합니다.
-									<form:errors class="text-danger" path="mpass" /></small>
+									<small>* 영문, 숫자, 특수문자로 8~10자 내외. (사용 가능 특수문자 !@#$%^&+=)
+									<form:errors class="text-danger" path="mpass"/></small>
 								</h6></td>	
 						</tr>
 						<tr>	
@@ -111,7 +111,7 @@
 							</td>
 							<td>
 								<h6>
-									<small> * 한글, 영문, 숫자로 2~8자 사이만 사용가능 합니다.
+									<small> * 한글, 영문, 숫자로 2~8자 내외
 									<form:errors class="text-danger" path="mnick" /></small>	
 								</h6>
 							</td>
@@ -128,7 +128,7 @@
 							<td><form:input path="mname" type="text" class="form-control" id="mname"
 								placeholder="이름을 입력하세요." name="mname" /> 
 								<td><h6>
-									<small>* 한글 2~6글자로 입력 해 주세요.<form:errors class="text-danger" path="mname" /></small></h6></td>
+									<small>* 한글 2~6글자 내외<form:errors class="text-danger" path="mname" /></small></h6></td>
 								
 						</tr>
 						<tr>
