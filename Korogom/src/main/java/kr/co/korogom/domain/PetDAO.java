@@ -1,5 +1,9 @@
 package kr.co.korogom.domain;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
+
 import lombok.Data;
 
 @Data
@@ -8,7 +12,11 @@ public class PetDAO {
 	private int pno;
 	private int mno;
 	private int pdiv;
+	
+	@Length(min=1, max=10)
+	@Pattern(regexp = "^[a-zA-Z0-9가-힣]$")
 	private String pname;
+	
 	private int pbirth;
 	private int pnum;
 	private int pdel;

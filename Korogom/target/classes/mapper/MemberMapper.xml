@@ -11,7 +11,7 @@
 		FROM member
 		WHERE mid = #{mid}
 	</select>
-	<select id="mnickCheck" parameterType="MemberDAO" resultType="int" >
+	<select id="mnickCheck" parameterType="MemberDAO" resultType="java.lang.Integer" >
 		SELECT mnick 
 		FROM member 
 		WHERE mnick = #{mnick}		

@@ -7,35 +7,42 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class MemberDAO {
-
-//	 @Pattern(regexp = "^[가-힣]{2,6}$")
-//	@Pattern(regexp = "^[가-힣]+[가-힣\\s]*$")
-
 	
 	private int mno;			//회원번호 (고유)
 	
-//	@Pattern(regexp="^.*(?=.{6,20})(?=.*[0-9])(?=.*[a-zA-Z]).*$", message="영문 숫자 조합으로 6자리 이상 10자리 이하로 아이디를 만들어주세요.")
+	@NotEmpty
 	@Length(min=5, max=10)
-	@Pattern(regexp="^.*(?=.{5,10})[a-zA-Z0-9].*$")
+	@Pattern(regexp="^[a-zA-Z0-9]*$")
 	private String mid;			//아이디 5~10자 사이 영문 숫자
 	
+	@NotEmpty
 	@Length(min=2, max=8)
-	@Pattern(regexp = "\\S{4,10}")
-	private String mnick;		//닉네임 2~8자 사이
+	@Pattern(regexp = "^[a-zA-Z0-9가-힣]*$")
+	private String mnick;		//닉네임 한영수2~8자 사이
 	
-	@Pattern(regexp="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=])(?=\\S+$).{8,10}")
-	private String mpass;		//비밀번호
+	@NotEmpty
+	@Length(min=5, max=10)
+	@Pattern(regexp="^[0-9a-zA-Z!@#$%^&]*$")
+	private String mpass;		//비밀번호 영문숫자특문 5~10자
 	
-	@Pattern(regexp = "^[가-힣]{2,6}$")
-	private String mname;		//실명 2~6자 이내
+	@NotEmpty
+	@Length(min=2, max=6)
+	@Pattern(regexp = "^[가-힣]$")
+	private String mname;		//실명 한글 2~6자
 	
+	@NotEmpty
 	@Email
 	private String mmail;		//이메일
 	
-	private int mphone;			//연락처 숫자만
+	@NotEmpty
+	@Length(min=11, max=12)
+	@Pattern(regexp = "^[0-9]$")
+	private String mphone;			//연락처 숫자만입력
+	
 	
 	@DateTimeFormat(pattern="yyyy/mm/dd")
 	private String mbirth;		//생일 : 이벤트용
@@ -45,6 +52,7 @@ public class MemberDAO {
 	@DateTimeFormat(pattern="yyyy/mm/dd")
 	private String mdate;		//가입일자
 	private int mpet;			//반려동물 숫자 mno가 같은 pno 카운트
+	
 	private int mclass;			//탈퇴 및 등급 : 0=탈퇴, 1=회원, 2=펫시터, 3=관리자
 	private String metc;		//비고
 	
@@ -79,10 +87,10 @@ public class MemberDAO {
 	public void setMmail(String mmail) {
 		this.mmail = mmail;
 	}
-	public int getMphone() {
+	public String getMphone() {
 		return mphone;
 	}
-	public void setMphone(int mphone) {
+	public void setMphone(String mphone) {
 		this.mphone = mphone;
 	}
 	public String getMbirth() {
