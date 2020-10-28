@@ -9,25 +9,31 @@
 <head>
 <meta charset="UTF-8">
 <title>레이아웃테스트</title>
+
 <jsp:include page="includes/header.jsp"></jsp:include>
 </head>
 <body>
+
 <div class="frame">
 
 	<!-- header -->
 	<div class="header">
 	</div>
+	<c:if test="${user != null}">
+		<c:out value="${user.mnick }님 어서오세요!" />
+	</c:if>
 	
 	<!-- container -->
 	<div class="container">
 		
 		<div class="content">
-			내용
+			<img src="./resources/images/mesoon.jpg" class="rounded" alt="test" width="80%" />
 		</div>
+		
 	</div>
-	
+</div>
 	<!-- footer -->
 	<jsp:include page="includes/footer.jsp"></jsp:include>
-</div>
+
 </body>
 </html>

@@ -34,7 +34,7 @@
 	      <a class="nav-link active" href="#">사용자 정보</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/member/petInfo">반려동물 정보</a>
+	      <a class="nav-link" href="#">반려동물 정보</a>
 	    </li>
 	  </ul>
 	  <p><br></p>
