@@ -76,5 +76,11 @@ public class MemberServiceImpl implements MemberService{
 		return sqlSession.insert(namespace+".pregister", petDAO);
 	}
 
+	@Override
+	public Map find_pass(Map<String, Object> user) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".find_pass", user);
+	}
+
 	
 }

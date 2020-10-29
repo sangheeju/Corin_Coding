@@ -2,32 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.korogom.member">
+	<!-- 회원가입 -->
 	<insert id="mregister" parameterType="MemberDAO" >
 		INSERT INTO member(mid,mpass,mnick,mname,mmail,mphone,mbirth,mdel,mdate,mclass)
 		VALUES(#{mid},#{mpass},#{mnick},#{mname},#{mmail},#{mphone},#{mbirth},#{mdel},curdate(),#{mclass})		
 	</insert>
-	<select id="midCheck" parameterType="MemberDAO" resultType="int" >
+	<!-- 아이디 중복 검사 -->
+	<select id="midCheck" parameterType="MemberDAO" resultType="java.lang.Integer" >
 		SELECT COUNT(*) 
 		FROM member
 		WHERE mid = #{mid}
 	</select>
+	<!-- 별명 중복 검사 -->
 	<select id="mnickCheck" parameterType="MemberDAO" resultType="java.lang.Integer" >
-		SELECT mnick 
+		SELECT COUNT(*) 
 		FROM member 
 		WHERE mnick = #{mnick}		
 	</select>
-		<!-- 패스워드 체크
-	<select id="passChk" parameterType="MemberDAO" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM member
+	
+	<!-- 회원 인증키 (난수생성)  -->
+	<update id="GetKey" parameterType="java.util.Map">
+		UPDATE member 
+		SET mkey = #{param2}
 		WHERE mid = #{mid}
-		AND mpass = #{mpass}
-	</select> -->
+	</update>
+	
+	<!-- 회원 인증키 (난수) Y로 변경  -->
+	<update id="alter_mKey" parameterType="java.util.Map">
+		UPDATE member 
+		SET mkey = 'Y'
+		WHERE mid = #{mid}
+		AND mkey = #{param2}
+	</update>
+	
+	<!-- 로그인 -->
 	<select id="login" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT mid, mnick
 		FROM member 
 		WHERE mid= #{mid} 
 		AND mpass = #{mpass}
 	</select>
+	<!-- 아이디 찾기 -->
 	<select id="find_userid" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT mid, mname
 		FROM member 
@@ -35,19 +50,24 @@
 		AND mmail = #{mmail}
 	</select>
 	
+	<!-- 개인정보 페이지 -->
 	<select id="mypage" parameterType="String" resultType="MemberDAO">
 		SELECT mid, mnick, mname, mmail, mphone, mbirth, mclass 
 		FROM member
 		WHERE mid = #{mid}
 	</select>
 	
+	<!-- 펫정보 페이지 -->
 	<select id="petInfo" parameterType="String" resultType="MemberDAO">
 		SELECT pdiv, pname, pbirth, pnum, petc
 		FROM pet
 		WHERE mno = #{mno}
 	</select>
+	
+	<!-- 펫등록  -->
 	<insert id="pregister" parameterType="PetDAO" >
 		INSERT INTO pet(mno, pdiv, pname, pbirth, pnum, pdel, petc) 
 		VALUES((SELECT mno FROM member WHERE mid=#{mid}),#{pdiv},#{pname},#{pbirth},#{pnum},#{pdel}, #{petc})		
 	</insert>
+	
 </mapper>

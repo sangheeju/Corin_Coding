@@ -25,6 +25,16 @@
 				}else if(idChkVal == "Y"){
 					$("#regForm").midCheck();
 				}
+				
+				var nickChkVal = $("#mnickCheck").val();	//별명 중복확인 클릭 여부
+				if(nickChkVal == "N"){
+					alert("중복확인 버튼을 눌러주세요.");
+					return false;
+				}else if(nickChkVal == "Y"){
+					$("#regForm").mnickCheck();
+				}
+				
+				
 			});
 		});
 	
@@ -38,9 +48,30 @@
 				success : function(data){
 					if(data == 1){
 						alert("이미 사용중인 아이디입니다.");
+					}else if(data >= 2){
+						alert("관리자에게 문의 해 주세요");
 					}else if(data == 0){
 						$("#midCheck").attr("value", "Y");
 						alert("사용가능한 아이디입니다.");
+					}
+				}
+			})
+		}
+		
+		function nicheck(){
+			$.ajax({
+				url : "${contextPath}/member/mnickCheck",
+				type : "post",
+				dataType : "json",
+				data : {"mnick" : $("#mnick").val()},
+				success : function(result){
+					if(result == 1){
+						alert("이미 사용중인 별명입니다.");
+					}else if(result >= 2){
+						alert("관리자에게 문의 해 주세요");
+					}else if(result == 0){
+						$("#mnickCheck").attr("value", "Y");
+						alert("사용가능한 별명입니다.");
 					}
 				}
 			})
@@ -67,18 +98,14 @@
 								name = "mid" placeholder = "ID를 입력하세요" /> 
 								</td>
 							<td>
-								<form:button type="button" id="midCheck" value="N" class="midCheck"
-									onclick="fn_idChk();">중복체크</form:button>
+								<button type="button" id="midCheck" value="N" class="midCheck"
+									onclick="fn_idChk();">중복체크</button>
 							</td>
 							<td><h6>
 										<small>* 영문, 숫자로 5~10글자 내외
 										<form:errors class="text-danger" path="mid" />
 										</small>
 									</h6></td>
-						</tr>
-						<tr>
-							<td><div class="checkId" id="idCheck">		
-								</div></td>
 						</tr>
 					</table>
 				</div>
@@ -115,10 +142,7 @@
 									<form:errors class="text-danger" path="mnick" /></small>	
 								</h6>
 							</td>
-						</tr>
-						<tr>
-							
-						</tr>
+						</tr>	
 					</table>
 				</div>
 				<div class="form-group">
@@ -168,15 +192,18 @@
 				<div class="form-group form-check">
 					<label class="form-check-label"> * 기재 해 주신 정보는 당 사이트에서 본인
 						확인과 이벤트 참여 목적으로만 수집되며 그 외 용도로는 사용되지 않습니다. 해당 내용을 확인 하셨습니까? <br>
-						<input class="form-check-input" type="checkbox" name="mclass"
+						<input class="form-check-input" type="checkbox" name="mclass" required
 						id="mclass" value="1" > <kbd>확인!</kbd>
 
 					</label>
 				</div>
-				<button type="submit" class="submit btn btn-primary">회원가입</button>
+				<div class="reg_button">
+				<button type="submit" class="submit btn btn-primary" id="reg_submit">
+				<i class="fa fa-heart pr-2" aria-hidden="true"></i>회원가입</button>
 				<button class="removeAll btn btn-info" type="button">내용
 					지우기</button>
 				<button class="rcancle btn btn-danger" type="button">메인으로</button>
+				</div>
 		</form:form>
 		</div>
 	</div>

@@ -8,4 +8,5 @@
 <typeAliases>
  	<typeAlias alias="MemberDAO" type="kr.co.korogom.domain.MemberDAO"></typeAlias>
  	</typeAliases>
+ 
 </configuration>

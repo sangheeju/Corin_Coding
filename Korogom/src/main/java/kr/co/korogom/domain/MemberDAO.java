@@ -31,7 +31,7 @@ public class MemberDAO {
 	
 	@NotEmpty
 	@Length(min=2, max=6)
-	@Pattern(regexp = "^[가-힣]$")
+	@Pattern(regexp = "^[가-힣]*$")
 	private String mname;		//실명 한글 2~6자
 	
 	@NotEmpty
@@ -40,7 +40,7 @@ public class MemberDAO {
 	
 	@NotEmpty
 	@Length(min=11, max=12)
-	@Pattern(regexp = "^[0-9]$")
+	@Pattern(regexp = "^[0-9]*$")
 	private String mphone;			//연락처 숫자만입력
 	
 	
@@ -55,6 +55,8 @@ public class MemberDAO {
 	
 	private int mclass;			//탈퇴 및 등급 : 0=탈퇴, 1=회원, 2=펫시터, 3=관리자
 	private String metc;		//비고
+	
+	private String mkey;	//유저 인증키
 	
 	
 	public int getMno() {

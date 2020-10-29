@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
 import kr.co.korogom.service.MemberService;
+import kr.co.korogom.service.UserMailSendService;
 import lombok.AllArgsConstructor;
 
 @RequestMapping("/member/*")
@@ -49,7 +50,8 @@ public class MemberController {
 //	@Inject
 //	BCryptPasswordEncoder pwdEncoder;
 	
-	
+	@Autowired
+	private UserMailSendService mailsender;
 	
 	@RequestMapping(value="mregister", method=RequestMethod.GET)
 	public String mregister(@ModelAttribute MemberDAO memberDAO) {
@@ -60,7 +62,7 @@ public class MemberController {
 	
 	@RequestMapping(value="mregister", method=RequestMethod.POST)
 	// binding한 결과가 result에 담긴다.
-	public String mregister(@ModelAttribute @Valid MemberDAO memberDAO, BindingResult result) {
+	public String mregister(@ModelAttribute @Valid MemberDAO memberDAO, BindingResult result, HttpServletRequest request) throws Exception {
 		// 에러가 있는지 검사
 		if( result.hasErrors() ) {
 
@@ -71,12 +73,24 @@ public class MemberController {
 			}
 			return "member/mregister";
 		}
-		
+		mailsender.mailSendWithUserKey(memberDAO.getMmail(), memberDAO.getMid(), request);
 		memberService.mregister(memberDAO);
 		return "redirect:login";
 	}
 	
-	@ResponseBody		//아작스 통신
+	
+	// e-mail 인증 컨트롤러
+	@RequestMapping(value = "key_alter", method = RequestMethod.GET)
+	public String key_alterConfirm(@RequestParam("mid") String mid, @RequestParam("mkey") String key) {
+
+		mailsender.alter_userKey_service(mid, key); // mailsender의 경우 @Autowired
+
+		return "redirect:/";
+	}
+
+	
+	
+	@ResponseBody		//아작스 통신 아이디 중복검사
 	@RequestMapping(value = "midCheck", method=RequestMethod.POST)
 	public int midCheck(MemberDAO memberDAO) throws Exception {
 		logger.info("==== : Ajax 아이디 중복검사 : ====");
@@ -84,6 +98,13 @@ public class MemberController {
 		return result;
 	}	
 
+	@ResponseBody		//아작스 통신 별명 중복검사
+	@RequestMapping(value = "mnickCheck", method=RequestMethod.POST)
+	public int mnickCheck(MemberDAO memberDAO) throws Exception {
+		logger.info("==== : Ajax 별명 중복검사 : ====");
+		int result = memberService.mnickCheck(memberDAO);
+		return result;
+	}	
 //	@RequestMapping(value="mregister",method=RequestMethod.POST)
 //	public String mregister(MemberDAO memberDAO,
 //							HttpServletRequest request) throws Exception {
