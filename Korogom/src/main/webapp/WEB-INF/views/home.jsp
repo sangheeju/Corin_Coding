@@ -8,11 +8,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>레이아웃테스트</title>
+<title>KOROGOM</title>
 
+<!-- header -->
 <jsp:include page="includes/header.jsp"></jsp:include>
+
 </head>
 <body>
+
+<!-- top -->
+<jsp:include page="includes/top.jsp"></jsp:include>
 
 <div class="frame">
 
@@ -32,6 +37,9 @@
 		
 	</div>
 </div>
+	<!-- bottom -->
+	<jsp:include page="includes/header.jsp"></jsp:include>
+	
 	<!-- footer -->
 	<jsp:include page="includes/footer.jsp"></jsp:include>
 
