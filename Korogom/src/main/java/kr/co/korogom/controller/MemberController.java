@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
+import kr.co.korogom.mapper.MemberMapper;
 import kr.co.korogom.service.MemberService;
 import kr.co.korogom.service.UserMailSendService;
 import lombok.AllArgsConstructor;
@@ -43,7 +45,10 @@ public class MemberController {
 	public SqlSession sqlSession;
 	
 	public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
-		
+	
+//	@Autowired
+//	private MemberMapper memberMapper;
+	
 	@Autowired 
 	private MemberService memberService;
 	
@@ -73,20 +78,20 @@ public class MemberController {
 			}
 			return "member/mregister";
 		}
-		mailsender.mailSendWithUserKey(memberDAO.getMmail(), memberDAO.getMid(), request);
 		memberService.mregister(memberDAO);
+//		mailsender.mailSendWithUserKey(memberDAO.getMmail(), memberDAO.getMid(), request);
 		return "redirect:login";
 	}
 	
 	
 	// e-mail 인증 컨트롤러
-	@RequestMapping(value = "key_alter", method = RequestMethod.GET)
-	public String key_alterConfirm(@RequestParam("mid") String mid, @RequestParam("mkey") String key) {
-
-		mailsender.alter_userKey_service(mid, key); // mailsender의 경우 @Autowired
-
-		return "redirect:/";
-	}
+//	@RequestMapping(value = "key_alter", method = RequestMethod.GET)
+//	public String key_alterConfirm(@RequestParam("mid") String mid, @RequestParam("mkey") String key) {
+//
+//		mailsender.alter_userKey_service(mid, key); // mailsender의 경우 @Autowired
+//
+//		return "redirect:/";
+//	}
 
 	
 	

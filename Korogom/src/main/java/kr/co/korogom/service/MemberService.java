@@ -16,7 +16,7 @@ public interface MemberService {
 	public Map login(Map<String,Object> map);		//로그인
 	public Map find_userid(Map<String,Object> user);	//아이디 찾기
 	public Map find_pass(Map<String,Object> user);		//비밀번호 찾기
-
+	
 	public String mypage(MemberDAO memberDAO);		//마이페이지 출력
 	public String petInfo(MemberDAO memberDAO);		//반려동물 페이지 출력
 	

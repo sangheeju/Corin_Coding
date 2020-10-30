@@ -21,7 +21,15 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="kr.co.korogom" />
+	<!--  Context Component-Scan  -->
+	<context:component-scan base-package="kr.co.korogom" >
+		<context:include-filter type="annotation" expression="org.springframwork.stereotype.Service" />
+		<context:include-filter type="annotation" expression="org.springframwork.stereotype.Repository" />
+		<context:include-filter type="annotation" expression="org.springframwork.stereotype.Controller" />
+	</context:component-scan>
+	
+	
+	
 	
 	<annotation-driven validator="validator"/>
 <!-- MessageSource -->
@@ -53,7 +61,5 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
-
-	
 	
 </beans:beans>

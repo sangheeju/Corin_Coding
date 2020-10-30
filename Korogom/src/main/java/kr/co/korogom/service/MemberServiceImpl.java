@@ -19,6 +19,7 @@ public class MemberServiceImpl implements MemberService{
 	@Inject
 	private SqlSession sqlSession;
 	
+	
 	private static final String namespace = "kr.co.korogom.member";
 			
 	@Override
@@ -81,6 +82,7 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".find_pass", user);
 	}
+
 
 	
 }
