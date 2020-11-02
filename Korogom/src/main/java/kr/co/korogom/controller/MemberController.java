@@ -55,8 +55,8 @@ public class MemberController {
 //	@Inject
 //	BCryptPasswordEncoder pwdEncoder;
 	
-	@Autowired
-	private UserMailSendService mailsender;
+//	@Autowired
+//	private UserMailSendService mailsender;
 	
 	@RequestMapping(value="mregister", method=RequestMethod.GET)
 	public String mregister(@ModelAttribute MemberDAO memberDAO) {
