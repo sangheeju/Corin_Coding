@@ -1,5 +1,8 @@
 package kr.co.korogom.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,15 +18,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.korogom.domain.BoardAttachVO;
 import kr.co.korogom.domain.BoardDAO;
 import kr.co.korogom.domain.SearchCriteria;
+import kr.co.korogom.mapper.ReservationMapper;
 import kr.co.korogom.domain.PageMaker;
-import kr.co.korogom.domain.ReplyVO;
+import kr.co.korogom.domain.ReservationDAO;
 import kr.co.korogom.service.BoardService;
+import kr.co.korogom.service.ReservationService;
+import kr.co.korogom.service.RoomService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
@@ -35,66 +40,57 @@ public class ReservationController {
 	
 	@Inject
 	private BoardService service;
+	@Inject
+	private RoomService Rservice;
+	@Inject
+	private ReservationService resv_service;
 	
-	@GetMapping("/resv_board")
-	public void list(@ModelAttribute("cri") SearchCriteria cri,Model model) {
-		log.info("list : "+cri);
-//		model.addAttribute("list",service.resvlistPage(cri.getPage()));
-		model.addAttribute("list",service.resvlistSearch(cri));
-//		model.addAttribute("pageMaker",new PageDTO(cri,service.resvcountPaging(cri)));
+	private void deleteFiles(List<BoardAttachVO> attachList) {
+		if(attachList == null || attachList.size() == 0) {
+			return;
+		}
+		log.info("delete attach files");
+		log.info(attachList);
+		
+		attachList.forEach(attach -> {
+			try {
+				Path file = Paths.get("D:\\upload\\"+attach.getUploadPath()+"\\"+attach.getUuid()+"_"+attach.getFileName());
+				
+				Files.deleteIfExists(file);
+				
+				if(Files.probeContentType(file).startsWith("image")) {
+					Path thumbNail = Paths.get("D:\\upload\\"+attach.getUploadPath()+"\\s_"+attach.getUuid()+"_"+attach.getFileName());
+					
+					Files.delete(thumbNail);
+				}
+			}catch(Exception e) {
+				log.error("delete file error : "+e.getMessage());
+			}
+		});
+	}
+	
+	@GetMapping("/resv_list")
+	public void resv_list(@ModelAttribute("cri") SearchCriteria cri,Model model) {
+		
+		model.addAttribute("list",Rservice.resv_listPage(cri.getPage()));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(service.resvlistSearchCount(cri));
+		pageMaker.setTotalCount(Rservice.resv_countpaging(cri));
 		model.addAttribute("pageMaker",pageMaker);
 	}
-	@GetMapping("/resv_register")
-	public void resv_register() {
+	@GetMapping("/resv_detail")
+	public void resv_detail(@RequestParam("roomno") int roomno, Model model) {
+		model.addAttribute("room",Rservice.room_read(roomno));
 	}
-	@PostMapping("/resv_register")
-	public String resv_register(BoardDAO board,RedirectAttributes rttr) {
-		log.info("register :" +board);
-		
-		if(board.getAttachList() != null) {
-			board.getAttachList().forEach(attach -> log.info(attach));
-		}
-		service.resvinsert(board);
-		rttr.addFlashAttribute("result", board.getBno());
-		
-		return "redirect:/reservation/resv_board";
+	@GetMapping("/resv_reservation")
+	public void resv_reservation(@RequestParam("roomno") int roomno, Model model) {
+		model.addAttribute("room",Rservice.room_read(roomno));
 	}
-	@GetMapping({"resv_detail","/resv_modify"})
-	public void resv_detail(@RequestParam("bno") int bno,@ModelAttribute("cri") SearchCriteria cri,Model model) {
-		log.info("/detail or modify");
-		
-		model.addAttribute("board",service.resvget(bno));
-	}
-//	@GetMapping("/resv_modify")
-//	public void resv_modify(@RequestParam("bno") int bno,@ModelAttribute("cri") SearchCriteria cri,Model model) {
-//		model.addAttribute(service.resvget(bno));
-//	}
-	@PostMapping("/resv_modify")
-	public String resv_modify(BoardDAO board, SearchCriteria cri, RedirectAttributes rttr) {
-		if(service.resvmodify(board)) {
-			log.info("modify success : "+board);
-		}
-		rttr.addAttribute("page",cri.getPage());
-		rttr.addAttribute("perPageNum",cri.getPerPageNum());
-		rttr.addAttribute("searchType",cri.getSearchType());
-		rttr.addAttribute("keyword",cri.getKeyword());
-		
-		return "redirect:/reservation/resv_board";
-	}
-	@PostMapping("/resv_remove")
-	public String remove(@RequestParam("bno") int bno,SearchCriteria cri, RedirectAttributes rttr) {
-		if(service.resvremove(bno)) {
-			log.info("remove Success : " +bno);
-		}
-		rttr.addAttribute("page",cri.getPage());
-		rttr.addAttribute("perPageNum",cri.getPerPageNum());
-		rttr.addAttribute("searchType",cri.getSearchType());
-		rttr.addAttribute("keyword",cri.getKeyword());
-		
-		return "redirect:/reservation/resv_board";
+	@PostMapping("/resv_reservation")
+	public String resv_reservation2(ReservationDAO resv,RedirectAttributes rttr) {
+		log.info(resv);
+		resv_service.reservation_register(resv);
+		return "redirect:/reservation/resv_list";
 	}
 	@GetMapping(value = "/getAttachList",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody

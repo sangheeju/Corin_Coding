@@ -1,24 +1,28 @@
 <%@page import="java.util.Objects"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>KOROGOM</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/bootstrap.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/page.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/star.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/upload.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/button.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/panel.css">
+<!-- 부가적인 테마 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/reply.js"></script>
+<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-/* Make the image fully responsive */
 .carousel-inner img {
 	width: 100%;
 	height: 100%;
@@ -51,7 +55,7 @@
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/center_view.jsp">센터소개</a>
 						<a class="dropdown-item" href="#">펫시터 소개</a> 
-						<a class="dropdown-item" href="#">공지사항</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/introduce/v_notice_board">공지사항</a>
 					</div>
 				</li>
 				<li class="nav-item dropdown">
@@ -64,9 +68,9 @@
 				<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">커뮤니티</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">고객후기</a> 
-						<a class="dropdown-item" href="#">펫시터 후기</a> 
-						<a class="dropdown-item" href="#">고객문의</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/reservation/resv_board">고객후기</a> 
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/community/petsitter_board">펫시터 후기</a> 
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/community/v_qna_board">고객문의</a>
 					</div>
 				</li>
 				<li class="nav-item dropdown">
