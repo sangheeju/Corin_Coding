@@ -2,14 +2,22 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<!-- header -->
 <%@ include file="../includes/header.jsp"%>
+<style>
+div.buttonclass {
+  margin: 10px 0;
+}
+</style>
+<!-- top -->
+	<%@ include file="../includes/top.jsp"%>
 <div class="container">
 	<h2>회원 관리 페이지</h2>
 </div>
 
 <div class="container mt-3">
 	<div class="row">
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 		<p>Type something in the input field to search the table for first
 			names, last names or emails:</p>
 			<div class="spinner-border text-danger"></div>
@@ -28,7 +36,7 @@
     </div>
   </div>
 		</div>
-		<div class="col-sm-8">
+		<div class="col-sm-9">
 	 <ul class="nav nav-tabs">
 	    <li class="nav-item">
 	      <a class="nav-link" href="${pageContext.request.contextPath}/member/mypage">사용자 정보</a>
@@ -37,7 +45,7 @@
 	      <a class="nav-link active" href="${pageContext.request.contextPath}/member/petInfo">반려동물 정보</a>
 	    </li>
 	  </ul>
-	  <div>
+	  <div class="buttonclass float-right" style="margin: 10px">
 	  <form action="${pageContext.request.contextPath}/member/pregister" method="GET">
 		 <button class="btn btn-info" type="submit" > 반려동물 등록하기</button>	
 	  </form>
@@ -47,32 +55,29 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>Firstname</th>
-						<th>Lastname</th>
-						<th>Email</th>
+						<th>Pet NO</th>
+						<th>Member NO</th>
+						<th>Division</th>
+						<th>Pet Name</th>
+						<th>Pet Birthday</th>
+						<th>Pet Registered Number</th>
+						<th>Gender</th>
+						<th>Etc</th>
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<tr>
-						<td>John</td>
-						<td>Doe</td>
-						<td>john@example.com</td>
-					</tr>
-					<tr>
-						<td>Mary</td>
-						<td>Moe</td>
-						<td>mary@mail.com</td>
-					</tr>
-					<tr>
-						<td>July</td>
-						<td>Dooley</td>
-						<td>july@greatstuff.com</td>
-					</tr>
-					<tr>
-						<td>Anja</td>
-						<td>Ravendale</td>
-						<td>a_r@test.com</td>
-					</tr>
+					<c:forEach var="PetDAO" items="${petList }">
+				 	<tr>
+					 	<td>${PetDAO.pno }</td>
+					 	<td>${PetDAO.mno }</td>
+					 	<td>${PetDAO.pdiv }</td>
+					 	<td>${PetDAO.pname }</td>
+					 	<td>${PetDAO.pbirth }</td>
+					 	<td>${PetDAO.pnum }</td>
+					 	<td>${PetDAO.pdel }</td>
+					 	<td>${PetDAO.petc }</td>
+				 	</tr>
+				</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -89,4 +94,8 @@ $(document).ready(function(){
   });
 });
 </script>
+	<!-- bottom -->
+		<%@ include file="../includes/bottom.jsp"%>
+	
+	<!-- footer -->
 <%@ include file="../includes/footer.jsp"%>

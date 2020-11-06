@@ -22,8 +22,7 @@
 <div class="frame">
 
 	<!-- header -->
-	<div class="header">
-	</div>
+
 	<c:if test="${user != null}">
 		<c:out value="${user.mnick }님 어서오세요!" />
 	</c:if>
@@ -38,7 +37,7 @@
 	</div>
 </div>
 	<!-- bottom -->
-	<jsp:include page="includes/header.jsp"></jsp:include>
+	<jsp:include page="includes/bottom.jsp"></jsp:include>
 	
 	<!-- footer -->
 	<jsp:include page="includes/footer.jsp"></jsp:include>

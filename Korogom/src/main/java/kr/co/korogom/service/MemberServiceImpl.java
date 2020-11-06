@@ -1,5 +1,6 @@
 package kr.co.korogom.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -19,7 +20,6 @@ public class MemberServiceImpl implements MemberService{
 	@Inject
 	private SqlSession sqlSession;
 	
-	
 	private static final String namespace = "kr.co.korogom.member";
 			
 	@Override
@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Map login(Map<String,Object> map) {		//로그인
+	public MemberDAO login(Map<String,Object> map) {		//로그인
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".login", map);
 	}
@@ -48,9 +48,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String mypage(MemberDAO memberDAO) {
+	public List<MemberDAO> mypage() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".mypage", memberDAO);
+		return sqlSession.selectList(namespace+".mypage");
 	}
 //	@Override
 //	public int passChk(MemberDAO memberDAO) {
@@ -60,15 +60,15 @@ public class MemberServiceImpl implements MemberService{
 //	}
 
 	@Override
-	public Map find_userid(Map<String, Object> user) {
+	public String find_userid(Map<String, Object> user) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".find_userid", user);
 	}
 
 	@Override
-	public String petInfo(MemberDAO memberDAO) {
+	public List<PetDAO> petInfo() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".petInfo", memberDAO);
+		return sqlSession.selectList(namespace+".petInfo");
 	}
 
 	@Override
@@ -76,13 +76,5 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return sqlSession.insert(namespace+".pregister", petDAO);
 	}
-
-	@Override
-	public Map find_pass(Map<String, Object> user) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".find_pass", user);
-	}
-
-
 	
 }

@@ -15,19 +15,19 @@ public class MemberDAO {
 	private int mno;			//회원번호 (고유)
 	
 	@NotEmpty
-	@Length(min=5, max=10)
+	@Length(min=5, max=20)
 	@Pattern(regexp="^[a-zA-Z0-9]*$")
-	private String mid;			//아이디 5~10자 사이 영문 숫자
+	private String mid;			//아이디 5~20자 사이 영문 숫자
 	
 	@NotEmpty
-	@Length(min=2, max=8)
+	@Length(min=2, max=10)
 	@Pattern(regexp = "^[a-zA-Z0-9가-힣]*$")
-	private String mnick;		//닉네임 한영수2~8자 사이
+	private String mnick;		//닉네임 영수2~10자, 한글은 10자이내
 	
 	@NotEmpty
-	@Length(min=5)
+	@Length(min=5, max=20)
 	@Pattern(regexp="^[0-9a-zA-Z!@#$%^&]*$")
-	private String mpass;		//비밀번호 영문숫자특문 5자이상
+	private String mpass;		//비밀번호 영문숫자특문(!@#$%^&) 5~20자
 	
 	@NotEmpty
 	@Length(min=2, max=6)
@@ -36,12 +36,13 @@ public class MemberDAO {
 	
 	@NotEmpty
 	@Email
+	@Pattern(regexp = "^[a-zA-Z0-9]*@[a-z.a-z]*$")
 	private String mmail;		//이메일
 	
 	@NotEmpty
 	@Length(min=11, max=12)
 	@Pattern(regexp = "^[0-9]*$")
-	private String mphone;			//연락처 숫자만입력
+	private String mphone;			//연락처 숫자만입력 (11자~12자만 가능
 	
 	
 	@DateTimeFormat(pattern="yyyy/mm/dd")
@@ -53,10 +54,8 @@ public class MemberDAO {
 	private String mdate;		//가입일자
 	private int mpet;			//반려동물 숫자 mno가 같은 pno 카운트
 	
-	private int mclass;			//탈퇴 및 등급 : 0=탈퇴, 1=회원, 2=펫시터, 3=관리자
+	private int mclass;			//탈퇴 및 등급 : 0=탈퇴, 회원가입시 기본값(1=회원), 2=펫시터, 3=관리자
 	private String metc;		//비고
-	
-	private String mkey;	//유저 인증키
 	
 	
 	public int getMno() {

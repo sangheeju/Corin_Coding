@@ -1,5 +1,7 @@
 package kr.co.korogom.domain;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -11,15 +13,18 @@ public class PetDAO {
 
 	private int pno;
 	private int mno;
+	
 	private int pdiv;
 	
-	@Length(min=1, max=10)
-	@Pattern(regexp = "^[a-zA-Z0-9가-힣]$")
+	@NotEmpty
+	@Length(min=1, max=20)
+	@Pattern(regexp = "^[a-zA-Z0-9가-힣]*$")		//닉네임 영수 한글 2~20자이내
 	private String pname;
 	
-	private int pbirth;
+	private String pbirth;
 	private int pnum;
-	private int pdel;
+	
+	private int pdel;		//반려동물 성별 1=암컷, 2=수컷, 3=중성화 암컷, 4=중성화 수컷, 5 = 삭제
 	private String petc;
 	
 	
@@ -47,10 +52,10 @@ public class PetDAO {
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
-	public int getPbirth() {
+	public String getPbirth() {
 		return pbirth;
 	}
-	public void setPbirth(int pbirth) {
+	public void setPbirth(String pbirth) {
 		this.pbirth = pbirth;
 	}
 	public int getPnum() {

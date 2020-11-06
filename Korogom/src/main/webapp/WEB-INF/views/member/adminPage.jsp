@@ -2,7 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<!-- header -->
 <%@ include file="../includes/header.jsp"%>
+<!-- top -->
+	<%@ include file="../includes/top.jsp"%>
 <div class="container">
 	<h2>회원 관리 페이지</h2>
 </div>
@@ -85,4 +88,8 @@ $(document).ready(function(){
   });
 });
 </script>
+	<!-- bottom -->
+		<%@ include file="../includes/bottom.jsp"%>
+	
+	<!-- footer -->
 <%@ include file="../includes/footer.jsp"%>

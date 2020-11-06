@@ -36,38 +36,41 @@
 	</update>
 	
 	<!-- 로그인 -->
-	<select id="login" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT mid, mnick
+	<select id="login" parameterType="java.util.Map" resultType="MemberDAO">
+		SELECT mno, mid, mnick, mclass
 		FROM member 
 		WHERE mid= #{mid} 
 		AND mpass = #{mpass}
 	</select>
+	
 	<!-- 아이디 찾기 -->
-	<select id="find_userid" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT mid, mname
+	<select id="find_userid" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT mid
 		FROM member 
 		WHERE mname = #{mname} 
 		AND mmail = #{mmail}
 	</select>
 	
 	<!-- 개인정보 페이지 -->
-	<select id="mypage" parameterType="String" resultType="MemberDAO">
-		SELECT mid, mnick, mname, mmail, mphone, mbirth, mclass 
+	<select id="mypage" resultType="MemberDAO">
+		SELECT mno, mid, mnick, mname, mmail, mphone, mbirth, mclass
 		FROM member
-		WHERE mid = #{mid}
+		WHERE NOT mclass = 0
+		ORDER BY mno DESC
 	</select>
 	
 	<!-- 펫정보 페이지 -->
-	<select id="petInfo" parameterType="String" resultType="MemberDAO">
-		SELECT pdiv, pname, pbirth, pnum, petc
+	<select id="petInfo" resultType="PetDAO">
+		SELECT pno, mno, pdiv, pname, pbirth, pnum, pdel, petc
 		FROM pet
-		WHERE mno = #{mno}
+		WHERE NOT pdel = 5
+		ORDER BY mno DESC
 	</select>
-	
-	<!-- 펫등록  -->
-	<insert id="pregister" parameterType="PetDAO" >
+
+<!-- 펫등록  -->
+<insert id="pregister" parameterType="PetDAO">
 		INSERT INTO pet(mno, pdiv, pname, pbirth, pnum, pdel, petc) 
-		VALUES((SELECT mno FROM member WHERE mid=#{mid}),#{pdiv},#{pname},#{pbirth},#{pnum},#{pdel}, #{petc})		
-	</insert>
+		VALUES(#{mno },#{pdiv},#{pname},#{pbirth},#{pnum},#{pdel},#{petc})	
+</insert>
 	
 </mapper>
