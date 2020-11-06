@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.korogom.mapper.RoomAttachMapper">
+	<insert id="insert">
+		insert into room_img (uuid, uploadpath, filename, roomno)
+		values (#{uuid},#{uploadPath},#{fileName},#{roomno})
+	</insert>
+	<delete id="delete">
+		delete from room_img where uuid = #{uuid}
+	</delete>
+	<select id="findByRoomno" resultType="int">
+		select imgno from room_img where roomno = #{roomno}
+	</select>
+	<delete id="deleteAll">
+		delete from room_img where roomno = #{roomno}
+	</delete>
+	<select id="getOldFiles" resultType="kr.co.korogom.domain.BoardAttachVO">
+		select * from room_img where uploadpath = CURDATE() - INTERVAL 1 DAY;
+	</select>
+	<select id="findimgno" resultType="int">
+		select imgno from room_img order by imgno desc limit 1;
+	</select>
+	<select id="imglist" resultType="kr.co.korogom.domain.RoomVO">
+		select k_room.roomno,k_room.imgno,k_room.roomprice,k_room.roomtype,k_room.roomcontent,k_room.roomcnt,k_room.roometc,
+		room_img.uuid,room_img.uploadPath,room_img.fileName from k_room, room_img 
+		where k_room.roomno = room_img.roomno
+	</select>
+</mapper>

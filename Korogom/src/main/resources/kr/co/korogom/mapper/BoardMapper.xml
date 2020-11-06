@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.korogom.mapper.BoardMapper">
+	<!-- Reservation -->
+	<select id="resvlist" resultType="kr.co.korogom.domain.BoardDAO">
+		select * from k_board where bsort = 1
+	</select>
+	<!-- Petsitter -->
+	<select id="petslist" resultType="kr.co.korogom.domain.BoardDAO">
+		select * from k_board where bsort = 2
+	</select>
+	<!-- Notice -->
+	<select id="noticelist" resultType="kr.co.korogom.domain.BoardDAO">
+		select * from k_board where bsort = 3
+	</select>
+	<!-- Q&A -->
+	<select id="Adqnalist" resultType="kr.co.korogom.domain.BoardDAO">
+		select * from k_board where bsort = 4
+	</select>
+	<select id="qnalist" resultType="kr.co.korogom.domain.BoardDAO">
+		select * from k_board where bsort = 4 and mno = 0 
+		<!--  select * from k_board where bsort = 4 and mno = 0 or mno = #{mno} -->
+	</select>
+	<!-- Paging -->
+	<!-- Reservation -->
+	<select id="resvcountPaging" resultType="int">
+		<![CDATA[
+			select count(bno) from k_board where bsort = 1
+		]]>
+	</select>
+	<select id="resvlistPage" resultType="kr.co.korogom.domain.BoardDAO">
+		<![CDATA[
+			select * from k_board where bsort = 1 order by bno desc limit #{page},10;
+		]]>
+	</select>
+	<!-- Petsitter -->
+	<select id="petscountPaging" resultType="int">
+		<![CDATA[
+			select count(bno) from k_board where bsort = 2
+		]]>
+	</select>
+	<select id="petslistPage" resultType="kr.co.korogom.domain.BoardDAO">
+		<![CDATA[
+			select * from k_board where bsort = 2 order by bno desc limit #{page},10;
+		]]>
+	</select>
+	<!-- Notice -->
+	<select id="noticecountPaging" resultType="int">
+		<![CDATA[
+			select count(bno) from k_board where bsort = 3
+		]]>
+	</select>
+	<select id="noticelistPage" resultType="kr.co.korogom.domain.BoardDAO">
+		<![CDATA[
+			select * from k_board where bsort = 3 order by bno desc limit #{page},10;
+		]]>
+	</select>
+	<!-- Q&A -->
+	<select id="qnacountPaging" resultType="int">
+		<![CDATA[
+			select count(bno) from k_board where bsort = 4
+		]]>
+	</select>
+	<select id="qnalistPage" resultType="kr.co.korogom.domain.BoardDAO">
+		<![CDATA[
+			select * from k_board where bsort = 4 order by bno desc limit #{page},10;
+		]]>
+	</select>
+	<!-- Common Element -->
+	<update id="hits">
+		update k_board set bcnt = bcnt + 1 where bno = #{bno}
+	</update>
+	<!-- CRUD -->
+	<insert id="insert">
+		insert into k_board(mno,btitle,bcon,bsort,betc,bscore) values(#{mno},#{btitle},#{bcon},#{bsort},#{betc},#{bscore})
+	</insert>
+	<select id="read" resultType="kr.co.korogom.domain.BoardDAO">
+		select * from k_board where bno = #{bno}
+	</select>
+	<delete id="delete">
+		delete from k_board where bno = #{bno}
+	</delete>
+	<update id="update">
+		update k_board
+		 set btitle = #{btitle},
+		 bcon = #{bcon},
+		 betc = #{betc},
+		 bscore = #{bscore}
+		 where bno = #{bno}
+	</update>
+	<!-- Attach -->
+	<select id="resvAttach" resultType="int">
+		select bno from k_board where bsort = 1 order by bno desc limit 1;
+	</select>
+	<select id="petsAttach" resultType="int">
+		select bno from k_board where bsort = 2 order by bno desc limit 1;
+	</select>
+	<select id="noticeAttach" resultType="int">
+		select bno from k_board where bsort = 3 order by bno desc limit 1;
+	</select>
+	<select id="qnaAttach" resultType="int">
+		select bno from k_board where bsort = 4 order by bno desc limit 1;
+	</select>
+	<!-- Search -->
+	<!-- Reservation -->
+	<select id="resvlistSearch" resultType="kr.co.korogom.domain.BoardDAO">
+		<![CDATA[
+			select * from k_board where bsort = 1 
+		]]>
+			<include refid="search"></include>
+		<![CDATA[
+			order by bno desc limit #{pageStart},#{perPageNum}
+		]]>
+	</select>
+	<select id="resvlistSearchCount" resultType="int">
+		<![CDATA[
+			select count(bno) from k_board where bsort = 1
+		]]>
+			<include refid="search"></include>
+	</select>
+	<!-- Petsitter -->
+	<select id="petslistSearch" resultType="kr.co.korogom.domain.BoardDAO">
+		<![CDATA[
+			select * from k_board where bsort = 2
+		]]>
+			<include refid="search"></include>
+		<![CDATA[
+			order by bno desc limit #{pageStart},#{perPageNum}
+		]]>
+	</select>
+	<select id="petslistSearchCount" resultType="int">
+		<![CDATA[
+			select count(bno) from k_board where bsort = 2
+		]]>
+			<include refid="search"></include>
+	</select>
+	<!-- Notice -->
+	<select id="noticelistSearch" resultType="kr.co.korogom.domain.BoardDAO">
+		<![CDATA[
+			select * from k_board where bsort = 3
+		]]>
+			<include refid="search"></include>
+		<![CDATA[
+			order by bno desc limit #{pageStart},#{perPageNum}
+		]]>
+	</select>
+	<select id="noticelistSearchCount" resultType="int">
+		<![CDATA[
+			select count(bno) from k_board where bsort = 3
+		]]>
+			<include refid="search"></include>
+	</select>
+	<!-- Q&A -->
+	<select id="qnalistSearch" resultType="kr.co.korogom.domain.BoardDAO">
+		<![CDATA[
+			select * from k_board where bsort = 4
+		]]>
+			<include refid="search"></include>
+		<![CDATA[
+			order by bno desc limit #{pageStart},#{perPageNum}
+		]]>
+	</select>
+	<select id="qnalistSearchCount" resultType="int">
+		<![CDATA[
+			select count(bno) from k_board where bsort = 4
+		]]>
+			<include refid="search"></include>
+	</select>
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and btitle like CONCAT('%',#{keyword},'%')
+			</if> 
+			<if test="searchType == 'c'.toString()">
+				and bcon like CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="searchType == 'w'.toString()">
+				and mno like CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="searchType == 'tc'.toString()">
+				and ( btitle like CONCAT('%',#{keyword},'%') OR bcon like CONCAT('%',#{keyword},'%'))
+			</if>
+			<if test="searchType == 'cw'.toString()">
+				and ( bcon like CONCAT('%',#{keyword},'%') OR mno like CONCAT('%',#{keyword},'%'))
+			</if>
+			<if test="searchType == 'tcw'.toString()">
+				and (btitle like CONCAT('%',#{keyword},'%') OR bcon like CONCAT('%',#{keyword},'%') OR mno like CONCAT('%',#{keyword},'%'))
+			</if>
+		</if>
+		</sql>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.korogom.mapper.ReplyMapper">
+	<!-- Reply -->
+	<select id="read" resultType="kr.co.korogom.domain.ReplyVO">
+		select * from k_reply where rno = #{rno}
+	</select>
+	<insert id="insert">
+		insert into k_reply (bno,recon,rewriter) values (#{bno},#{recon},#{rewriter})
+	</insert>
+	<update id="update">
+		update k_reply set recon = #{recon}, updatedate = now() where rno = #{rno}
+	</update>
+	<delete id="delete">
+		delete from k_reply where rno = #{rno}
+	</delete>
+	<!-- 
+	<select id="repaging" resultType="kr.co.korogom.domain.ReplyVO">
+		select * from k_reply where bno = #{bno} order by rno asc
+	</select>
+	-->
+	<!-- Reply paging -->
+	<select id="reListpaging" resultType="kr.co.korogom.domain.ReplyVO">
+		<![CDATA[
+			select * from k_reply where bno = #{bno} order by rno asc limit #{cri.pageStart},#{cri.perPageNum}
+		]]>
+	</select>
+	<select id="reCountByBno" resultType="int">
+		<![CDATA[
+			select count(rno) from k_reply where bno = #{bno}
+		]]>
+	</select>
+</mapper>

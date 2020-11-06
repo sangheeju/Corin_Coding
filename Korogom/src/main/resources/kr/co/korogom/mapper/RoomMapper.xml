@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.korogom.mapper.RoomMapper">
+	<select id="room_list" resultType="kr.co.korogom.domain.RoomDAO">
+		select * from k_room
+	</select>
+	<insert id="room_register">
+		insert into k_room(roomno,imgno,roomprice,roomtype,roomcontent,roomcnt,roometc) 
+		values(#{roomno},#{imgno},#{roomprice},#{roomtype},#{roomcontent},#{roomcnt},#{roometc})
+	</insert>
+	<select id="lastroom" resultType="int">
+		select roomno from k_room where imgno = 0 order by roomno desc limit 1;
+	</select>
+	<select id="room_read" resultType="kr.co.korogom.domain.RoomVO">
+		select k_room.roomno,k_room.imgno,k_room.roomprice,k_room.roomtype,k_room.roomcontent,k_room.roomcnt,k_room.roometc,
+		room_img.uuid,room_img.uploadPath,room_img.fileName from k_room, room_img 
+		where k_room.roomno = #{roomno} and room_img.roomno = #{roomno}
+	</select>
+	<update id="imgupdate">
+		update k_room set imgno = #{imgno} where roomno = #{roomno}
+	</update>
+	<select id="resv_countpaging" resultType="int">
+		<![CDATA[
+			select count(roomno) from k_room
+		]]>
+	</select>
+	<select id="resv_listPage" resultType="kr.co.korogom.domain.RoomVO">
+		select k_room.roomno,k_room.imgno,k_room.roomprice,k_room.roomtype,k_room.roomcontent,k_room.roomcnt,k_room.roometc,
+		room_img.uuid,room_img.uploadPath,room_img.fileName from k_room, room_img 
+		where k_room.roomno = room_img.roomno 
+		order by roomno asc limit #{page},10
+	</select>
+</mapper>
