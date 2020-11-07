@@ -1,6 +1,5 @@
 package kr.co.korogom.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,28 +16,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
 import kr.co.korogom.service.MemberService;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @RequestMapping("/member/*")
 @Controller
 @AllArgsConstructor
-@Log4j
 public class MemberController {
 	
 	@Inject
@@ -149,11 +142,7 @@ public class MemberController {
 	}
 	
 
-//	@RequestMapping(value="mypage", method= RequestMethod.GET)
-//	public String mypage(){
-//		return "member/mypage";
-//	}
-	@RequestMapping(value="mypage", method=  {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="mypage", method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView mypage(){
 		logger.info("==== : 회원 정보 페이지로 이동합니다 : ====");
 		ModelAndView mav = new ModelAndView();	
@@ -166,6 +155,15 @@ public class MemberController {
 			return mav;
 	}
 	
+	@RequestMapping(value="mpage", method=RequestMethod.GET)
+	public String mpage(@RequestParam("mno") int mno, Model model) {
+		logger.info("==== : 개인정보 페이지로 이동합니다 : ====");
+		MemberDAO pageDAO = memberService.mpage(mno);
+		model.addAttribute("myinfo", pageDAO);
+		
+		return "member/mpage";
+	}
+		
 	@RequestMapping(value="find_userid", method=RequestMethod.GET)
 	public String find_userid() {
 		logger.info("==== : 아이디 찾기 페이지로 이동합니다 : ====");

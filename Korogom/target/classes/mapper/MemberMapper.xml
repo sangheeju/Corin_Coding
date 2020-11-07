@@ -51,12 +51,20 @@
 		AND mmail = #{mmail}
 	</select>
 	
-	<!-- 개인정보 페이지 -->
+	<!-- 회원정보 페이지 -->
 	<select id="mypage" resultType="MemberDAO">
 		SELECT mno, mid, mnick, mname, mmail, mphone, mbirth, mclass
 		FROM member
 		WHERE NOT mclass = 0
 		ORDER BY mno DESC
+	</select>
+	
+	<!-- 개인정보 페이지 -->
+	<select id="mpage" parameterType="java.lang.Integer" resultType="MemberDAO">
+		SELECT mno, mid, mnick, mname, mmail, mphone, mbirth, mclass
+		FROM member
+		WHERE NOT mclass = 0 
+		AND mno = #{mno}
 	</select>
 	
 	<!-- 펫정보 페이지 -->

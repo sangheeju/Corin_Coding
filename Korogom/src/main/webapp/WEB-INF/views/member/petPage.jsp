@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <!-- header -->
 <%@ include file="../includes/header.jsp"%>
 <!-- top -->
@@ -14,9 +15,6 @@
 		<div class="col-sm-3">
 		<p>Type something in the input field to search the table for first
 			names, last names or emails:</p>
-			<div class="spinner-border text-danger"></div>
-			<div class="spinner-border text-danger"></div>
-			<div class="spinner-border text-danger"></div><br>
 			<img src="../resources/images/roro.jpg" class="rounded" alt="test" width="100%" /><p></p>
 			<div class="form-group">
     <div class="input-group mb-3">
@@ -30,7 +28,7 @@
     </div>
   </div>
 		</div>
-		<div class="col-sm-9">
+		<div class="col-sm-8">
 	 <ul class="nav nav-tabs">
 	    <li class="nav-item">
 	      <a class="nav-link active" href="#">사용자 정보</a>
@@ -39,35 +37,40 @@
 	      <a class="nav-link" href="${pageContext.request.contextPath}/member/petInfo">반려동물 정보</a>
 	    </li>
 	  </ul>
-	  			<input class="form-control" id="myInput" type="text"
+	  <p><br></p>
+			<input class="form-control" id="myInput" type="text"
 				placeholder="검색어 입력.."> <br>
 			<table class="table table-bordered">
-<thead>
+				<thead>
 					<tr>
-						<th>User ID</th>
-						<th>Nick Name</th>
-						<th>Name</th>
-						<th>Email Address</th>
-						<th>Phone Number</th>
-						<th>Birthday</th>
-						<th>Class</th>
+						<th>Firstname</th>
+						<th>Lastname</th>
+						<th>Email</th>
 					</tr>
-</thead>
-<tbody id="myTable">
-				<c:forEach var="MemberDAO" items="${mylist }">
-				 	<tr>
-					 	<td><a href="mpage?mno=${MemberDAO.mno}">${MemberDAO.mid } </a></td>
-					 	<td>${MemberDAO.mnick }</td>
-					 	<td>${MemberDAO.mname }</td>
-					 	<td>${MemberDAO.mmail }</td>
-					 	<td>${MemberDAO.mphone }</td>
-					 	<td>${MemberDAO.mbirth }</td>
-					 	<td>${MemberDAO.mclass }</td>
-				 	</tr>
-				</c:forEach>
-</tbody>
+				</thead>
+				<tbody id="myTable">
+					<tr>
+						<td>John</td>
+						<td>Doe</td>
+						<td>john@example.com</td>
+					</tr>
+					<tr>
+						<td>Mary</td>
+						<td>Moe</td>
+						<td>mary@mail.com</td>
+					</tr>
+					<tr>
+						<td>July</td>
+						<td>Dooley</td>
+						<td>july@greatstuff.com</td>
+					</tr>
+					<tr>
+						<td>Anja</td>
+						<td>Ravendale</td>
+						<td>a_r@test.com</td>
+					</tr>
+				</tbody>
 			</table>
-							<input class="btn btn-success" type="button" value="메인으로" id="main" />
 		</div>
 	</div>
 </div>
@@ -81,8 +84,8 @@ $(document).ready(function(){
     });
   });
 });
-</script>	
-<!-- bottom -->
+</script>
+	<!-- bottom -->
 		<%@ include file="../includes/bottom.jsp"%>
 	
 	<!-- footer -->

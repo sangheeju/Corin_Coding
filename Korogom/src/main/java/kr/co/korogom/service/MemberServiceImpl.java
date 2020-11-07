@@ -76,5 +76,17 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return sqlSession.insert(namespace+".pregister", petDAO);
 	}
+
+	@Override
+	public MemberDAO mpage(int mno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".mpage", mno);
+	}
+
+//	@Override
+//	public List<MemberDAO> mypage() {
+//		// TODO Auto-generated method stub
+//		return sqlSession.selectList(namespace+".mypage");
+//	}
 	
 }
