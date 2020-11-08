@@ -64,7 +64,7 @@
 						data-toggle="dropdown">마이페이지</a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item"
-								href="${pageContext.request.contextPath}/member/mypage">${user.mnick }님의
+								href="${pageContext.request.contextPath}/member/memberPage">${user.mnick }님의
 								페이지</a> <a class="dropdown-item"
 								href="${pageContext.request.contextPath}/member/adminPage">관리자메뉴</a>
 							<a class="dropdown-item"

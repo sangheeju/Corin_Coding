@@ -52,7 +52,7 @@
 	</select>
 	
 	<!-- 회원정보 페이지 -->
-	<select id="mypage" resultType="MemberDAO">
+	<select id="memberPage" resultType="MemberDAO">
 		SELECT mno, mid, mnick, mname, mmail, mphone, mbirth, mclass
 		FROM member
 		WHERE NOT mclass = 0
@@ -60,13 +60,33 @@
 	</select>
 	
 	<!-- 개인정보 페이지 -->
-	<select id="mpage" parameterType="java.lang.Integer" resultType="MemberDAO">
+	<select id="myPage" parameterType="java.lang.Integer" resultType="MemberDAO">
 		SELECT mno, mid, mnick, mname, mmail, mphone, mbirth, mclass
 		FROM member
 		WHERE NOT mclass = 0 
 		AND mno = #{mno}
 	</select>
 	
+	<!-- 회원정보 수정 -->
+	<update id="memberUpdate" parameterType="MemberDAO">
+		UPDATE member 
+		SET mpass= #{mpass}, mname= #{mname}, mmail= #{mmail}, mphone= #{mphone}, mbirth= #{mbirth}, mdel= #{mdel}
+		WHERE mno = #{mno}
+	</update>
+	
+	<!-- 회원정보 삭제 -->
+	<update id="memberDelete" parameterType="java.lang.Integer">
+		UPDATE member 
+		SET mclass= 0
+		WHERE mno = #{mno}
+	</update>
+	
+	
+	<!-- 펫등록  -->
+	<insert id="pregister" parameterType="PetDAO">
+			INSERT INTO pet(mno, pdiv, pname, pbirth, pnum, pdel, petc) 
+			VALUES(#{mno },#{pdiv},#{pname},#{pbirth},#{pnum},#{pdel},#{petc})	
+	</insert>
 	<!-- 펫정보 페이지 -->
 	<select id="petInfo" resultType="PetDAO">
 		SELECT pno, mno, pdiv, pname, pbirth, pnum, pdel, petc
@@ -74,11 +94,13 @@
 		WHERE NOT pdel = 5
 		ORDER BY mno DESC
 	</select>
+		<!-- 펫 정보 페이지 -->
+	<select id="petPage" parameterType="java.lang.Integer" resultType="MemberDAO">
+		SELECT pno, mno, pdiv, pname, pbirth, pnum, pdel, petc
+		FROM pet
+		WHERE NOT mclass = 5 
+		AND pno = #{pno}
+	</select>
 
-<!-- 펫등록  -->
-<insert id="pregister" parameterType="PetDAO">
-		INSERT INTO pet(mno, pdiv, pname, pbirth, pnum, pdel, petc) 
-		VALUES(#{mno },#{pdiv},#{pname},#{pbirth},#{pnum},#{pdel},#{petc})	
-</insert>
 	
 </mapper>

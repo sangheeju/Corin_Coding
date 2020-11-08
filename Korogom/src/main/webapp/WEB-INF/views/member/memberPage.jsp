@@ -56,7 +56,7 @@
 <tbody id="myTable">
 				<c:forEach var="MemberDAO" items="${mylist }">
 				 	<tr>
-					 	<td><a href="mpage?mno=${MemberDAO.mno}">${MemberDAO.mid } </a></td>
+					 	<td><a href="myPage?mno=${MemberDAO.mno}">${MemberDAO.mid } </a></td>
 					 	<td>${MemberDAO.mnick }</td>
 					 	<td>${MemberDAO.mname }</td>
 					 	<td>${MemberDAO.mmail }</td>

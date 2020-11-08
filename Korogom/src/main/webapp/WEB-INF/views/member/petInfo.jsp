@@ -39,7 +39,7 @@ div.buttonclass {
 		<div class="col-sm-9">
 	 <ul class="nav nav-tabs">
 	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/member/mypage">사용자 정보</a>
+	      <a class="nav-link" href="${pageContext.request.contextPath}/member/memberPage">사용자 정보</a>
 	    </li>
 	    <li class="nav-item">
 	      <a class="nav-link active" href="${pageContext.request.contextPath}/member/petInfo">반려동물 정보</a>

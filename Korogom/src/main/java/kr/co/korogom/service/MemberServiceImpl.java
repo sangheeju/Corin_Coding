@@ -29,12 +29,6 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberDAO login(Map<String,Object> map) {		//로그인
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".login", map);
-	}
-
-	@Override
 	public int midCheck(MemberDAO memberDAO) {		//아이디 중복검사
 		// TODO Auto-generated method stub
 		int result = sqlSession.selectOne(namespace+".midCheck", memberDAO);
@@ -46,47 +40,80 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".mnickCheck", memberDAO);
 	}
-
+	
 	@Override
-	public List<MemberDAO> mypage() {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+".mypage");
-	}
-//	@Override
-//	public int passChk(MemberDAO memberDAO) {
-//		// TODO Auto-generated method stub
-//		int result = sqlSession.selectOne(namespace+".passChk", memberDAO);
-//		return result;
-//	}
-
-	@Override
-	public String find_userid(Map<String, Object> user) {
+	public String find_userid(Map<String, Object> user) {	//아이디 찾기
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".find_userid", user);
 	}
-
-	@Override
-	public List<PetDAO> petInfo() {
+	
+	@Override						
+	public String find_password(Map<String, Object> user) {		//비밀번호 찾기
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+".petInfo");
+		return sqlSession.selectOne(namespace+".find_password", user);
 	}
 
 	@Override
-	public int pregister(PetDAO petDAO) {
+	public MemberDAO login(Map<String,Object> map) {		//로그인
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".login", map);
+	}
+
+	@Override
+	public List<MemberDAO> memberPage() {					//회원정보
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".memberPage");
+	}
+	
+	@Override
+	public MemberDAO myPage(int mno) {						//개인정보
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".myPage", mno);
+	}
+
+	@Override
+	public int memberUpdate(MemberDAO memberDAO) {			//회원정보 수정
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".memberUpdate", memberDAO);
+	}
+
+	@Override
+	public int memberDelete(int mno) {						//회원정보 삭제
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".memberDelete", mno);
+	}
+
+	@Override
+	public int pregister(PetDAO petDAO) {					//반려동물 등록
 		// TODO Auto-generated method stub
 		return sqlSession.insert(namespace+".pregister", petDAO);
 	}
-
+	
 	@Override
-	public MemberDAO mpage(int mno) {
+	public List<PetDAO> petInfo() {							//반려동물 리스트
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".mpage", mno);
+		return sqlSession.selectList(namespace+".petInfo");
+	}
+	
+	@Override
+	public PetDAO petPage(int pno) {						//반려동물 정보 페이지
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".petPage", pno);
+	}
+	
+	@Override
+	public int petUpdate(PetDAO petDAO) {					//반려동물 수정
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".petUpdate", petDAO);
 	}
 
-//	@Override
-//	public List<MemberDAO> mypage() {
-//		// TODO Auto-generated method stub
-//		return sqlSession.selectList(namespace+".mypage");
-//	}
+	@Override
+	public int petDelete(int pno) {							//반려동물 삭제
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".petDelete", pno);
+	}
+
+
+
 	
 }
