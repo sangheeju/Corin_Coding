@@ -51,7 +51,7 @@ div.buttonclass {
 	  </form>
 	  </div>
 			<input class="form-control" id="myInput" type="text"
-				placeholder="검색어 입력.."> <br>
+				placeholder="필터하실 단어를 입력 해 주세요.."> <br>
 			<table class="table table-bordered">
 				<thead>
 					<tr>

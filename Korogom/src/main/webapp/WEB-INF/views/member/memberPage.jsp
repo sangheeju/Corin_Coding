@@ -19,15 +19,21 @@
 			<div class="spinner-border text-danger"></div><br>
 			<img src="../resources/images/roro.jpg" class="rounded" alt="test" width="100%" /><p></p>
 			<div class="form-group">
-    <div class="input-group mb-3">
-      <div class="custom-file">
-        <input type="file" class="custom-file-input" id="inputGroupFile02">
-        <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-      </div>
-      <div class="input-group-append">
-        <span class="input-group-text" id="">Upload</span>
-      </div>
+  <form action="">
+    <p>Custom file:</p>
+    <div class="custom-file mb-3">
+      <input type="file" class="custom-file-input" id="customFile" name="filename">
+      <label class="custom-file-label" for="customFile">Choose file</label>
     </div>
+    
+    <p>Default file:</p>
+    <input type="file" id="myFile" name="filename2">
+  
+    <div class="mt-3">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+
   </div>
 		</div>
 		<div class="col-sm-9">
@@ -40,7 +46,7 @@
 	    </li>
 	  </ul>
 	  			<input class="form-control" id="myInput" type="text" style="margin: 10px"
-				placeholder="검색어 입력.."> <br>
+				placeholder="필터하실 단어를 입력 해 주세요.."> <br>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
@@ -81,6 +87,13 @@ $(document).ready(function(){
     });
   });
 });
+
+//Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+var fileName = $(this).val().split("\\").pop();
+$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
 </script>	
 <!-- bottom -->
 		<%@ include file="../includes/bottom.jsp"%>

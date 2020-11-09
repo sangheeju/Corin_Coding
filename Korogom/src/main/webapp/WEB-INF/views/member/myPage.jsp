@@ -87,7 +87,7 @@
 				</div>							
 				<button type="submit" id="update" name="update" value="update" class="btn btn-primary">회원정보 수정</button>
 				  <!-- Trigger the modal with a button -->
-  				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">회원 탈퇴 </button>
+  				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">회원 탈퇴 </button>
 			  <!-- Modal -->
 				  <div class="modal fade" id="myModal" role="dialog">
 				    <div class="modal-dialog">
@@ -103,14 +103,13 @@
 				          	기존 사용 하셨던 아이디는 관리자 확인 이후에 삭제되어 바로 사용 할 수 없는점 참고 바랍니다. </p>
 				        </div>
 				        <div class="modal-footer">
-				          <button type="button"  id="delete" name="delete" class="btn btn-danger" data-dismiss="modal">회원 탈퇴</button>
+				          <button type="button"  id="delete" name="delete" class="btn btn-dark" data-dismiss="modal">회원 탈퇴</button>
 				          <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 				        </div>
 				      </div>
-      
-    </div>
-  </div>
-				
+				    </div>
+				  </div>
+				<button type="button" id="tolist" name="tolist" value="tolist" class="btn btn-success">회원 목록</button>				
 		</div>
 	</div>
 </div>
@@ -121,8 +120,12 @@
 			location.href="memberUpdate?mno=" + ${myinfo.mno};
 		});
 		//회원 탈퇴 버튼을 눌렀을 때 처리
-		$(".btn-danger").click(function(){
+		$(".btn-dark").click(function(){
 			location.href="memberDelete?mno=" + ${myinfo.mno};
+		});
+		//목록으로 버튼을 눌렀을 때 처리
+		$(".btn-success").click(function(){
+			location.href="memberPage";
 		});
 	})
 	</script>

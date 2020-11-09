@@ -89,12 +89,21 @@
 						
 				</div>			
 				<button  type="submit" class="btn btn-primary">회원정보 수정</button>
+				<button  type="button" class="btn btn-success">취소</button>
 		</form>
 
 		</div>
 	</div>
 
 </div>
+<script>
+	$(function(){
+		//목록으로 버튼을 눌렀을 때 처리
+		$(".btn-success").click(function(){
+			location.href= "myPage?mno=" + ${member.mno};
+		});
+	})
+	</script>
 	<!-- bottom -->
 		<%@ include file="../includes/bottom.jsp"%>
 	

@@ -21,7 +21,7 @@
 			<div class="form-group">
 				<table>
 					<tr>
-						<td>${petdetail.pdiv}<label for="pdiv">반려동물 종류:</label></td>
+						<td><label for="pdiv">반려동물 종류:</label></td>
 						<td><input type="text" class="form-control" id="pdiv"
 							value="${petdetail.pdiv}" name="pdiv" readonly="readonly" /></td>
 					</tr>
@@ -81,6 +81,7 @@
 	
 		</div>
 	</div>
+	<button type="button" id="tothelist" name="tothelist" value="tothelist" class="btn btn-success">펫 목록</button>
 </div>
 </div>
 </div>
@@ -93,6 +94,10 @@
 		//회원 탈퇴 버튼을 눌렀을 때 처리
 		$(".btn-danger").click(function(){
 			location.href="petDelete?pno=" + ${petdetail.pno};
+		});
+		//목록으로 버튼을 눌렀을 때 처리
+		$(".btn-success").click(function(){
+			location.href="petInfo";
 		});
 	})
 	</script>
