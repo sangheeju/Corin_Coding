@@ -42,7 +42,7 @@
 						<tr>
 							<td><label for="mpass">* 비밀번호:</label></td>
 							<td><input type="password" class="form-control" id="mpass"
-								name="mpass" value="********" readonly="readonly" /> 
+								name="mpass" value="********" readonly="readonly" /> </td>
 						</tr>
 					</table>
 				</div>
@@ -51,7 +51,7 @@
 						<tr>
 							<td><label for="mnick">* 별명:</label></td>
 							<td><input  type="text" class="form-control" id="mnick"
-								name="mnick"  value="${myinfo.mnick}" readonly="readonly"/> 								
+								name="mnick"  value="${myinfo.mnick}" readonly="readonly"/> </td>								
 						</tr>
 					</table>
 				</div>
@@ -60,7 +60,7 @@
 						<tr>
 							<td><label for="mname">* 이름:</label></td>
 							<td><input type="text" class="form-control" id="mname"
-								 name="mname" value="${myinfo.mname}" readonly="readonly" /> 
+								 name="mname" value="${myinfo.mname}" readonly="readonly" /> </td>
 						</tr>						
 					</table>
 				</div>
@@ -86,7 +86,31 @@
 						name="mdel" readonly="readonly" value="${myinfo.mdel}" />						
 				</div>							
 				<button type="submit" id="update" name="update" value="update" class="btn btn-primary">회원정보 수정</button>
-				<button type="button" id="delete" name="delete" value="delete" class="btn btn-danger">회원 탈퇴 </button>
+				  <!-- Trigger the modal with a button -->
+  				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">회원 탈퇴 </button>
+			  <!-- Modal -->
+				  <div class="modal fade" id="myModal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <h4 class="modal-title">회원 탈퇴 확인</h4>
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        </div>
+				        <div class="modal-body">
+				          <p>회원에서  탈되 하시겠습니까?<br/>
+				          	기존 사용 하셨던 아이디는 관리자 확인 이후에 삭제되어 바로 사용 할 수 없는점 참고 바랍니다. </p>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button"  id="delete" name="delete" class="btn btn-danger" data-dismiss="modal">회원 탈퇴</button>
+				          <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+				        </div>
+				      </div>
+      
+    </div>
+  </div>
+				
 		</div>
 	</div>
 </div>

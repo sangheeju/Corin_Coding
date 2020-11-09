@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
@@ -163,7 +162,9 @@ public class MemberController {
 	}
 		
 	@RequestMapping(value="memberUpdate",method=RequestMethod.GET)
-	public String memberUpdate() {
+	public String memberUpdate(@RequestParam("mno")int mno, Model model) {
+		MemberDAO member = memberService.myPage(mno);
+		model.addAttribute("member", member);
 		logger.info("==== : 개인정보 수정 페이지로 이동합니다 : ====");
 		return "member/memberUpdate";
 	}
@@ -172,9 +173,8 @@ public class MemberController {
 	public String memberUpdate(MemberDAO memberDAO) {
 		logger.info("==== : 개인정보를 수정합니다 : ====");
 		int r = memberService.memberUpdate(memberDAO);
-		logger.info("DAO값 확인용: "+memberService.memberUpdate(memberDAO));
 		if(r>0) {
-			return "redirect:myPage";
+			return "redirect:myPage?mno="+memberDAO.getMno();
 		}		
 		return "member/memberUpdate?mno="+memberDAO.getMno();
 	}
@@ -199,7 +199,6 @@ public class MemberController {
 	
 	@RequestMapping(value="pregister", method=RequestMethod.POST)
 	public String pregister(@ModelAttribute @Valid PetDAO petDAO, HttpServletRequest request, BindingResult result) throws Exception {
-		
 		logger.info("==petDAO확인=="+petDAO);
 				
 		// 에러가 있는지 검사
@@ -232,11 +231,45 @@ public class MemberController {
 
 			return mandv;
 	}
+	
 	@RequestMapping(value="petPage", method=RequestMethod.GET)
 	public String petPage(@RequestParam("pno") int pno, Model model) {
 		logger.info("==== : 반려동물 정보 페이지로 이동합니다 : ====");
-		PetDAO petinfo = memberService.petPage(pno);
-		model.addAttribute("myinfo", petinfo);
+		
+		PetDAO petdetail = memberService.petPage(pno);
+		model.addAttribute("petdetail", petdetail);
 		return "member/petPage";
 	}
-}
+
+	
+	@RequestMapping(value="petUpdate",method=RequestMethod.GET)
+	public String petUpdate(@RequestParam("pno")int pno, Model model) {
+		PetDAO pet = memberService.petPage(pno);
+		model.addAttribute("pet", pet);
+		logger.info("==== : 반려 동불 정보 수정 페이지로 이동합니다 : ====");
+		return "member/petUpdate";
+	}
+	
+	@RequestMapping(value="petUpdate",method=RequestMethod.POST )
+	public String petUpdate(PetDAO petDAO) {
+		logger.info("==== : 반려동물 정보를 수정합니다 : ====");
+		int r = memberService.petUpdate(petDAO);
+		if(r>0) {
+			return "redirect:petPage?pno="+petDAO.getPno();
+		}		
+		return "member/petUpdate?pno="+petDAO.getPno();
+	}
+	
+	
+	@RequestMapping(value="petDelete", method= {RequestMethod.POST,RequestMethod.GET})
+	public String petDelete(@RequestParam("pno")int pno) {
+		logger.info("==== : 요청하신 반려동물 정보를 삭제합니다 : ====");
+		int r = memberService.petDelete(pno);
+		if(r>0) {
+			return "redirect:petInfo";
+		}
+		logger.info("=오류발생=");
+		return "redirect:petPage?pno="+pno;
+	}
+}	
+

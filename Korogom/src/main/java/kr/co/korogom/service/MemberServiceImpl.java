@@ -7,7 +7,6 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;

@@ -12,7 +12,7 @@ div.buttonclass {
 <!-- top -->
 	<%@ include file="../includes/top.jsp"%>
 <div class="container">
-	<h2>회원 관리 페이지</h2>
+	<h2>반려동물 관리 페이지</h2>
 </div>
 
 <div class="container mt-3">
@@ -68,7 +68,7 @@ div.buttonclass {
 				<tbody id="myTable">
 					<c:forEach var="PetDAO" items="${petList }">
 				 	<tr>
-					 	<td>${PetDAO.pno }</td>
+					 	<td><a href="petPage?pno=${PetDAO.pno}">${PetDAO.pno } </a></td>
 					 	<td>${PetDAO.mno }</td>
 					 	<td>${PetDAO.pdiv }</td>
 					 	<td>${PetDAO.pname }</td>

@@ -39,10 +39,10 @@
 	      <a class="nav-link" href="${pageContext.request.contextPath}/member/petInfo">반려동물 정보</a>
 	    </li>
 	  </ul>
-	  			<input class="form-control" id="myInput" type="text"
+	  			<input class="form-control" id="myInput" type="text" style="margin: 10px"
 				placeholder="검색어 입력.."> <br>
 			<table class="table table-bordered">
-<thead>
+				<thead>
 					<tr>
 						<th>User ID</th>
 						<th>Nick Name</th>
@@ -52,20 +52,20 @@
 						<th>Birthday</th>
 						<th>Class</th>
 					</tr>
-</thead>
-<tbody id="myTable">
-				<c:forEach var="MemberDAO" items="${mylist }">
-				 	<tr>
-					 	<td><a href="myPage?mno=${MemberDAO.mno}">${MemberDAO.mid } </a></td>
-					 	<td>${MemberDAO.mnick }</td>
-					 	<td>${MemberDAO.mname }</td>
-					 	<td>${MemberDAO.mmail }</td>
-					 	<td>${MemberDAO.mphone }</td>
-					 	<td>${MemberDAO.mbirth }</td>
-					 	<td>${MemberDAO.mclass }</td>
-				 	</tr>
-				</c:forEach>
-</tbody>
+				</thead>
+				<tbody id="myTable">
+					<c:forEach var="MemberDAO" items="${mylist }">
+					 	<tr>
+						 	<td><a href="myPage?mno=${MemberDAO.mno}">${MemberDAO.mid } </a></td>
+						 	<td>${MemberDAO.mnick }</td>
+						 	<td>${MemberDAO.mname }</td>
+						 	<td>${MemberDAO.mmail }</td>
+						 	<td>${MemberDAO.mphone }</td>
+						 	<td>${MemberDAO.mbirth }</td>
+						 	<td>${MemberDAO.mclass }</td>
+					 	</tr>
+					</c:forEach>
+				</tbody>
 			</table>
 							<input class="btn btn-success" type="button" value="메인으로" id="main" />
 		</div>

@@ -24,7 +24,7 @@ public class PetDAO {
 	private String pbirth;
 	private int pnum;			//동물 등록 번호
 	
-	private int pdel;		//반려동물 성별 1=암컷, 2=수컷, 3=중성화 암컷, 4=중성화 수컷, 5 = 삭제
+	private int pdel;		//반려동물 성별 0 = 삭제, 1=암컷, 2=수컷, 3=중성화 암컷, 4=중성화 수컷, 
 	private String petc;
 	
 	

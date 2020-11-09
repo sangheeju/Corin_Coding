@@ -14,7 +14,7 @@
 
 	<h2>회원 정보 수정</h2>
 	<div class="row">
-		<div class="col-sm-3">
+		<div class="col-sm-4">
 			<div class="profile-img">
                 <img src="../resources/images/dd.jpg" alt="test" class="rounded" width="100%"/>
                <div class="col-sm-12 file btn btn-sm btn-info">
@@ -23,15 +23,16 @@
                 </div>
             </div>
 		</div>
-		<div class="col-sm-9">                    
-			<form id="upForm"  method="POST">               
+		<div class="col-sm-8">                    
+			<form id="upForm"  method="POST">
+			<input type="hidden" id="mno" name="mno" value="${member.mno }"/>               
 				<div class="form-group">
 					<table>
 						<tr>
 							<td><label for="mid">* 아이디:</label></td>
 							<td>
 							<input  type = "text" class = "form-control" id = "mid"
-								name = "mid" value="${myinfo.mid}"  readonly="readonly" /> 
+								name = "mid" value="${member.mid}"  readonly="readonly" /> 
 								</td>
 						</tr>
 					</table>
@@ -50,7 +51,7 @@
 						<tr>
 							<td><label for="mnick">* 별명:</label></td>
 							<td><input  type="text" class="form-control" id="mnick"
-								name="mnick"  value="${myinfo.mnick}" readonly="readonly"/> 								
+								name="mnick"  value="${member.mnick}" readonly="readonly"/> 								
 						</tr>
 					</table>
 				</div>
@@ -59,7 +60,7 @@
 						<tr>
 							<td><label for="mname">이름:</label></td>
 							<td><input type="text" class="form-control" id="mname"
-								 name="mname" value="${myinfo.mname}" /> 
+								 name="mname" value="${member.mname}" /> 
 						</tr>						
 					</table>
 				</div>
@@ -67,24 +68,24 @@
 					<label for="mmail">* 이메일 주소:</label> 
 					<input  type="email"
 						class="form-control" id="mmail" 
-						name="mmail" value="${myinfo.mmail}" />
+						name="mmail" value="${member.mmail}" />
 				</div>
 				<div class="form-group">
 					<label for="mphone">* 연락처:</label> <input type="text"
 						class="form-control" id="mphone" 
-						name="mphone"  value="${myinfo.mphone}" />
+						name="mphone"  value="${member.mphone}" />
 				</div>
 				<div class="form-group">
 					<label for="mbirth">생일:</label> <input  type="text"
 						class="form-control" id="mbirth"
-						name="mbirth" value="${myinfo.mbirth}"/>						
+						name="mbirth" value="${member.mbirth}"/>						
 				</div>
 				
 				
 				<div class="form-group">
 					<label for="mdel">성별:</label> 
 					<input type="text" class="form-control" id="mdel" 
-						name="mdel" value="${myinfo.mdel}" />
+						name="mdel" value="${member.mdel}" />
 						
 				</div>			
 				<button  type="submit" class="btn btn-primary">회원정보 수정</button>

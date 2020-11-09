@@ -87,20 +87,32 @@
 			INSERT INTO pet(mno, pdiv, pname, pbirth, pnum, pdel, petc) 
 			VALUES(#{mno },#{pdiv},#{pname},#{pbirth},#{pnum},#{pdel},#{petc})	
 	</insert>
-	<!-- 펫정보 페이지 -->
+	<!-- 펫정보 리스트 페이지 -->
 	<select id="petInfo" resultType="PetDAO">
 		SELECT pno, mno, pdiv, pname, pbirth, pnum, pdel, petc
 		FROM pet
-		WHERE NOT pdel = 5
+		WHERE NOT pdel = 0
 		ORDER BY mno DESC
 	</select>
 		<!-- 펫 정보 페이지 -->
-	<select id="petPage" parameterType="java.lang.Integer" resultType="MemberDAO">
+	<select id="petPage" parameterType="java.lang.Integer" resultType="PetDAO">
 		SELECT pno, mno, pdiv, pname, pbirth, pnum, pdel, petc
 		FROM pet
-		WHERE NOT mclass = 5 
+		WHERE NOT pdel = 0 
 		AND pno = #{pno}
 	</select>
-
 	
+		<!-- 반려동물 정보 수정 -->
+	<update id="petUpdate" parameterType="PetDAO">
+		UPDATE pet 
+		SET pdiv= #{pdiv}, pname= #{pname}, pbirth= #{pbirth}, pnum= #{pnum}, petc= #{petc}
+		WHERE pno = #{pno}
+	</update>
+	
+		<!-- 펫 정보 삭제 -->
+	<update id="petDelete" parameterType="java.lang.Integer">
+		UPDATE pet 
+		SET pdel = 0
+		WHERE pno = #{pno}
+	</update>
 </mapper>
