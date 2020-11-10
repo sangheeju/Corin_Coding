@@ -115,4 +115,44 @@
 		SET pdel = 0
 		WHERE pno = #{pno}
 	</update>
+	
+	
+		<!-- 멤버 검색  -->
+		
+    <sql id="criteria">
+	<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+		<foreach item='type' collection="typeArr" >
+			<trim prefix="OR">
+				<choose>
+					<when test="type == 'I'.toString()">
+						mid LIKE '%'||#{keyword}||'%'
+					</when>
+					<when test="type == 'N'.toString()">
+						mnick LIKE '%'||#{keyword}||'%'
+					</when>
+					<when test="type == 'C'.toString()">
+						mclass LIKE '%'||#{keyword}||'%'
+					</when>
+				</choose>
+			</trim>
+		</foreach>
+	</trim> 
+	</sql>
+		
+	<select id="searchList" resultType="MemberDAO">
+		<![CDATA[
+		SELECT mid, mnick, mname, mmail, mphone, mbirth, mclass
+        FROM (
+			SELECT /*+INDEX_DESC(member pk_member)*/
+				mno, mid, mnick, mname, mmail, mphone, mbirth, mclass
+			FROM member
+            WHERE
+        ]]>
+<include refid="criteria"></include>
+		<![CDATA[
+			            ) n
+			WHERE NOT mclass= 0;
+		]]>	
+	</select>
+	
 </mapper>
