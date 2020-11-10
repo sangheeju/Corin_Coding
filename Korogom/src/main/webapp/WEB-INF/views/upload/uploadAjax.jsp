@@ -51,16 +51,17 @@ $(document).ready(function(){
 				return false;
 			}
 			formData.append("uploadFile", files[i]);			
-		}
 		console.log("로그 :"+formData);	
+		}
 		$.ajax({
 			url: "${pageContext.request.contextPath}/upload/uploadAjaxAction",
 			processData: false,
 			contentType: false,
 			data: formData,
-			type:'POST',
-			success: function(result){
-				alert("Uploaded");				
+				type:'POST',
+		
+				success: function(result){
+					console.log(result);		
 			}			
 		}); // $.ajax		
 	});
