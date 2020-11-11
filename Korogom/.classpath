@@ -36,11 +36,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="D:/webLib/cos.jar"/>
-	<classpathentry kind="lib" path="D:/webLib/javax.servlet-api-3.1.0.jar"/>
-	<classpathentry kind="lib" path="D:/webLib/jstl-1.2.jar"/>
-	<classpathentry kind="lib" path="D:/webLib/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="D:/webLib/mysql-connector-java-8.0.21.jar"/>
-	<classpathentry kind="lib" path="D:/webLib/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/weblib/cos.jar"/>
+	<classpathentry kind="lib" path="C:/weblib/javax.servlet-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/weblib/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/weblib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="C:/weblib/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/weblib/mysql-connector-java-8.0.21.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

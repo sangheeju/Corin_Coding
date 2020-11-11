@@ -73,44 +73,10 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<div class='row'>
-				<div class="col-lg-12">
-					<form id='searchForm'>
-						<select name='type'>
-							<option value="">--</option>
-							<option value="I">아이디</option>
-							<option value="N">별명</option>
-							<option value="C">등급</option>
-							<option value="TN">아이디 or 별명</option>
-							<option value="TC">아이디 or 등급</option>
-							<option value="TNC">아이디 or 별명 or 등급 </option>							
-						</select>
-						<input type='text' name='keyword' />
-						<button class='btn btn-info'>Search</button>
-					</form>
-				</div>
-			</div>
 							<input class="btn btn-success" type="button" value="메인으로" id="main" />
 		</div>
 	</div>
 </div>
-<script>
-$(document).ready(function(){
-	var searchForm = $("#searchForm");
-	$("#searchForm button").on("click", function(e){
-		if (!searchForm.find("option:selected").val()){
-			alert("검색종류를 선택하세요")
-			return false;
-		}
-		if(!searchForm.find("input[name='keyword']").val()){
-			alert("키워드를 입력하세요");
-			return false;
-		}
-		e.preventDefault();
-		searchForm.submit();
-	});
-});
-	</script>
 
 
 <script>

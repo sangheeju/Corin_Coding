@@ -1,5 +1,7 @@
 package kr.co.korogom.domain;
 
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -27,6 +29,8 @@ public class PetDAO {
 	private int pdel;		//반려동물 성별 0 = 삭제, 1=암컷, 2=수컷, 3=중성화 암컷, 4=중성화 수컷, 
 	private String petc;
 	
+	
+	private List<PhotoFileDAO> photoList;
 	
 	public int getPno() {
 		return pno;

@@ -14,6 +14,17 @@
 			<img src="../resources/images/dd.jpg" class="rounded" alt="test"
 				width="100%" />
 			<hr>
+			<div class="form-group">
+    <div class="input-group mb-3">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="inputGroupFile02">
+        <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+      </div>
+      <div class="input-group-append">
+        <span class="input-group-text" id="">Upload</span>
+      </div>
+    </div>
+  </div>
 		</div>
 		<div class="col-sm-9">
 			<input type="hidden" id="mno" name="mno" value="${petdetail.mno }" />
