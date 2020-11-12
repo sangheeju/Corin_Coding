@@ -7,7 +7,98 @@
 <%@ include file="../includes/header.jsp"%>
 <!-- top -->
 	<%@ include file="../includes/top.jsp"%>
+<script>
+	$(document).ready(function(e){
+		var formObj = $("form[role='form']");
+		$("button[type='submit']").on("click", function(e){
+			e.preventDefault();
+			console.log("submit clicked");
+		});
+		
+		//업로드시 필요한 코드
+		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|pdf|txt|hwp|xlsx|doc)$");
+		var maxSize = 5242880; //5MB
 
+		function checkExtension(fileName, fileSize){
+			
+			if(fileSize >= maxSize){
+				alert("파일 사이즈 초과");
+				return false;
+			}
+			if(regex.test(fileName)){
+				alert("해당 종류의 파일은 업로드 할 수 없습니다.");
+				return false;
+			}
+			return true;
+		}
+		
+		$("input[type='file']").change(function(e){
+			var formData = new FormData();
+			var inputFile = $("input[name='uploadFile']");
+			var files = inputFile[0].files;
+			
+			console.log("files로그 :"+files);		
+			
+			//add filedate to formdata
+			for(var i=0; i<files.length; i++){
+				if(!checkExtension(files[i].name,files[i].size)){
+					return false;
+				}
+				formData.append("uploadFile", files[i]);			
+			console.log("로그 :"+formData);	
+			}
+			$.ajax({
+				url: "${contextPath}/upload/uploadAjaxAction",
+				processData: false,
+				contentType: false,
+				data: formData,
+					type:'POST',			
+					success: function(result){
+						console.log(result);	
+						showUploadedFile(result); //업로드 결과 처리 함수
+					//	$(".uploadDiv").html(cloneObj.html());
+				}
+			}); // $.ajax		
+		});
+		
+	});
+	
+	function showUploadResult(uploadResultArr){
+		if(!uploadResultArr||uploadResultArr.length == 0){return;}
+		var uploadUL = $(".uploadResult ul");
+		var str = "";
+		
+		$(uploadResultArr).each(function(i, obj){
+			//image type
+			if(obj.image){
+				var fileCallPath = encodeURIComponenvt(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+				str += "<li data-path='"+obj.uploadPath+"'";
+				str += " data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
+				str += "><div>";
+				str += "<span>" + obj.fileName + "</span>";
+				str += "<button type='button' data-file=\'"+fileCallPath+"\' "
+				str += "data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+				str += "<img src='${contextPath}/upload/display?fileName="+fileCallPath+"'>";
+				str += "</div>";
+				str += "</li>";
+			} else{
+				var fileCallPath = encodeURIComponent( obj.uploadPath + "/" + obj.uuid+"_"+obj.fileName);
+				var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
+				str += "<li "
+				str += "data-path='"+obj.uploadPath+"' data-uuid'"+obj.uuid+'"data-fileName="'+obj.fileName+"' data-type='"+obj.image+"'><div>";
+				str += "<span>"+ obj.fileName+"</span>"
+				str += "<button type='button' data-type=\'"+fileCallPath+"\'data-type='file' "
+				str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+				str += "<img src='${contextPath}/resources/images/attachment.png'></a>";
+				str += "</div>";
+				str += "</li>";	
+			}
+		});	
+		uploadUL.append(str);
+	}
+	
+	
+</script>
 
 <div class="container">
 
@@ -16,17 +107,22 @@
 		<div class="col-sm-4">
 <img src="../resources/images/dd.jpg" class="rounded" alt="test" width="100%" />
 <hr>
-<div class="form-group">
-    <div class="input-group mb-3">
-      <div class="custom-file">
-        <input type="file" class="custom-file-input" id="inputGroupFile02">
-        <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-      </div>
-      <div class="input-group-append">
-        <span class="input-group-text" id="">Upload</span>
-      </div>
-    </div>
-  </div>
+
+<!-- 사진 업로드 구간 -->
+<div class="panel panel-default">
+	<div class="panel-heading">File Attach</div>
+	<!--  /.panel-heading -->
+	<div class="panel-body">
+		<div class="form-group uploadDiv">
+			<input type="file" name='uploadFile' multiple>
+		</div>
+		<div class='uploadResult'>
+			<ul>
+				
+			</ul>
+		</div>		
+	</div>
+</div> <!-- end of Panel -->
 </div>
 		<div class="col-sm-8">
 <form:form modelAttribute="petDAO" method="POST" id="pregister" name="pregister">
