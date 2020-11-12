@@ -2,11 +2,12 @@ package kr.co.korogom.mapper;
 
 import java.util.List;
 
-import kr.co.korogom.domain.PetDAO;
+
+import kr.co.korogom.domain.PhotoFileDAO;
 
 public interface PhotoFileMapper {
 
-	public void insert(PetDAO petdao);
+	public void insert(PhotoFileDAO photoDAO);
 	public void delete(String uuid);
-	public List<PetDAO> findByPno(int pno);
+	public List<PhotoFileDAO> findByPno(int pno);
 }

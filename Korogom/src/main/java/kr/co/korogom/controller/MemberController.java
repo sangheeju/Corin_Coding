@@ -28,10 +28,12 @@ import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
 import kr.co.korogom.service.MemberService;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 @RequestMapping("/member/*")
 @Controller
 @AllArgsConstructor
+@Log4j
 public class MemberController {
 	
 	@Inject
@@ -211,6 +213,9 @@ public class MemberController {
 				}
 				return "redirect/pregister";
 			}		
+			if (petDAO.getPhotoList() != null) {
+				petDAO.getPhotoList().forEach(attach -> log.info(attach));			
+			}
 			memberService.pregister(petDAO);
 			logger.info("==dao=="+petDAO);
 			logger.info("==== : 반려동물이 등록되었습니다 : ====");	

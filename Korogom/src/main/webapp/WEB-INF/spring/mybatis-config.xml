@@ -8,7 +8,9 @@
 <typeAliases>
  	<typeAlias alias="MemberDAO" type="kr.co.korogom.domain.MemberDAO"></typeAlias>
  	<typeAlias alias="PetDAO" type="kr.co.korogom.domain.PetDAO"></typeAlias>
- 	<typeAlias alias="MemberMapper" type="kr.co.korogom.mapper.MemberMapper"></typeAlias>
+<!-- 	<typeAlias alias="MemberMapper" type="kr.co.korogom.mapper.MemberMapper"></typeAlias>
+ 	<typeAlias alias="PhotoFileMapper" type="kr.co.korogom.mapper.PhotoFileMapper"></typeAlias>
+ -->	
  	</typeAliases>
  
 </configuration>

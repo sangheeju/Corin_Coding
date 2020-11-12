@@ -6,18 +6,32 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
+import kr.co.korogom.mapper.MemberMapper;
+import kr.co.korogom.mapper.PhotoFileMapper;
 import lombok.AllArgsConstructor;
+import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 
-@Service
+@Log4j
 @AllArgsConstructor
+@Service
 public class MemberServiceImpl implements MemberService{
 		
 	@Inject
 	private SqlSession sqlSession;
+	
+	@Setter(onMethod_= @Autowired)
+	private MemberMapper mapper;
+	
+	@Setter(onMethod_= @Autowired)
+	private PhotoFileMapper photoMapper;
+	
 	
 	private static final String namespace = "kr.co.korogom.member";
 			
@@ -82,9 +96,22 @@ public class MemberServiceImpl implements MemberService{
 		return sqlSession.update(namespace+".memberDelete", mno);
 	}
 
+	@Transactional
 	@Override
 	public int pregister(PetDAO petDAO) {					//반려동물 등록
 		// TODO Auto-generated method stub
+		log.info("pregister....."+petDAO);
+		mapper.pregister(petDAO);
+		
+		if(petDAO.getPhotoList() == null || petDAO.getPhotoList().size() <= 0) {
+			return 0;
+		}
+		
+		petDAO.getPhotoList().forEach(attach -> {
+			attach.setPno(petDAO.getPno());
+			photoMapper.insert(attach);
+		});
+		
 		return sqlSession.insert(namespace+".pregister", petDAO);
 	}
 	
