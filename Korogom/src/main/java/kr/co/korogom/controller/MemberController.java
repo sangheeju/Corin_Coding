@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
+import kr.co.korogom.domain.PhotoFileDAO;
 import kr.co.korogom.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -199,6 +200,16 @@ public class MemberController {
 		return "member/pregister";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="insertPic", method=RequestMethod.POST)
+	public int insertPic(PhotoFileDAO photoDAO) {
+		int done= memberService.insertPic(photoDAO);
+		if (done > 0 ) {
+			logger.info("==== : 사진이 등록되었습니다 : ====");
+		}		
+		return done;
+	}
+	
 	@RequestMapping(value="pregister", method=RequestMethod.POST)
 	public String pregister(@ModelAttribute @Valid PetDAO petDAO, HttpServletRequest request, BindingResult result) throws Exception {
 		logger.info("==petDAO확인=="+petDAO);
@@ -214,7 +225,7 @@ public class MemberController {
 				return "redirect/pregister";
 			}		
 			if (petDAO.getPhotoList() != null) {
-				petDAO.getPhotoList().forEach(attach -> log.info(attach));			
+				petDAO.getPhotoList().forEach(attach -> logger.info("logger attach :"+attach));			
 			}
 			memberService.pregister(petDAO);
 			logger.info("==dao=="+petDAO);

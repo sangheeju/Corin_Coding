@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
+import kr.co.korogom.domain.PhotoFileDAO;
 
 public interface MemberService {
 	
@@ -21,6 +22,7 @@ public interface MemberService {
 	public int memberUpdate(MemberDAO memberDAO);		//회원 정보 수정
 	public int memberDelete(int mno);					//회원 정보 삭제
 	
+	public int insertPic(PhotoFileDAO photoDAO);		//반려동물 사진 등록
 	public int pregister(PetDAO petDAO);				//반려동물 등록
 	public List<PetDAO> petInfo();						//반려동물 리스트 페이지 출력
 	public PetDAO petPage(int pno);						//반려동물 페이지 출력	

@@ -29,8 +29,30 @@ public class PetDAO {
 	private int pdel;		//반려동물 성별 0 = 삭제, 1=암컷, 2=수컷, 3=중성화 암컷, 4=중성화 수컷, 
 	private String petc;
 	
-	
 	private List<PhotoFileDAO> photoList;
+	
+	private String uploadFile;
+	
+	public List<PhotoFileDAO> getPhotoList() {
+		return photoList;
+	}
+	
+
+	public String getUploadFile() {
+		return uploadFile;
+	}
+	
+	public void setUploadFile(String uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+
+
+
+
+
+	public void setPhotoList(List<PhotoFileDAO> photoList) {
+		this.photoList = photoList;
+	}
 	
 	public int getPno() {
 		return pno;

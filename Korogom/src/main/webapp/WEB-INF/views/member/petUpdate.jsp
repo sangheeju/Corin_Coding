@@ -7,7 +7,19 @@
 <%@ include file="../includes/header.jsp"%>
 <!-- top -->
 	<%@ include file="../includes/top.jsp"%>
+<script>
+	$(document).ready(function(e){
+	
+		$(function(){
+			//목록으로 버튼을 눌렀을 때 처리
+			$(".btn-success").click(function(){
+				location.href= "petPage?pno=" + ${pet.pno};
+			});
+		});
+	});
 
+	
+</script>
 
 <div class="container">
 
@@ -70,16 +82,9 @@
 		</div>
 	</div>
 	
-	<script>
-	$(function(){
-		//목록으로 버튼을 눌렀을 때 처리
-		$(".btn-success").click(function(){
-			location.href= "petPage?pno=" + ${pet.pno};
-		});
-	})
-	</script>
+
 	<!-- bottom -->
-		<%@ include file="../includes/bottom.jsp"%>
+<%@ include file="../includes/bottom.jsp"%>
 	
 	<!-- footer -->
 <%@ include file="../includes/footer.jsp"%>

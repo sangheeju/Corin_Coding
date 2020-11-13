@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class PhotoFileDAO {
 
-	private String uuid;
-	private String uploadPath;
-	private String fileName;
+	private String uuid;			//추가변수(파일 이름 앞에 들어갈)
+	private String uploadPath;		//경로
+	private String fileName;		//파일이름
 	private boolean fileType;
 	
 	private int pno;

@@ -6,12 +6,16 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.korogom.controller.MemberController;
 import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
+import kr.co.korogom.domain.PhotoFileDAO;
 import kr.co.korogom.mapper.MemberMapper;
 import kr.co.korogom.mapper.PhotoFileMapper;
 import lombok.AllArgsConstructor;
@@ -26,12 +30,15 @@ public class MemberServiceImpl implements MemberService{
 	@Inject
 	private SqlSession sqlSession;
 	
-	@Setter(onMethod_= @Autowired)
-	private MemberMapper mapper;
+//	@Setter(onMethod_= @Autowired)
+//	@Autowired
+//	private MemberMapper mapper;
 	
-	@Setter(onMethod_= @Autowired)
-	private PhotoFileMapper photoMapper;
+//	@Setter(onMethod_= @Autowired)
+//	@Autowired
+//	private PhotoFileMapper photoMapper;
 	
+	public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	private static final String namespace = "kr.co.korogom.member";
 			
@@ -96,24 +103,33 @@ public class MemberServiceImpl implements MemberService{
 		return sqlSession.update(namespace+".memberDelete", mno);
 	}
 
-	@Transactional
+	
+	@Override
+	public int insertPic(PhotoFileDAO photoDAO) {
+		// 반려동물 사진 등록
+		return sqlSession.insert(namespace+".insertPic", photoDAO);
+	}
+
+//	@Transactional
 	@Override
 	public int pregister(PetDAO petDAO) {					//반려동물 등록
 		// TODO Auto-generated method stub
-		log.info("pregister....."+petDAO);
-		mapper.pregister(petDAO);
-		
-		if(petDAO.getPhotoList() == null || petDAO.getPhotoList().size() <= 0) {
-			return 0;
-		}
-		
-		petDAO.getPhotoList().forEach(attach -> {
-			attach.setPno(petDAO.getPno());
-			photoMapper.insert(attach);
-		});
+//		logger.info("pregister....."+petDAO);
+//		mapper.pregister(petDAO);
+//		
+//		if(petDAO.getPhotoList() == null || petDAO.getPhotoList().size() <= 0) {
+//			return 0;
+//		}
+//		
+//		petDAO.getPhotoList().forEach(attach -> {
+//			attach.setPno(petDAO.getPno());
+//			photoMapper.insert(attach);
+//		});
 		
 		return sqlSession.insert(namespace+".pregister", petDAO);
 	}
+	
+	
 	
 	@Override
 	public List<PetDAO> petInfo() {							//반려동물 리스트
@@ -138,8 +154,6 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".petDelete", pno);
 	}
-
-
 
 	
 }
