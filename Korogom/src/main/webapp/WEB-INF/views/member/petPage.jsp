@@ -27,7 +27,7 @@ $(function(){
 
 	$(document).ready(function(e){
 		
-		//업로드시 필요한 코드
+		//파일 확장자 및 사이즈 확인
 		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|pdf|txt|hwp|xlsx|doc)$");
 		var maxSize = 5242880; //5MB
 
@@ -45,6 +45,7 @@ $(function(){
 		}
 		
 		$("input[type='file']").change(function(e){
+			
 			var formData = new FormData();
 			var inputFile = $("input[name='uploadFile']");
 			var files = inputFile[0].files;
@@ -59,6 +60,7 @@ $(function(){
 				formData.append("uploadFile", files[i]);			
 			console.log("로그 :"+formData);	
 			}
+			$(".uploadResult").show();
 			$.ajax({
 				url: "${contextPath}/upload/uploadAjaxAction",
 				processData: false,
@@ -76,10 +78,9 @@ $(function(){
 		
 		$(".uploadResult").on("click","button",function(e){
 			console.log("delete file");
-			
+			$(".uploadResult").hide();
 			var targetFile = $(this).data("file");
-			var type = $(this).data("type");
-			
+			var type = $(this).data("type");			
 			var targetLi = $(this).closest("li");
 			
 			$.ajax({
@@ -89,62 +90,11 @@ $(function(){
 				type: 'POST',
 					success: function(result){
 						alert(result);
-						targetLi.remove();
+						targetLi.remove();					 
 					}
-				
 			}); //ajax end
-		});
-		
-		var formObj = $("form[role='form']");
-		$(".btn-light").on("click", function(e){
-			var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-			var uploadPath = obj.uploadPath;
-		 	var uuid = obj.uuid;
-		 	var fileName = obj.fileName;
-		 	var fileType = obj.fileName;
-		 	var pno = $("#pno").val();
-		 	
-			var reqUrl = "${pageContext.request.contextPath}/member/insertPic";	
-			
- 		 	var paramData = {
- 		 			"uploadPath": uploadPath  ,
- 		 			"uuid" : uuid ,
- 		 			
- 		 			}; //요청데이터
- 		 	
-			$.ajax({
-				url : reqUrl,
-				type : "POST",
-			
-				data : paramData,
-				success : function(result){	
-		 			console.log("result 확인용 : "+result);					
-					if (result.length < 1) {
-						$('#msgdiv').html("<p>아이디가 없습니다.</p>");
-					} else {
-						$('#msgdiv').html("<p>회원님의 아이디는 "+result+"입니다</p>");
-					}
-				},
-				error: function(data){
-		        	console.log("에러가 발생 했습니다."+data);
-		        }
-			});
-==========================================
-				var str = "";
-			$(".uploadResult ul li").each(function(i,obj){
-				var jobj = $(obj);
-				console.dir(jobj);
-				
-				str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
-				str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
-				str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
-				str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+jobj.data("type")+"'>";
-				
-				console.log("나오나?"+str)
-			});
-			formObj.append(str).submit();
-		});
-	});
+		});		//end of delete	
+	}); //end of document ready
 	
 	function showUploadResult(uploadResultArr){
 		if(!uploadResultArr||uploadResultArr.length == 0){return;}
@@ -155,6 +105,7 @@ $(function(){
 			//image type
 			if(obj.image){
 				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+				str += "<style> .uploadResult{  border: 1px solid gray; background-color: lightgrey;} </style>";
 				str += "<li data-path='"+obj.uploadPath+"'";
 				str += " data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
 				str += "><div>";
@@ -177,17 +128,54 @@ $(function(){
 				str += "</li>";	
 			}
 		});	
+		
 		uploadUL.append(str);	
+		
+		$(".btn-light").on("click", function(e){
+			$(uploadResultArr).each(function(i, obj){
+		 	var fileName = obj.fileName;
+		 	var uuid = obj.uuid;
+			var uploadPath = obj.uploadPath;
+		 	var fileType = 1;
+			var fileCallPath = encodeURIComponent(uploadPath+"/s_"+uuid+"_"+fileName);
+//			var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
+		 	var pno = $("#pno").val();
+		 	
+			var reqUrl = "${pageContext.request.contextPath}/member/insertPic";	
+			
+			var hideDiv = $(".uploadResult").hide();
+ 		 	var paramData = {
+ 		 			"uploadPath": uploadPath  ,
+ 		 			"uuid" : uuid ,
+ 		 			"fileName" : fileName ,
+ 		 			"fileType" : fileType ,
+ 		 			"pno" : pno  		 			
+ 		 			}; //요청데이터
+ 		 			
+			$.ajax({
+				url : reqUrl,
+				type : "POST",
+				dataType: 'text',
+				data : paramData,
+				success : function(upresult){	
+					hideDiv;
+					$("#profilePic").attr("src", "${contextPath}/upload/display?fileName="+fileCallPath);
+													   
+				},
+				error: function(upresult){
+		        	alert("파일 업로드에 문제가 있습니다.");
+		        }
+			});
+			});	
+			});
 	}	
-	
-	
 </script>
 <div class="container">
 
 	<h2>반려동물 정보확인</h2>
 	<div class="row">
 		<div class="col-sm-3">
-			<img src="../resources/images/dd.jpg" class="rounded" alt="test"
+			<img id="profilePic" src="../resources/images/dd.jpg" class="rounded" alt="test"
 				width="100%" />
 			<hr>
 			
@@ -199,7 +187,7 @@ $(function(){
 		<div class="form-group uploadDiv">
 			<input type="file" name='uploadFile' multiple />
 		</div>
-		<div class='uploadResult'>
+		<div class='uploadResult' >
 			<ul>
 				
 			</ul>

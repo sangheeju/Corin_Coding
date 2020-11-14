@@ -130,6 +130,7 @@ public class UploadController {
 		      UUID uuid = UUID.randomUUID();
 		      
 		      uploadFileName = uuid.toString() + "_" + uploadFileName;
+		      
 		      try {   
 			      // File saveFile = new File(uploadFolder, uploadFileName);
 			      File saveFile = new File(uploadPath, uploadFileName);
@@ -152,7 +153,9 @@ public class UploadController {
 		      } catch (Exception e) {
 		    	  e.printStackTrace();
 		      }
+		     
 	      } //end of for
+	      
 	       return new ResponseEntity<>(list, HttpStatus.OK);
 	   }
 
