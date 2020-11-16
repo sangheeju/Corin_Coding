@@ -137,7 +137,7 @@ $(function(){
 		 	var uuid = obj.uuid;
 			var uploadPath = obj.uploadPath;
 		 	var fileType = 1;
-			var fileCallPath = encodeURIComponent(uploadPath+"/s_"+uuid+"_"+fileName);
+			var fileCallPath = encodeURIComponent(uploadPath+"/"+uuid+"_"+fileName);
 //			var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
 		 	var pno = $("#pno").val();
 		 	
@@ -175,29 +175,22 @@ $(function(){
 	<h2>반려동물 정보확인</h2>
 	<div class="row">
 		<div class="col-sm-3">
-			<img id="profilePic" src="../resources/images/dd.jpg" class="rounded" alt="test"
-				width="100%" />
+			<div class="bigPictureWrapper">
+				<c:choose>
+					<c:when test="${uuid == null}">
+						<img id="profilePic" src="../resources/images/dd.jpg" class="rounded" alt="test"
+							width="100%" />
+					</c:when>
+					<c:when test="${uuid != null}">
+						<img id="profilePic" src='"${contextPath}/upload/display?fileName="+fileCallPath' class="rounded" alt="test"
+								width="100%" />
+					</c:when>
+				</c:choose>		
+			</div>
 			<hr>
-			
-			<!-- 사진 업로드 구간 -->
-<div class="panel panel-default">
-	<div class="panel-heading">File Attach</div>
-	<!--  /.panel-heading -->
-	<div class="panel-body">
-		<div class="form-group uploadDiv">
-			<input type="file" name='uploadFile' multiple />
-		</div>
-		<div class='uploadResult' >
-			<ul>
-				
-			</ul>
-		</div>		
-		<button style="float: right" type="button" class="btn btn-light">Save</button>
-	</div>
-</div> <!-- end of Panel -->
-
 		</div>
 		<div class="col-sm-9">
+			<input type="hidden" id="uuid" name="uuid" value="${profilePic.uuid }"/>  
 			<input type="hidden" id="mno" name="mno" value="${petdetail.mno }" />
 			<input type="hidden" id="pno" name="pno" value="${petdetail.pno }" />
 			<div class="form-group">

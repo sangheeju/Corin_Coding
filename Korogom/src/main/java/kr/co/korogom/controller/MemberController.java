@@ -18,10 +18,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.korogom.domain.MemberDAO;
@@ -202,13 +204,27 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="insertPic", method=RequestMethod.POST)
-	public int insertPic(PhotoFileDAO photoDAO) {
-		int done= memberService.insertPic(photoDAO);
-		if (done > 0 ) {
-			logger.info("==== : 사진이 등록되었습니다 : ====");
-		}		
-		return done;
+	public void insertPic(PhotoFileDAO photoDAO, Model model) {
+		memberService.insertPic(photoDAO);		
+		logger.info("==== : 사진을 등록하였습니다. : ====");
+		logger.info("==== :"+photoDAO.getUuid());
+		PhotoFileDAO profilePic= memberService.findByUuid(photoDAO.getUuid());
+		logger.info("profilePic 확인 : "+profilePic);
+		model.addAttribute("profilePic", profilePic);
+		logger.info("==== : 사진을 출력합니다. : ====");
 	}
+	
+//	@ResponseBody
+//	@RequestMapping(value="findByUuid", method=RequestMethod.GET)
+//	public String findByUuid(@RequestParam("uuid") String uuid, Model model) {
+//		logger.info("==== : 반려동물 사진을 출력합니다 : ====");
+//		PhotoFileDAO profilePic = memberService.findByUuid(uuid);
+//		model.addAttribute("profilePic", profilePic);
+//		String picPath = profilePic.getUploadPath() + "/" + profilePic.getUuid() + "_" + profilePic.getFileName();
+//		logger.info("프로필사진 경로 확인용 : "+profilePic);
+//		return picPath;
+//	}
+	
 	
 	@RequestMapping(value="pregister", method=RequestMethod.POST)
 	public String pregister(@ModelAttribute @Valid PetDAO petDAO, HttpServletRequest request, BindingResult result) throws Exception {

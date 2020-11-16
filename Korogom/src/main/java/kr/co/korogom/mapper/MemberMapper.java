@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
+import kr.co.korogom.domain.PhotoFileDAO;
 
 public interface MemberMapper {
 
@@ -26,5 +27,8 @@ public interface MemberMapper {
 	public int petUpdate(PetDAO petDAO);				//반려동물 정보 수정
 	public int petDelete(int pno);						//반려동물 정보 삭제
 
+	public void insertPic(PhotoFileDAO photoDAO);		//사진 추가
+	public void deletePic(String uuid);					//사진 삭제
+	public PhotoFileDAO findByUuid(String uuid);		//사진 찾기
 	
 }

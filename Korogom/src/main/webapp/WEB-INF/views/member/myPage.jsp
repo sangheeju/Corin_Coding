@@ -18,10 +18,6 @@
 		<div class="col-sm-3">
 			<div class="profile-img">
                 <img src="../resources/images/dd.jpg" alt="test" class="rounded" width="100%"/>
-               <div class="col-sm-12 file btn btn-sm btn-info">
-                    Change Photo
-                    <input type="file" name="file"/>
-                </div>
             </div>
 		</div>
 		<div class="col-sm-9">                           

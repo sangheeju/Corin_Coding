@@ -22,11 +22,13 @@ public interface MemberService {
 	public int memberUpdate(MemberDAO memberDAO);		//회원 정보 수정
 	public int memberDelete(int mno);					//회원 정보 삭제
 	
-	public int insertPic(PhotoFileDAO photoDAO);		//반려동물 사진 등록
 	public int pregister(PetDAO petDAO);				//반려동물 등록
 	public List<PetDAO> petInfo();						//반려동물 리스트 페이지 출력
 	public PetDAO petPage(int pno);						//반려동물 페이지 출력	
 	public int petUpdate(PetDAO petDAO);				//반려동물 정보 수정
 	public int petDelete(int pno);						//반려동물 정보 삭제
-
+	
+	public void insertPic(PhotoFileDAO photoDAO);		//사진 추가
+	public void deletePic(String uuid);					//사진 삭제
+	public PhotoFileDAO findByUuid(String uuid);		//사진 찾기
 }
