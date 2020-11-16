@@ -24,8 +24,8 @@
 				<div class="form-group">
 					<label  for="pdiv">반려동물 종류:</label> 
 					<form:select path="pdiv" class="form-control" id="pdiv" name="pdiv">
-						<form:option value="1">견(Dog)</form:option>
-						<form:option value="2">묘(Cat)</form:option>
+						<form:option value="1">개(Dog)</form:option>
+						<form:option value="2">고양이(Cat)</form:option>
 					</form:select>
 					</div>
 						<div class="form-group">

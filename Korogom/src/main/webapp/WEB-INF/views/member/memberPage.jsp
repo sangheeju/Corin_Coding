@@ -19,6 +19,21 @@
 			<div class="spinner-border text-danger"></div><br>
 			<img src="../resources/images/roro.jpg" class="rounded" alt="test" width="100%" /><p></p>
 			<div class="form-group">
+  <form action="">
+    <p>Custom file:</p>
+    <div class="custom-file mb-3">
+      <input type="file" class="custom-file-input" id="customFile" name="filename">
+      <label class="custom-file-label" for="customFile">Choose file</label>
+    </div>
+    
+    <p>Default file:</p>
+    <input type="file" id="myFile" name="filename2">
+  
+    <div class="mt-3">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+
   </div>
 		</div>
 		<div class="col-sm-9">

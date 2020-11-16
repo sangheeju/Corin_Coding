@@ -13,8 +13,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -33,11 +37,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.korogom.domain.AttachFileDTO;
+import kr.co.korogom.domain.PhotoFileDAO;
+import kr.co.korogom.service.MemberService;
 import net.coobird.thumbnailator.Thumbnailator;
 
 
 @Controller
 public class UploadController {
+	
+	@Inject
+	public SqlSession sqlSession;
+	
+	@Autowired 
+	private MemberService memberService;
 	
 	public static final Logger logger = LoggerFactory.getLogger(UploadController.class);
 	
@@ -243,5 +255,20 @@ public class UploadController {
 		}
 		return new ResponseEntity<String>("deleted",HttpStatus.OK);
 	}
+	
+//	@ResponseBody
+//	@PostMapping("/upload/insertPic")
+//	public int insertPic(PhotoFileDAO photoDAO, Model model) {
+//		int done= memberService.insertPic(photoDAO);
+//		if (done > 0 ) {
+//			logger.info("==== : 사진이 등록되었습니다 : ====");
+//			logger.info("==== :"+photoDAO.getUuid());
+//			PhotoFileDAO profilePic= memberService.findByUuid(photoDAO.getUuid());
+//			logger.info("profilePic 확인 : "+profilePic);
+//			model.addAttribute("profilePic", profilePic);
+//			logger.info("==== : 사진을 출력합니다. : ====");
+//		}		
+//		return done;
+//	}
 	
 }

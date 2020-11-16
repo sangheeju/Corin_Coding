@@ -16,6 +16,8 @@ import kr.co.korogom.controller.MemberController;
 import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
 import kr.co.korogom.domain.PhotoFileDAO;
+import kr.co.korogom.mapper.MemberMapper;
+import kr.co.korogom.mapper.PhotoFileMapper;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -101,34 +103,20 @@ public class MemberServiceImpl implements MemberService{
 		return sqlSession.update(namespace+".memberDelete", mno);
 	}
 
-	@Transactional
-	@Override
-	public void insertPic(PhotoFileDAO photoDAO) {
-		// 반려동물 사진 등록
-		sqlSession.insert(namespace+".insertPic", photoDAO);
-		sqlSession.delete(namespace+".deletePic", photoDAO.getUuid());
-	}
-
-	@Override
-	public void deletePic(String uuid) {
-		// TODO Auto-generated method stub
-		sqlSession.delete(namespace+".deletePic", uuid);
-	}
-
-	@Override
-	public PhotoFileDAO findByUuid(String uuid) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".findByUuid", uuid);
-	}
 	
-		
-//	@Transactional
+	@Override
+	public int insertPic(PhotoFileDAO photoDAO) {
+		// 반려동물 사진 등록
+		return sqlSession.insert(namespace+".insertPic", photoDAO);
+	}
+
 	@Override
 	public int pregister(PetDAO petDAO) {					//반려동물 등록
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
+	
 		return sqlSession.insert(namespace+".pregister", petDAO);
 	}
-		
+	
 	@Override
 	public List<PetDAO> petInfo() {							//반려동물 리스트
 		// TODO Auto-generated method stub
@@ -141,6 +129,7 @@ public class MemberServiceImpl implements MemberService{
 		return sqlSession.selectOne(namespace+".petPage", pno);
 	}
 	
+	@Transactional
 	@Override
 	public int petUpdate(PetDAO petDAO) {					//반려동물 수정
 		// TODO Auto-generated method stub
@@ -152,5 +141,18 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".petDelete", pno);
 	}
+
+	@Override
+	public void deletePic(String uuid) {
+		// TODO Auto-generated method stub
+		sqlSession.delete(namespace+".deletePic", uuid);
+	}
+
+	@Override
+	public PhotoFileDAO findByPno(int pno) {				//사진 찾기
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".findByPno", pno);
+	}
+
 	
 }

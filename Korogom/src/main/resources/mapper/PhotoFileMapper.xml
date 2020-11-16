@@ -8,16 +8,19 @@
 	VALUES(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{pno})
 </insert>
 
-<!-- 삭제 -->
-<delete id="delete">
-	DELETE FROM profile_photo
-	WHERE uuid = #{uuid}
-</delete>
+		<!-- 펫 사진 삭제  -->
+	<delete id="deletePic" parameterType="PhotoFileDAO">
+			DELETE FROM profile_photo
+			WHERE uuid = #{uuid }
+	</delete>
 
-<!-- 찾기 -->
-<select id="findByPno" resultType="PetDAO">
-	SELECT * FROM profile_photo
-	WHERE pno = #{pno}
-</select>
-
+<!-- 펫 사진 보기  -->
+	<select id="findByUuid" resultType="PhotoFileDAO">
+			SELECT *  
+			FROM profile_photo
+			WHERE uuid = 
+				(SELECT uuid FROM profile_photo WHERE pno = #{pno} AND photoNo = 
+					(SELECT MAX(photoNo) AS maxPhotoNo FROM profile_photo WHERE pno= #{pno})
+				)
+	</select>
 </mapper>

@@ -28,7 +28,8 @@ public interface MemberService {
 	public int petUpdate(PetDAO petDAO);				//반려동물 정보 수정
 	public int petDelete(int pno);						//반려동물 정보 삭제
 	
-	public void insertPic(PhotoFileDAO photoDAO);		//사진 추가
+	public int insertPic(PhotoFileDAO photoDAO);		//사진 추가
 	public void deletePic(String uuid);					//사진 삭제
-	public PhotoFileDAO findByUuid(String uuid);		//사진 찾기
+	public PhotoFileDAO findByPno(int pno);				//사진 찾기
+
 }

@@ -59,11 +59,11 @@ div.buttonclass {
 				 	<tr>
 					 	<td><a href="petPage?pno=${PetDAO.pno}">${PetDAO.pno } </a></td>
 					 	<td>${PetDAO.mno }</td>
-					 	<td>${PetDAO.pdiv }</td>
+					 	<td><c:choose><c:when test="${PetDAO.pdiv eq '1'}">개</c:when><c:when test="${PetDAO.pdiv eq '2'}">고양이</c:when></c:choose></td>
 					 	<td>${PetDAO.pname }</td>
 					 	<td>${PetDAO.pbirth }</td>
 					 	<td>${PetDAO.pnum }</td>
-					 	<td>${PetDAO.pdel }</td>
+					 	<td><c:choose><c:when test="${PetDAO.pdel eq '1'}">여아 </c:when><c:when test="${PetDAO.pdel eq '2'}"> 남아 </c:when><c:when test="${PetDAO.pdel eq '3'}"> 중성화 한 여아 </c:when><c:when test="${PetDAO.pdel eq '4'}"> 중성화 한 남아 </c:when></c:choose></td>
 					 	<td>${PetDAO.petc }</td>
 				 	</tr>
 				</c:forEach>
