@@ -105,24 +105,16 @@ public class MemberController {
 			return "redirect:/member/login";
 		} else {
 			session.setAttribute("user", user);
-			logger.info("==== : 로그인 되었습니다 : ====");
-			logger.info("==== : memberDAO "+memberDAO);
-			int petNo = memberService.myPetNo(memberDAO.getMno());
-			memberService.myPage(memberDAO.getMno());
-			logger.info("= 유저 petNo 정보 ="+petNo);
-			PetDAO pinfo = memberService.petPage(petNo);	
-			logger.info("= 유저 pinfo 정보 ="+pinfo);
+			logger.info("==== : 로그인 되었습니다 유저 : ===="+user);
+			ModelAndView pmav = new ModelAndView();	
+			List<PetDAO> plist = memberService.petRef(user.getMno());
+			logger.info("= 유저 pinfo 정보 ="+plist);
+			pmav.addObject("plist", plist);
+			pmav.setViewName("redirect:/");
+
 			return "redirect:/";
 		}
 	}
-	
-//	@RequestMapping(value="myPage", method=RequestMethod.GET)
-//	public String myPage(@RequestParam("mno") int mno, Model model) {
-//		logger.info("==== : 개인정보 페이지로 이동합니다 : ====");
-//		MemberDAO myinfo = memberService.myPage(mno);		
-//		model.addAttribute("myinfo", myinfo);
-//		return "member/myPage";
-//	}
 	
 	@RequestMapping(value="find_userid", method=RequestMethod.GET)
 	public String find_userid() {

@@ -95,19 +95,19 @@
 						<a href="${pageContext.request.contextPath}/introduce/v_notice_board">더보기</a>
 					</p>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-6" name="plist" id="plist">
 					<h3>등록한 애완동물 정보</h3>
 					<table class="table">
 						<thead>
 							<tr>
-								<th>이름</th>
-								<th>나이</th>
-								<th>유형</th>
-								<th>성별</th>
+								<th>이름${petDao.pname}</th>
+								<th>나이${petDao.pbirth}</th>
+								<th>유형${petDao.pdiv}</th>
+								<th>성별${petDao.pdel}</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="petDao" items="${pList }">
+							<c:forEach var="petDao" items="${plist }">
 								<tr>
 									<td><a href='${pageContext.request.contextPath}/member/petPage?pno=${petDao.pno }'>${petDao.pname}</a></td>
 									<td>${petDao.pbirth}</td>

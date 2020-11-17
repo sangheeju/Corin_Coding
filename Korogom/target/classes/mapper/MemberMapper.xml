@@ -122,7 +122,7 @@
 		SELECT pno, mno, pdiv, pname, pbirth, pnum, pdel, petc
 		FROM pet
 		WHERE NOT pdel = 0 
-		AND pno = #{pno} 
+		AND mno = #{mno} 
 	</select>
 	
 	<!-- 보유 펫 수 확인 -->
