@@ -33,7 +33,14 @@ public class ReservationServiceImpl implements ReservationService{
 
 	@Override
 	public List<ReservationDAO> reservation_list() {
+		log.info("reservation_list");
 		return mapper.reservation_list();
+	}
+
+	@Override
+	public int ibool_update(int ino) {
+		log.info(ino);
+		return mapper.ibool_update(ino);
 	}
 	
 	

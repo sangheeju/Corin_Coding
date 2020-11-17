@@ -10,7 +10,7 @@ public class RoomDAO {
 	private int roomno;
 	private int imgno;
 	private int roomprice;
-	private int roomtype;
+	private String roomtype;
 	private String roomcontent;
 	private int roomcnt;
 	private String roometc;

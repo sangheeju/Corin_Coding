@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 import kr.co.korogom.domain.BoardAttachVO;
 import kr.co.korogom.domain.BoardDAO;
@@ -32,6 +35,8 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/community/*")
 @Controller
 @AllArgsConstructor
+@EnableWebSocket
+@Configuration
 public class CommunityController {
 	
 	@Inject
@@ -118,7 +123,7 @@ public class CommunityController {
 	}
 	
 //	Review Board
-	@GetMapping("/review_board")
+	@RequestMapping(value = "/review_board",method=RequestMethod.GET,headers="Connection!=Upgrade")
 	public void review_list(@ModelAttribute("cri") SearchCriteria cri,Model model) {
 		log.info("list : "+cri);
 		model.addAttribute("list",service.resvlistSearch(cri));

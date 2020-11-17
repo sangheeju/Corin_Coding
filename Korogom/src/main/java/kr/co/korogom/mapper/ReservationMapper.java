@@ -8,5 +8,6 @@ public interface ReservationMapper {
 	
 	public List<ReservationDAO> reservation_list();
 	public void reservation_register(ReservationDAO resv);
+	public int ibool_update(int ino);
 	
 }

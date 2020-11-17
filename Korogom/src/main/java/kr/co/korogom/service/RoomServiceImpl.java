@@ -65,7 +65,7 @@ public class RoomServiceImpl implements RoomService{
 	public RoomVO room_read(int roomno) {
 		return mapper.room_read(roomno);
 	}
-
+//	Reservation_list
 	@Override
 	public int resv_countpaging(SearchCriteria cri) {
 		return mapper.resv_countpaging(cri);
@@ -78,6 +78,6 @@ public class RoomServiceImpl implements RoomService{
 		}
 		page = (page-1)*10;
 		return mapper.resv_listPage(page);
-	}	
-	
+	}
+
 }

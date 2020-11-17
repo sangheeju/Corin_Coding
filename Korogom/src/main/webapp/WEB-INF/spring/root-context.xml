@@ -32,6 +32,9 @@
 		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 			<property name="dataSource" ref="dataSource"></property>	
 		</bean>
+		<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+    		<property name="validationMessageSource" ref="messageSource" />
+		</bean>
 		<mybatis-spring:scan base-package="kr.co.korogom.mapper"/>
 		<context:component-scan base-package="kr.co.korogom.service"></context:component-scan>
 		<context:component-scan base-package="kr.co.korogom.task"></context:component-scan>

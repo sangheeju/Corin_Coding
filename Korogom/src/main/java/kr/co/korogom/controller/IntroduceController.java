@@ -71,13 +71,18 @@ public class IntroduceController {
 		model.addAttribute("pageMaker",pageMaker);
 	}
 	
-	@GetMapping({"/v_notice_detail"})
+	@GetMapping("/v_notice_detail")
 	public void notice_detail(@RequestParam("bno") int bno,@ModelAttribute("cri") SearchCriteria cri,Model model) {
 		log.info("/detail or modify");
 		
 		model.addAttribute("board",service.get(bno));
 	}
-	
+	@GetMapping("intro_center")
+	public void intro_center(){
+	}
+	@GetMapping("intro_petsiter")
+	public void intro_petsiter(){
+	}
 	@GetMapping(value = "/getAttachList",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<BoardAttachVO>> getAttachList(int bno){

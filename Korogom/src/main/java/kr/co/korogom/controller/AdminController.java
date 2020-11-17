@@ -67,6 +67,11 @@ public class AdminController {
 			}
 		});
 	}
+//	Admin
+	@GetMapping("adminpage")
+	public void adminpage() {
+		
+	}
 	
 //	Q&A Board
 	@GetMapping("/qna_board")
@@ -207,7 +212,12 @@ public class AdminController {
 		pageMaker.setTotalCount(service.petslistSearchCount(cri));
 		model.addAttribute("pageMaker",pageMaker);
 	}
-	
+	@ResponseBody
+	@PostMapping("/deposit_check")
+	public void deposit_check(int ino) {
+		log.info("check:"+ino);
+		resv_service.ibool_update(ino);
+	}
 //	Common Element
 	@GetMapping(value = "/getAttachList",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
