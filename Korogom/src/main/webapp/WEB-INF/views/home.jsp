@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 
 <!DOCTYPE html>
@@ -108,12 +107,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td><a href="${pageContext.request.contextPath}/member/login">이름</a></td>
-								<td>나이</td>
-								<td>견/묘/기타</td>
-								<td>암/수/중성화</td>
-							</tr>
+							<c:forEach var="petDao" items="${pList }">
+								<tr>
+									<td><a href='${pageContext.request.contextPath}/member/petPage?pno=${petDao.pno }'>${petDao.pname}</a></td>
+									<td>${petDao.pbirth}</td>
+									<td>${petDao.pdiv}</td>
+									<td>${petDao.pdel}</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 					<p style="text-align: right;">

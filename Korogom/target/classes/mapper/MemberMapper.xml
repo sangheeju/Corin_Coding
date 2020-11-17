@@ -67,6 +67,14 @@
 		AND mno = #{mno}
 	</select>
 	
+	<!-- 개인 동물번호 확인 -->
+	<select id="myPetNo" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT pno
+		FROM pet
+		WHERE NOT pdel = 0 
+		AND mno = #{mno}
+	</select>
+	
 	<!-- 회원정보 수정 -->
 	<update id="memberUpdate" parameterType="MemberDAO">
 		UPDATE member 
@@ -108,6 +116,22 @@
 		WHERE NOT pdel = 0 
 		AND pno = #{pno}
 	</select>
+	
+		<!-- 유저 보유 펫 정보 페이지 -->
+	<select id="petRef" parameterType="java.lang.Integer" resultType="PetDAO">
+		SELECT pno, mno, pdiv, pname, pbirth, pnum, pdel, petc
+		FROM pet
+		WHERE NOT pdel = 0 
+		AND pno = #{pno} 
+	</select>
+	
+	<!-- 보유 펫 수 확인 -->
+	<update id="petCnt" parameterType="java.lang.Integer">
+		UPDATE member
+		SET
+		mpet = (SELECT count(pname) FROM pet WHERE mno = #{mno })
+		WHERE mno = #{mno}
+	</update>
 	
 		<!-- 반려동물 정보 수정 -->
 	<update id="petUpdate" parameterType="PetDAO">

@@ -24,7 +24,15 @@
                 </div>
             </div>
 		</div>
-		<div class="col-sm-9">                           
+		<div class="col-sm-9">
+		<ul class="nav nav-tabs">
+	    <li class="nav-item">
+	      <a class="nav-link active" href="#">사용자 정보</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="${pageContext.request.contextPath}/member/petInfo">반려동물 정보</a>
+	    </li>
+	  </ul>                           
 			<input type="hidden" id="mno" name="mno" value="${myinfo.mno }"/>        
 				<div class="form-group">
 					<table>

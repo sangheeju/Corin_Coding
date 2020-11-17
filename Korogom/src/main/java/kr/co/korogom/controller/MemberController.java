@@ -36,7 +36,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 @Log4j
 public class MemberController {
-	
+
 	@Inject
 	public SqlSession sqlSession;
 	
@@ -97,7 +97,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="login", method=RequestMethod.POST)
-	public String login(@RequestParam Map<String,Object> map, MemberDAO memberDAO, HttpSession session) throws Exception {
+	public String login(@RequestParam Map<String,Object> map, MemberDAO memberDAO, HttpSession session, Model model) throws Exception {
 		MemberDAO user = memberService.login(map);
 		logger.info("= 로그인정보 ="+map);
 		if(user == null) {
@@ -105,12 +105,24 @@ public class MemberController {
 			return "redirect:/member/login";
 		} else {
 			session.setAttribute("user", user);
-			logger.info("= 로그인유저정보 ="+user);
 			logger.info("==== : 로그인 되었습니다 : ====");
+			logger.info("==== : memberDAO "+memberDAO);
+			int petNo = memberService.myPetNo(memberDAO.getMno());
+			memberService.myPage(memberDAO.getMno());
+			logger.info("= 유저 petNo 정보 ="+petNo);
+			PetDAO pinfo = memberService.petPage(petNo);	
+			logger.info("= 유저 pinfo 정보 ="+pinfo);
 			return "redirect:/";
 		}
 	}
 	
+//	@RequestMapping(value="myPage", method=RequestMethod.GET)
+//	public String myPage(@RequestParam("mno") int mno, Model model) {
+//		logger.info("==== : 개인정보 페이지로 이동합니다 : ====");
+//		MemberDAO myinfo = memberService.myPage(mno);		
+//		model.addAttribute("myinfo", myinfo);
+//		return "member/myPage";
+//	}
 	
 	@RequestMapping(value="find_userid", method=RequestMethod.GET)
 	public String find_userid() {
@@ -148,7 +160,6 @@ public class MemberController {
 		logger.info("==== : 회원 정보 페이지로 이동합니다 : ====");
 		ModelAndView mav = new ModelAndView();	
 		memberService.memberPage();
-		
 		List<MemberDAO> mylist = memberService.memberPage();
 		mav.addObject("mylist", mylist);
 		mav.setViewName("member/memberPage");
@@ -229,14 +240,22 @@ public class MemberController {
 		logger.info("==== : 반려동물 리스트 페이지로 이동합니다 : ====");
 
 		ModelAndView mandv = new ModelAndView();	
-		memberService.petInfo();
-		
+		memberService.petInfo();	
 		List<PetDAO> petList = memberService.petInfo();
 		mandv.addObject("petList", petList);
 		mandv.setViewName("member/petInfo");
 
 			return mandv;
 	}
+	
+	@RequestMapping(value="petInfoRef", method= RequestMethod.POST)
+	public ModelAndView petInfoRef(@RequestParam("pno") int pno, Model model) {
+		memberService.petInfo();	
+		List<PetDAO> pNameList = memberService.petInfo();
+		model.addAttribute("pNameList", pNameList);
+		
+			return null;
+}
 	
 	@RequestMapping(value="petPage", method=RequestMethod.GET)
 	public String petPage(@RequestParam("pno") int pno, Model model) {

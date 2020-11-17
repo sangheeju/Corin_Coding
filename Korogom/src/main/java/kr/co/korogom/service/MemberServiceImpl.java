@@ -155,5 +155,17 @@ public class MemberServiceImpl implements MemberService{
 		return sqlSession.selectOne(pnamespace+".findByPno", pno);
 	}
 
+	@Override
+	public int petCnt(int pno) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".petCnt", pno);
+	}
+
+	@Override
+	public int myPetNo(int mno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".myPetNo", mno);
+	}
+
 	
 }
