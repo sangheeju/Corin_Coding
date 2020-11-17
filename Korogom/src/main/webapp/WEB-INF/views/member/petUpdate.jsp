@@ -8,17 +8,17 @@
 <!-- top -->
 	<%@ include file="../includes/top.jsp"%>
 <script>
-	$(document).ready(function(e){
-	
+		$(document).ready(function(e){
+			
 		$(function(){
 			//목록으로 버튼을 눌렀을 때 처리
 			$(".btn-success").click(function(){
 				location.href= "petPage?pno=" + ${pet.pno};
-			});
+			});		
+//			$(".btn-primary").click(function(){
+	//			location.href= "petUpdate";
+		//	});		
 		});
-	});
-
-	$(document).ready(function(e){
 		
 		//파일 확장자 및 사이즈 확인
 		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|pdf|txt|hwp|xlsx|doc)$");
@@ -67,47 +67,28 @@
 				}
 			}); // $.ajax		
 		});
-		
-		
-		$(".uploadResult").on("click","button",function(e){
-			console.log("delete file");
-			$(".uploadResult").hide();
-			var targetFile = $(this).data("file");
-			var type = $(this).data("type");			
-			var targetLi = $(this).closest("li");
-			
-			$.ajax({
-				url: '${contextPath}/upload/deleteFile',
-				data: {fileName: targetFile, type: type},
-				dataType: 'text',
-				type: 'POST',
-					success: function(result){
-						alert(result);
-						targetLi.remove();					 
-					}
-			}); //ajax end
-		});		//end of delete	
 	}); //end of document ready
 	
 	function showUploadResult(uploadResultArr){
 		if(!uploadResultArr||uploadResultArr.length == 0){return;}
 		var uploadUL = $(".uploadResult ul");
+		var formfile = $("#filedata");
 		var str = "";
 		
 		$(uploadResultArr).each(function(i, obj){
 			//image type
 			if(obj.image){
-				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-				str += "<style> .uploadResult{  border: 1px solid gray; background-color: lightgrey;} </style>";
-				str += "<li data-path='"+obj.uploadPath+"'";
-				str += " data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'"
-				str += "><div>";
-				str += "<span>" + obj.fileName + "</span>";
-				str += "<button type='button' data-file=\'"+fileCallPath+"\' "
-				str += "data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times' styke='color:black'></i></button><br>";
-				str += "<img src='${contextPath}/upload/display?fileName="+fileCallPath+"'>";
-				str += "</div>";
-				str += "</li>";
+				var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
+				$("#profilePic").attr("src", "${contextPath}/upload/display?fileName="+fileCallPath);
+				$("#profilePic").attr("data-path", obj.uploadPath);
+				$("#profilePic").attr("data-uuid", obj.uuid);
+				$("#profilePic").attr("data-fileName", obj.fileName);
+				$("#profilePic").attr("data-type", obj.image);
+				str += "<input type='hidden' name='uuid' value='"+obj.uuid+"'>";
+				str += "<input type='hidden' name='uploadPath' value='"+obj.uploadPath+"'>";
+				str += "<input type='hidden' name='fileName' value='"+obj.fileName+"'>";
+				str += "<input type='hidden' name='fileType' value='"+obj.image+"'>";
+				formfile.append(str);
 			} else{
 				var fileCallPath = encodeURIComponent( obj.uploadPath + "/" + obj.uuid+"_"+obj.fileName);
 				var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
@@ -123,103 +104,63 @@
 		});	
 		
 		uploadUL.append(str);	
-		
-		$(".btn-light").on("click", function(e){
-			$(uploadResultArr).each(function(i, obj){
-		 	var fileName = obj.fileName;
-		 	var uuid = obj.uuid;
-			var uploadPath = obj.uploadPath;
-		 	var fileType = 1;
-			var fileCallPath = encodeURIComponent(uploadPath+"/"+uuid+"_"+fileName);
-//			var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
-		 	var pno = $("#pno").val();
-		 	console.log(pno);
-		 	
-			var reqUrl = "${pageContext.request.contextPath}/member/insertPic";	
-			
-			var hideDiv = $(".uploadResult").hide();
- 		 	var paramData = {
- 		 			"uploadPath": uploadPath  ,
- 		 			"uuid" : uuid ,
- 		 			"fileName" : fileName ,
- 		 			"fileType" : fileType ,
- 		 			"pno" : pno  		 			
- 		 			}; //요청데이터
- 		 			
-			$.ajax({
-				url : reqUrl,
-				type : "POST",
-				dataType: 'text',
-				data : paramData,
-				success : function(upresult){	
-					hideDiv;
-					$("#profilePic").attr("src", "${contextPath}/upload/display?fileName="+fileCallPath);
-				},
-				error: function(upresult){
-		        	alert("파일 업로드에 문제가 있습니다.");
-		        }
-			});
-			});	
-			});
 	}	
 </script>
 
 <div class="container">
 
-	<h2>반려동물 등록</h2>
+	<h2>반려동물 종류 수정</h2>
 	<div class="row">
 		<div class="col-sm-4">
-		<div class="bigPictureWrapper">
-		<c:choose>
-			<c:when test="${profilePic.uuid == null}">
-				<img id="profilePic" src="../resources/images/dd.jpg" class="rounded" alt="test"
-					width="100%" />
-			</c:when>
-			<c:when test="${profilePic.uuid != null}">
-				<img id="profilePic" src='"${contextPath}/upload/display?fileName="+fileCallPath' class="rounded" alt="test"
-						width="100%" />
-			</c:when>
-		</c:choose>		
-				</div>
+			<div class="bigPictureWrapper">
+				<c:choose>
+					<c:when test="${profilePic.uuid == null}">
+						<img id="profilePic" data-path="" data-uuid="" data-fileName="" data-type="" src="../resources/images/dd.jpg" class="rounded" alt="test"
+							width="100%" />
+					</c:when>
+					<c:when test="${profilePic.uuid != null}">
+						<img id="profilePic" src='"${contextPath}/upload/display?fileName="+fileCallPath' class="rounded" alt="test"
+								width="100%" />
+					</c:when>
+				</c:choose>		
+			</div>
 			<hr>${profilePic.uuid }
 			<!-- 사진 업로드 구간 -->
-<div class="panel panel-default">
-	<div class="panel-heading">File Attach</div>
-	<!--  /.panel-heading -->
-	<div class="panel-body">
-		<div class="form-group uploadDiv">
-			<input type="file" name='uploadFile' multiple />
-		</div>
-		<div class='uploadResult' >
-			<ul>
-				
-			</ul>
-		</div>		
-		<button style="float: right" type="button" class="btn btn-light">Save</button>
-	</div>
-</div> <!-- end of Panel -->
+			<div class="panel panel-default">
+				<div class="panel-heading">File Attach</div>
+				<!--  /.panel-heading -->
+				<div class="panel-body">
+					<div class="form-group uploadDiv">
+						<input type="file" name='uploadFile' multiple />
+					</div>
+					<div class='uploadResult' >
+						<ul>							
+						</ul>
+					</div>				
+				</div>
+			</div> <!-- end of Panel -->
 
 		</div>
-		<div class="col-sm-8">
-<form  method="POST" id="petUp">
-		<input type="hidden" id="uuid" name="uuid" value="${profilePic.uuid }"/>  
-		<input type="hidden" id="mno" name="mno" value="${user.mno }"/>
-		<input type="hidden" id="pno" name="pno" value="${pet.pno }" />
+		<div class="col-sm-8">	
+			<input type="hidden" id="uuid" name="uuid" value="${profilePic.uuid }"/>  
+		<form action="petUpdate" method="POST" id="petUp">
+			<input type="hidden" id="mno" name="mno" value="${user.mno }" />
+			<input type="hidden" id="pno" name="pno" value="${pet.pno }" />
 				<div class="form-group">
 					<label  for="pdiv">반려동물 종류:</label> 
-										<input type="text" class="form-control" id="pdiv" 
-								name="pdiv" style="text-align:left"
-								value="<c:choose><c:when test="${pet.pdiv eq '1'}">개</c:when><c:when test="${pet.pdiv eq '2'}">고양이</c:when></c:choose>" />
-		
+						<input type="hidden" class="form-control" id="pdiv" name="pdiv" value="${pet.pdiv }"/>
+						<c:choose>
+							<c:when test="${pet.pdiv eq '1'}" >개</c:when>
+							<c:when test="${pet.pdiv eq '2'}">고양이</c:when>
+						</c:choose>
 					</div>
 						<div class="form-group">
 					<table>
 						<tr>
-							<td><label for="pname">* 반려동물 이름: </label></td>
-							<td><input type="text" class="form-control" id="pname" 
-								name="pname" value="${pet.pname}" />	
+							<td>
+								<label for="pname">* 반려동물 이름: </label>
+								<input type="text" class="form-control" id="pname" name="pname" value="${pet.pname}" />	* 영문과 한글만 사용가능 합니다.
 							</td>
-							<td><div class="checkId" id="idCheck"><p>* 영문과 한글만 사용가능 합니다.</p></div></td>
 						</tr>
 					</table>
 					</div>
@@ -245,14 +186,19 @@
 				</div>
 				<div class="form-group">
 					<label  for="pdel">반려동물 성별:</label> 
-					<input type="text" class="form-control" id="pdel"
-							value="<c:choose><c:when test="${pet.pdiv eq '1'}">여아 </c:when><c:when test="${pet.pdiv eq '2'}"> 남아 </c:when><c:when test="${pet.pdiv eq '3'}"> 중성화 한 여아 </c:when><c:when test="${pet.pdiv eq '4'}"> 중성화 한 남아 </c:when></c:choose>" name="pdel" />						
+					<input type="hidden" class="form-control" id="pdel"value="${pet.pdel}" name="pdel" />
+					<select class="form-control" id="pdel" name="pdel">
+						<option value="1">암컷</option>
+						<option value="2">수컷</option>
+						<option value="3">암컷 중성화 완료</option>
+						<option value="4">수컷 중성화 완료</option>
+					</select>				
 				</div>
-				
-				<button type="submit" class="submit btn btn-primary">변경내용 저장</button>
+				<div id ="filedata"></div>
+				<button type="submit" class="btn btn-primary">정보 수정</button>				
 				<button type="button" class="btn btn-success">취소</button>
-				
 				</form>
+				
 			</div>
 		</div>
 	</div>

@@ -68,7 +68,7 @@
 						 	<td>${MemberDAO.mmail }</td>
 						 	<td>${MemberDAO.mphone }</td>
 						 	<td>${MemberDAO.mbirth }</td>
-						 	<td>${MemberDAO.mclass }</td>
+						 	<td><c:choose><c:when test="${MemberDAO.mclass eq '1'}">회원</c:when><c:when test="${MemberDAO.mclass eq '2'}">펫시터</c:when><c:when test="${MemberDAO.mclass eq '3'}">관리자</c:when></c:choose></td>
 					 	</tr>
 					</c:forEach>
 				</tbody>

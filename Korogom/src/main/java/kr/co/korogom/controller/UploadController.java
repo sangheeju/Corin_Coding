@@ -84,7 +84,7 @@ public class UploadController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		String str = sdf.format(date);
-		return str.replace("-",	File.separator);	
+		return str.replace("-",	"/");	
 	}
 	
 	//이미지 파일 확인
@@ -256,19 +256,19 @@ public class UploadController {
 		return new ResponseEntity<String>("deleted",HttpStatus.OK);
 	}
 	
-//	@ResponseBody
-//	@PostMapping("/upload/insertPic")
-//	public int insertPic(PhotoFileDAO photoDAO, Model model) {
-//		int done= memberService.insertPic(photoDAO);
-//		if (done > 0 ) {
-//			logger.info("==== : 사진이 등록되었습니다 : ====");
+	@ResponseBody
+	@PostMapping("/upload/insertPic")
+	public int insertPic(PhotoFileDAO photoDAO, Model model) {
+		int done= memberService.insertPic(photoDAO);
+		if (done > 0 ) {
+			logger.info("==== : 사진이 등록되었습니다 : ====");
 //			logger.info("==== :"+photoDAO.getUuid());
-//			PhotoFileDAO profilePic= memberService.findByUuid(photoDAO.getUuid());
+//			PhotoFileDAO profilePic= memberService.findByPno(photoDAO.getPno());
 //			logger.info("profilePic 확인 : "+profilePic);
 //			model.addAttribute("profilePic", profilePic);
 //			logger.info("==== : 사진을 출력합니다. : ====");
-//		}		
-//		return done;
-//	}
+		}		
+		return done;
+	}
 	
 }

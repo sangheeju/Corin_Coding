@@ -24,7 +24,7 @@
             </div>
 		</div>
 		<div class="col-sm-8">                    
-			<form id="upForm"  method="POST">
+			<form action="memberUpdate" id="upForm"  method="POST">
 			<input type="hidden" id="mno" name="mno" value="${member.mno }"/>               
 				<div class="form-group">
 					<table>
@@ -85,7 +85,7 @@
 				<div class="form-group">
 					<label for="mdel">성별:</label> 
 					<input type="text" class="form-control" id="mdel" 
-						name="mdel" value="${member.mdel}" />
+						name="mdel" value="<c:choose><c:when test="${member.mdel eq '1'}">남</c:when><c:when test="${member.mdel eq '2'}">여</c:when></c:choose>" />
 						
 				</div>			
 				<button  type="submit" class="btn btn-primary">회원정보 수정</button>

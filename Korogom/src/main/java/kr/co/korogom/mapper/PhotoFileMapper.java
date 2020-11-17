@@ -1,8 +1,5 @@
 package kr.co.korogom.mapper;
 
-import java.util.List;
-
-
 import kr.co.korogom.domain.PhotoFileDAO;
 
 public interface PhotoFileMapper {

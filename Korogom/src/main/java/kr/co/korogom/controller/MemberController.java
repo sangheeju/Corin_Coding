@@ -18,12 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.korogom.domain.MemberDAO;
@@ -201,31 +199,7 @@ public class MemberController {
 		
 		return "member/pregister";
 	}
-	
-	@ResponseBody
-	@RequestMapping(value="insertPic", method=RequestMethod.POST)
-	public void insertPic(PhotoFileDAO photoDAO, Model model) {
-		memberService.insertPic(photoDAO);		
-		logger.info("==== : 사진을 등록하였습니다. : ====");
-		logger.info("==== :"+photoDAO.getUuid());
-		PhotoFileDAO profilePic= memberService.findByUuid(photoDAO.getUuid());
-		logger.info("profilePic 확인 : "+profilePic);
-		model.addAttribute("profilePic", profilePic);
-		logger.info("==== : 사진을 출력합니다. : ====");
-	}
-	
-//	@ResponseBody
-//	@RequestMapping(value="findByUuid", method=RequestMethod.GET)
-//	public String findByUuid(@RequestParam("uuid") String uuid, Model model) {
-//		logger.info("==== : 반려동물 사진을 출력합니다 : ====");
-//		PhotoFileDAO profilePic = memberService.findByUuid(uuid);
-//		model.addAttribute("profilePic", profilePic);
-//		String picPath = profilePic.getUploadPath() + "/" + profilePic.getUuid() + "_" + profilePic.getFileName();
-//		logger.info("프로필사진 경로 확인용 : "+profilePic);
-//		return picPath;
-//	}
-	
-	
+		
 	@RequestMapping(value="pregister", method=RequestMethod.POST)
 	public String pregister(@ModelAttribute @Valid PetDAO petDAO, HttpServletRequest request, BindingResult result) throws Exception {
 		logger.info("==petDAO확인=="+petDAO);
@@ -267,9 +241,10 @@ public class MemberController {
 	@RequestMapping(value="petPage", method=RequestMethod.GET)
 	public String petPage(@RequestParam("pno") int pno, Model model) {
 		logger.info("==== : 반려동물 정보 페이지로 이동합니다 : ====");
-		
 		PetDAO petdetail = memberService.petPage(pno);
 		model.addAttribute("petdetail", petdetail);
+		logger.info("Photo");
+		model.addAttribute("photo", memberService.findByPno(pno));
 		return "member/petPage";
 	}
 
@@ -278,14 +253,16 @@ public class MemberController {
 	public String petUpdate(@RequestParam("pno")int pno, Model model) {
 		PetDAO pet = memberService.petPage(pno);
 		model.addAttribute("pet", pet);
-		logger.info("==== : 반려 동불 정보 수정 페이지로 이동합니다 : ====");
+		logger.info("==== : 반려 동물 정보 수정 페이지로 이동합니다 : ====");
 		return "member/petUpdate";
 	}
 	
-	@RequestMapping(value="petUpdate",method=RequestMethod.POST )
-	public String petUpdate(PetDAO petDAO) {
+	@RequestMapping(value="petUpdate", method=RequestMethod.POST )
+	public String petUpdate(PetDAO petDAO, PhotoFileDAO photoDAO, Model model) {
 		logger.info("==== : 반려동물 정보를 수정합니다 : ====");
+		memberService.insertPic(photoDAO);
 		int r = memberService.petUpdate(petDAO);
+
 		if(r>0) {
 			return "redirect:petPage?pno="+petDAO.getPno();
 		}		

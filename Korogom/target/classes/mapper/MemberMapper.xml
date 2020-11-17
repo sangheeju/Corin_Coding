@@ -81,6 +81,7 @@
 		WHERE mno = #{mno}
 	</update>
 	
+	
 	<!-- 펫등록  -->
 	<insert id="pregister" parameterType="PetDAO">
 			INSERT INTO pet(mno, pdiv, pname, pbirth, pnum, pdel, petc) 
@@ -93,19 +94,6 @@
 			VALUES(#{uuid },#{uploadPath},#{fileName},#{fileType},#{pno})	
 	</insert>
 	
-		<!-- 펫 사진 삭제  -->
-	<delete id="deletePic" parameterType="PhotoFileDAO">
-			DELETE fROM profile_photo
-			WHERE uuid = #{uuid }
-	</delete>
-	
-		<!-- 펫 사진 보기  -->
-	<select id="findByUuid" parameterType="java.lang.String" resultType="PhotoFileDAO">
-			SELECT photoNo, uuid, uploadPath, fileName, fileType, pno 
-			FROM profile_photo
-			WHERE uuid = #{uuid}
-	</select>
-	
 	<!-- 펫정보 리스트 페이지 -->
 	<select id="petInfo" resultType="PetDAO">
 		SELECT pno, mno, pdiv, pname, pbirth, pnum, pdel, petc
@@ -113,7 +101,6 @@
 		WHERE NOT pdel = 0
 		ORDER BY mno DESC
 	</select>
-	
 		<!-- 펫 정보 페이지 -->
 	<select id="petPage" parameterType="java.lang.Integer" resultType="PetDAO">
 		SELECT pno, mno, pdiv, pname, pbirth, pnum, pdel, petc
@@ -126,7 +113,7 @@
 	<update id="petUpdate" parameterType="PetDAO">
 		UPDATE pet 
 		SET pdiv= #{pdiv}, pname= #{pname}, pbirth= #{pbirth}, pnum= #{pnum}, petc= #{petc}
-		WHERE pno = #{pno} 
+		WHERE pno = #{pno}
 	</update>
 	
 		<!-- 펫 정보 삭제 -->

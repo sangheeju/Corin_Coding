@@ -41,6 +41,7 @@ public class MemberServiceImpl implements MemberService{
 	public static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	private static final String namespace = "kr.co.korogom.member";
+	private static final String pnamespace = "kr.co.korogom.PhotoFileMapper";
 			
 	@Override
 	public int mregister(MemberDAO memberDAO) {		//회원가입
@@ -145,13 +146,13 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void deletePic(String uuid) {
 		// TODO Auto-generated method stub
-		sqlSession.delete(namespace+".deletePic", uuid);
+		sqlSession.delete(pnamespace+".deletePic", uuid);
 	}
 
 	@Override
 	public PhotoFileDAO findByPno(int pno) {				//사진 찾기
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".findByPno", pno);
+		return sqlSession.selectOne(pnamespace+".findByPno", pno);
 	}
 
 	

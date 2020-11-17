@@ -30,8 +30,8 @@ $(function(){
 	<h2>반려동물 정보확인</h2>
 	<div class="row">
 		<div class="col-sm-3">
-			<img id="profilePic" src="${contextPath}/upload/display?fileName='${photoDao.uploadPath }+'/'+${photoDao.uuid }+'_'+${photoDao.fileName }" class="rounded" alt="test"
-				width="100%" />
+		<div class="profilePicture">
+			<img id="profilePic" src='/korogom/upload/display?fileName=${photo.uploadPath }/${photo.uuid }_${photo.fileName}' class="rounded" alt="test" width="100%" />		</div>
 			<hr>
 		</div>
 		<div class="col-sm-9">
@@ -40,9 +40,14 @@ $(function(){
 			<div class="form-group">
 				<table>
 					<tr>
-						<td><label for="pdiv">반려동물 종류:</label></td>
-						<td><input type="text" class="form-control" id="pdiv"
-							value="<c:choose><c:when test="${petdetail.pdiv eq '1'}">개</c:when><c:when test="${petdetail.pdiv eq '2'}">고양이</c:when></c:choose>" name="pdiv" readonly="readonly" /></td>
+						<td><label for="pdiv">반려동물 종류:</label>
+						<input type="hidden" class="form-control" id="pdiv"
+							value="${petdetail.pdiv}" name="pdiv" readonly="readonly" />
+							<c:choose>
+								<c:when test="${petdetail.pdiv eq '1'}"> 개 </c:when>
+								<c:when test="${petdetail.pdiv eq '2'}"> 고양이 </c:when>
+							</c:choose>
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -51,8 +56,7 @@ $(function(){
 					<tr>
 						<td><label for="pname">* 반려동물 이름: </label></td>
 						<td><input type="text" class="form-control" id="pname"
-							value="${petdetail.pname}" name="pname" readonly="readonly"
-							/></td>
+							value="${petdetail.pname}" name="pname" readonly="readonly" /></td>
 					</tr>
 				</table>
 			</div>
@@ -72,8 +76,14 @@ $(function(){
 			</div>
 			<div class="form-group">
 				<label for="pdel">반려동물 성별:</label> 		
-				<input type="text" class="form-control"
-							id="pdel" readonly="readonly" value="<c:choose><c:when test="${petdetail.pdel eq '1'}">여아 </c:when><c:when test="${petdetail.pdel eq '2'}"> 남아 </c:when><c:when test="${petdetail.pdel eq '3'}"> 중성화 한 여아 </c:when><c:when test="${petdetail.pdel eq '4'}"> 중성화 한 남아 </c:when></c:choose>" name="pdel" />					
+				<input type="hidden" class="form-control"
+							id="pdel" readonly="readonly" value="${petdetail.pdel }" name="pdel" />		
+							<c:choose>
+								<c:when test="${petdetail.pdel eq '1'}">여아 </c:when>
+								<c:when test="${petdetail.pdel eq '2'}"> 남아 </c:when>
+								<c:when test="${petdetail.pdel eq '3'}"> 중성화 한 여아 </c:when>
+								<c:when test="${petdetail.pdel eq '4'}"> 중성화 한 남아 </c:when>
+							</c:choose>			
 			</div>
 			<button type="submit" class="btn btn-primary">반려동물 정보 수정</button>
 			  <!-- Trigger the modal with a button -->

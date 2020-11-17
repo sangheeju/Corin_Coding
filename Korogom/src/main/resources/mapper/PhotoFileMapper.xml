@@ -15,12 +15,7 @@
 	</delete>
 
 <!-- 펫 사진 보기  -->
-	<select id="findByUuid" resultType="PhotoFileDAO">
-			SELECT *  
-			FROM profile_photo
-			WHERE uuid = 
-				(SELECT uuid FROM profile_photo WHERE pno = #{pno} AND photoNo = 
-					(SELECT MAX(photoNo) AS maxPhotoNo FROM profile_photo WHERE pno= #{pno})
-				)
+	<select id="findByPno" resultType="PhotoFileDAO">
+			SELECT uuid,uploadPath,fileName,fileType,pno FROM profile_photo WHERE pno = #{pno} order by photoNo desc limit 1;
 	</select>
 </mapper>

@@ -9,7 +9,6 @@ public class PhotoFileDAO {
 	private String uploadPath;		//경로
 	private String fileName;		//파일이름
 	private boolean fileType;
-	
 	private int pno;
 
 	public String getUuid() {
