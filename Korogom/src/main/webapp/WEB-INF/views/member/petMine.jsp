@@ -17,6 +17,7 @@ div.buttonclass {
 
 <div class="container mt-3">
 	<div class="row">
+		<input type="hidden" id="mno" name="mno" value="${pmlist.mno }"/> 
 		<div class="col-sm-3">
 		<p>Type something in the input field to search the table for first
 			names, last names or emails:</p>
@@ -28,10 +29,10 @@ div.buttonclass {
 		<div class="col-sm-9">
 	 <ul class="nav nav-tabs">
 	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/member/memberPage">사용자 정보</a>
+	      <a class="nav-link" href='${pageContext.request.contextPath}/member/memberPage'>사용자 정보</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link active" href="${pageContext.request.contextPath}/member/petMine">반려동물 정보</a>
+	      <a class="nav-link active" href='${pageContext.request.contextPath}/member/petMine?mno=${pmlist.mno}'>반려동물 정보</a>
 	    </li>
 	  </ul>
 	  <div class="buttonclass float-right" style="margin: 10px">
@@ -55,16 +56,16 @@ div.buttonclass {
 					</tr>
 				</thead>
 				<tbody id="myTable">
-					<c:forEach var="PetDAO" items="${petList }">
+					<c:forEach var="pmlist" items="${pmlist }">
 				 	<tr>
-					 	<td><a href="petPage?pno=${PetDAO.pno}">${PetDAO.pno } </a></td>
-					 	<td>${PetDAO.mno }</td>
-					 	<td><c:choose><c:when test="${PetDAO.pdiv eq '1'}">개</c:when><c:when test="${PetDAO.pdiv eq '2'}">고양이</c:when></c:choose></td>
-					 	<td>${PetDAO.pname }</td>
-					 	<td>${PetDAO.pbirth }</td>
-					 	<td>${PetDAO.pnum }</td>
-					 	<td><c:choose><c:when test="${PetDAO.pdel eq '1'}">여아 </c:when><c:when test="${PetDAO.pdel eq '2'}"> 남아 </c:when><c:when test="${PetDAO.pdel eq '3'}"> 중성화 한 여아 </c:when><c:when test="${PetDAO.pdel eq '4'}"> 중성화 한 남아 </c:when></c:choose></td>
-					 	<td>${PetDAO.petc }</td>
+					 	<td><a href="petPage?pno=${pmlist.pno}">${pmlist.pno } </a></td>
+					 	<td>${pmlist.mno }</td>
+					 	<td><c:choose><c:when test="${pmlist.pdiv eq '1'}">개</c:when><c:when test="${pmlist.pdiv eq '2'}">고양이</c:when></c:choose></td>
+					 	<td>${pmlist.pname }</td>
+					 	<td>${pmlist.pbirth }</td>
+					 	<td>${pmlist.pnum }</td>
+					 	<td><c:choose><c:when test="${pmlist.pdel eq '1'}">여아 </c:when><c:when test="${pmlist.pdel eq '2'}"> 남아 </c:when><c:when test="${pmlist.pdel eq '3'}"> 중성화 한 여아 </c:when><c:when test="${pmlist.pdel eq '4'}"> 중성화 한 남아 </c:when></c:choose></td>
+					 	<td>${pmlist.petc }</td>
 				 	</tr>
 				</c:forEach>
 				</tbody>

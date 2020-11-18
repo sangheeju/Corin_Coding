@@ -239,12 +239,20 @@ public class MemberController {
 			return mandv;
 	}
 	
+	@RequestMapping(value="petMine", method= RequestMethod.GET)
+	public String petMine(@RequestParam("mno")int mno, Model model) {
+		logger.info("==== : 회원의 반려동물 리스트로 이동합니다 : ====");
+		List<PetDAO> pmlist = memberService.petRef(mno);
+		model.addAttribute("pmlist", pmlist);
+			return "member/petMine?mno="+mno;
+	}
+	
 	@RequestMapping(value="petInfoRef", method= RequestMethod.POST)
 	public ModelAndView petInfoRef(@RequestParam("pno") int pno, Model model) {
 		memberService.petInfo();	
 		List<PetDAO> pNameList = memberService.petInfo();
 		model.addAttribute("pNameList", pNameList);
-		
+		logger.info("==== : 내 반려동물 조회 : ====");
 			return null;
 }
 	

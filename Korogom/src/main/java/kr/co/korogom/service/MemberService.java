@@ -25,6 +25,7 @@ public interface MemberService {
 	public int pregister(PetDAO petDAO);				//반려동물 등록
 	public int petCnt(int pno);							//반려동물 보유 수 확인
 	public List<PetDAO> petInfo();						//반려동물 리스트 페이지 출력
+	public List<PetDAO> petMine(int mno);				//회원당 반려동물 리스트 페이지 출력
 	public List<PetDAO> petRef(int mno);				//회원당 반려동물 정보 확인
 	public PetDAO petPage(int pno);						//반려동물 페이지 출력	
 	public int petUpdate(PetDAO petDAO);				//반려동물 정보 수정

@@ -167,6 +167,12 @@ public class MemberServiceImpl implements MemberService{
 		return sqlSession.selectList(namespace+".petRef", mno);
 	}
 
+	@Override
+	public List<PetDAO> petMine(int mno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".petMine", mno);
+	}
+
 	
 	
 }

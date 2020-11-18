@@ -44,19 +44,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-				
-//		MemberDAO user = memberService.login(map);
-//		logger.info("홈컨트롤러 user: "+user);
-//		if(user == null) {
-//			logger.info("==== : 로그인 에러 : ====");
-//			return "redirect:/";
-//		} else {
-//			session.setAttribute("user", user);
-//			List<PetDAO> plist = memberService.petRef(user.getMno());
-//			logger.info("= 유저 pinfo 정보 ="+plist);
-//			model.addAttribute("plist", plist);
-//		}
-		
+
 		return "home";
 	}
 	

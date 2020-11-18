@@ -30,10 +30,12 @@
 	      <a class="nav-link active" href="#">사용자 정보</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="${pageContext.request.contextPath}/member/petInfo">반려동물 정보</a>
+	      <a class="nav-link" href='${contextPath}/member/petMine?mno=${myinfo.mno}'>반려동물 정보</a>
 	    </li>
-	  </ul>                           
-			<input type="hidden" id="mno" name="mno" value="${myinfo.mno }"/>        
+	  </ul>   
+	  <form>                        
+			<input type="hidden" id="mno" name="mno" value="${myinfo.mno }"/> 
+			</form>       
 				<div class="form-group">
 					<table>
 						<tr>
