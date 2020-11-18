@@ -36,13 +36,13 @@
 						<!-- The slideshow -->
 						<div class="carousel-inner">
 							<div class="carousel-item active">
-								<img src="./resources/images/merry.jpg" alt="merry">
+								<img src='${contextPath }/resources/images/merry.jpg' alt="merry">
 							</div>
 							<div class="carousel-item">
-								<img src="./resources/images/merry1.jpg" alt="merry1">
+								<img src='${contextPath }/resources/images/merry1.jpg' alt="merry1">
 							</div>
 							<div class="carousel-item">
-								<img src="./resources/images/merry2.jpg" alt="merry2">
+								<img src='${contextPath }/resources/images/merry2.jpg' alt="merry2">
 							</div>
 						</div>
 
@@ -95,26 +95,26 @@
 						<a href="${pageContext.request.contextPath}/introduce/v_notice_board">더보기</a>
 					</p>
 				</div>
-				<div class="col-sm-6" name="plist" id="plist">
+				<div class="col-sm-6">
 					<h3>등록한 애완동물 정보</h3>
 					<table class="table">
 						<thead>
 							<tr>
-								<th>이름${petDao.pname}</th>
-								<th>나이${petDao.pbirth}</th>
-								<th>유형${petDao.pdiv}</th>
-								<th>성별${petDao.pdel}</th>
+								<th>이름</th>
+								<th>나이</th>
+								<th>유형</th>
+								<th>성별</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="petDao" items="${plist }">
+							<c:forEach var="plist" items="${plist }">
 								<tr>
-									<td><a href='${pageContext.request.contextPath}/member/petPage?pno=${petDao.pno }'>${petDao.pname}</a></td>
-									<td>${petDao.pbirth}</td>
-									<td>${petDao.pdiv}</td>
-									<td>${petDao.pdel}</td>
+									<td><a href='/member/petPage?pno=${plist.pno }'>${plist.pname}</a></td>
+									<td>${plist.pbirth}</td>
+									<td>${plist.pdiv}</td>
+									<td>${plist.pdel}</td>
 								</tr>
-							</c:forEach>
+							</c:forEach>							
 						</tbody>
 					</table>
 					<p style="text-align: right;">
@@ -133,7 +133,7 @@
 		});
 		//회원 탈퇴 버튼을 눌렀을 때 처리
 		$(".btn-dark").click(function(){
-			location.href="member/logout";
+			location.href="./logout";
 		});
 		//예약내역 확인
 		$(".btn-info").click(function(){

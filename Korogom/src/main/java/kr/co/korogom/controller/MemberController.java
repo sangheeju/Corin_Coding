@@ -106,13 +106,12 @@ public class MemberController {
 		} else {
 			session.setAttribute("user", user);
 			logger.info("==== : 로그인 되었습니다 유저 : ===="+user);
-			ModelAndView pmav = new ModelAndView();	
+
 			List<PetDAO> plist = memberService.petRef(user.getMno());
 			logger.info("= 유저 pinfo 정보 ="+plist);
-			pmav.addObject("plist", plist);
-			pmav.setViewName("redirect:/");
-
-			return "redirect:/";
+			model.addAttribute("plist", plist);
+			
+			return "home";
 		}
 	}
 	
@@ -142,7 +141,7 @@ public class MemberController {
 		} else {
 			session.invalidate();
 			logger.info("==== : 로그아웃 하셨습니다 : ====");
-			return "redirect:/";
+			return "redirect:../";
 		}	
 	}
 	
