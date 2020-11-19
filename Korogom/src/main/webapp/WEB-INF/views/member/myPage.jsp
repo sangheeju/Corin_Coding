@@ -30,12 +30,10 @@
 	      <a class="nav-link active" href="#">사용자 정보</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href='${contextPath}/member/petMine?mno=${myinfo.mno}'>반려동물 정보</a>
+	      <a class="nav-link" href='${pageContext.request.contextPath}/member/petMine?mno=${myinfo.mno}'>반려동물 정보</a>
 	    </li>
-	  </ul>   
-	  <form>                        
-			<input type="hidden" id="mno" name="mno" value="${myinfo.mno }"/> 
-			</form>       
+	  </ul>                         
+			<input type="hidden" id="mno" name="mno" value="${myinfo.mno }"/>        
 				<div class="form-group">
 					<table>
 						<tr>
@@ -119,7 +117,9 @@
 				      </div>
 				    </div>
 				  </div>
-				<button type="button" id="tolist" name="tolist" value="tolist" class="btn btn-success">회원 목록</button>				
+				  <c:if test="${user.mclass == 3 }">
+				<button type="button" id="tolist" name="tolist" value="tolist" class="btn btn-success">회원 목록</button>
+				</c:if>				
 		</div>
 	</div>
 </div>

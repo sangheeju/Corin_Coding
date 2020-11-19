@@ -16,8 +16,7 @@ div.buttonclass {
 </div>
 
 <div class="container mt-3">
-	<div class="row">
-		<input type="hidden" id="mno" name="mno" value="${pmlist.mno }"/> 
+	<div class="row">		
 		<div class="col-sm-3">
 		<p>Type something in the input field to search the table for first
 			names, last names or emails:</p>
@@ -29,10 +28,10 @@ div.buttonclass {
 		<div class="col-sm-9">
 	 <ul class="nav nav-tabs">
 	    <li class="nav-item">
-	      <a class="nav-link" href='${pageContext.request.contextPath}/member/memberPage'>사용자 정보</a>
+	      <a class="nav-link" href='${pageContext.request.contextPath}/member/myPage'>사용자 정보</a>
 	    </li>
 	    <li class="nav-item">
-	      <a class="nav-link active" href='${pageContext.request.contextPath}/member/petMine?mno=${pmlist.mno}'>반려동물 정보</a>
+	      <a class="nav-link active" href='#'>반려동물 정보</a>
 	    </li>
 	  </ul>
 	  <div class="buttonclass float-right" style="margin: 10px">
@@ -55,6 +54,7 @@ div.buttonclass {
 						<th>Etc</th>
 					</tr>
 				</thead>
+
 				<tbody id="myTable">
 					<c:forEach var="pmlist" items="${pmlist }">
 				 	<tr>

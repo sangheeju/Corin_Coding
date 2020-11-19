@@ -28,6 +28,7 @@ import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
 import kr.co.korogom.domain.PhotoFileDAO;
 import kr.co.korogom.service.MemberService;
+import kr.co.korogom.service.PetService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
@@ -44,6 +45,9 @@ public class MemberController {
 		
 	@Autowired 
 	private MemberService memberService;
+	
+	@Autowired
+	private PetService petService;
 	
 //	@Inject
 //	BCryptPasswordEncoder pwdEncoder;
@@ -161,7 +165,9 @@ public class MemberController {
 	@RequestMapping(value="myPage", method=RequestMethod.GET)
 	public String myPage(@RequestParam("mno") int mno, Model model) {
 		logger.info("==== : 개인정보 페이지로 이동합니다 : ====");
-		MemberDAO myinfo = memberService.myPage(mno);		
+		logger.info(""+mno);
+		MemberDAO myinfo = memberService.myPage(mno);
+		logger.info(""+myinfo);
 		model.addAttribute("myinfo", myinfo);
 		return "member/myPage";
 	}
@@ -240,21 +246,29 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="petMine", method= RequestMethod.GET)
-	public String petMine(@RequestParam("mno")int mno, Model model) {
+	public ModelAndView petMine(@RequestParam("mno") int mno) {
+		ModelAndView mav = new ModelAndView();	
 		logger.info("==== : 회원의 반려동물 리스트로 이동합니다 : ====");
-		List<PetDAO> pmlist = memberService.petRef(mno);
-		model.addAttribute("pmlist", pmlist);
-			return "member/petMine?mno="+mno;
+		logger.info("mno확인1"+mno);
+		List<PetDAO> pmlist = petService.petMine(mno);
+		logger.info("pmlist 확인"+pmlist);
+//		model.addAttribute("pmlist", pmlist);
+		mav.addObject("pmlist", pmlist);
+		mav.setViewName("member/petMine");		
+		return mav;
+		
+//		return "member/petMine";
+		
 	}
 	
-	@RequestMapping(value="petInfoRef", method= RequestMethod.POST)
-	public ModelAndView petInfoRef(@RequestParam("pno") int pno, Model model) {
-		memberService.petInfo();	
-		List<PetDAO> pNameList = memberService.petInfo();
-		model.addAttribute("pNameList", pNameList);
-		logger.info("==== : 내 반려동물 조회 : ====");
-			return null;
-}
+//	@RequestMapping(value="petInfoRef", method= RequestMethod.POST)
+//	public ModelAndView petInfoRef(@RequestParam("pno") int pno, Model model) {
+//		memberService.petInfo();	
+//		List<PetDAO> pNameList = memberService.petInfo();
+//		model.addAttribute("pNameList", pNameList);
+//		logger.info("==== : 내 반려동물 조회 : ====");
+//			return null;
+//}
 	
 	@RequestMapping(value="petPage", method=RequestMethod.GET)
 	public String petPage(@RequestParam("pno") int pno, Model model) {
