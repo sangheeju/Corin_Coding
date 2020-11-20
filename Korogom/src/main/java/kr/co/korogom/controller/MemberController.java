@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,7 +28,9 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import kr.co.korogom.api.NaverloginBO;
 import kr.co.korogom.domain.MemberDAO;
 import kr.co.korogom.domain.PetDAO;
+import kr.co.korogom.domain.PhotoFileDAO;
 import kr.co.korogom.service.MemberService;
+import kr.co.korogom.service.PetService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
@@ -44,6 +47,9 @@ public class MemberController {
 	private MemberService memberService;
 	
 	private NaverloginBO naverLoginBO;
+	
+	@Autowired
+	private PetService petService;
 	
 	
 	@RequestMapping(value="mregister", method=RequestMethod.GET)
@@ -112,6 +118,8 @@ public class MemberController {
 			return "redirect:/member/login";
 		} else {
 			model.addAttribute("user", user);
+			session.setAttribute("mname", user.getMname());
+			session.setAttribute("mno", user.getMno());
 			session.setAttribute("user", user.getMnick());
 			logger.info("= 로그인유저정보 ="+user);
 			logger.info("==== : 로그인 되었습니다 : ====");
@@ -142,7 +150,7 @@ public class MemberController {
         model.addAttribute("result", apiResult);
         return "/main";
 	}
-
+	
 	@RequestMapping(value="find_userid", method=RequestMethod.GET)
 	public String find_userid() {
 		logger.info("==== : 아이디 찾기 페이지로 이동합니다 : ====");
@@ -179,7 +187,6 @@ public class MemberController {
 		logger.info("==== : 회원 정보 페이지로 이동합니다 : ====");
 		ModelAndView mav = new ModelAndView();	
 		memberService.memberPage();
-		
 		List<MemberDAO> mylist = memberService.memberPage();
 		mav.addObject("mylist", mylist);
 		mav.setViewName("member/memberPage");
@@ -190,7 +197,9 @@ public class MemberController {
 	@RequestMapping(value="myPage", method=RequestMethod.GET)
 	public String myPage(@RequestParam("mno") int mno, Model model) {
 		logger.info("==== : 개인정보 페이지로 이동합니다 : ====");
-		MemberDAO myinfo = memberService.myPage(mno);		
+		logger.info(""+mno);
+		MemberDAO myinfo = memberService.myPage(mno);
+		logger.info(""+myinfo);
 		model.addAttribute("myinfo", myinfo);
 		return "member/myPage";
 	}
@@ -225,31 +234,17 @@ public class MemberController {
 	}
 
 	@RequestMapping(value="pregister", method=RequestMethod.GET)
-	public String pregister(@ModelAttribute PetDAO petDAO) {
+	public String pregister(@RequestParam("mno")int mno,Model model) {
 		logger.info("==== : 반려동물 등록 페이지로 이동합니다 : ====");
-		
+		model.addAttribute("mno", mno);
 		return "member/pregister";
 	}
-	
+		
 	@RequestMapping(value="pregister", method=RequestMethod.POST)
-	public String pregister(@ModelAttribute @Valid PetDAO petDAO, HttpServletRequest request, BindingResult result) throws Exception {
-		logger.info("==petDAO확인=="+petDAO);
+	public String pregister(PetDAO petDAO){
+			logger.info("==petDAO확인=="+petDAO);
 				
-		// 에러가 있는지 검사
-			if( result.hasErrors() ) {
-
-				// 에러를 List로 저장
-				List<ObjectError> list = result.getAllErrors();
-				for( ObjectError error : list ) {
-					System.out.println(error);
-				}
-				return "redirect/pregister";
-			}		
-			if (petDAO.getPhotoList() != null) {
-				petDAO.getPhotoList().forEach(attach -> log.info(attach));			
-			}
 			memberService.pregister(petDAO);
-			logger.info("==dao=="+petDAO);
 			logger.info("==== : 반려동물이 등록되었습니다 : ====");	
 			return "redirect:petInfo";
 
@@ -260,8 +255,7 @@ public class MemberController {
 		logger.info("==== : 반려동물 리스트 페이지로 이동합니다 : ====");
 
 		ModelAndView mandv = new ModelAndView();	
-		memberService.petInfo();
-		
+		memberService.petInfo();	
 		List<PetDAO> petList = memberService.petInfo();
 		mandv.addObject("petList", petList);
 		mandv.setViewName("member/petInfo");
@@ -269,12 +263,39 @@ public class MemberController {
 			return mandv;
 	}
 	
+	@RequestMapping(value="petMine", method= RequestMethod.GET)
+	public ModelAndView petMine(@RequestParam("mno") int mno,Model model) {
+		ModelAndView mav = new ModelAndView();
+		logger.info("==== : 회원의 반려동물 리스트로 이동합니다 : ====");
+		logger.info("mno확인1"+mno);
+		List<PetDAO> pmlist = petService.petMine(mno);
+		logger.info("pmlist 확인"+pmlist);
+//		model.addAttribute("pmlist", pmlist);
+		model.addAttribute("mno",mno);
+		mav.addObject("pmlist", pmlist);
+		mav.setViewName("member/petMine");		
+		return mav;
+		
+//		return "member/petMine";
+		
+	}
+	
+//	@RequestMapping(value="petInfoRef", method= RequestMethod.POST)
+//	public ModelAndView petInfoRef(@RequestParam("pno") int pno, Model model) {
+//		memberService.petInfo();	
+//		List<PetDAO> pNameList = memberService.petInfo();
+//		model.addAttribute("pNameList", pNameList);
+//		logger.info("==== : 내 반려동물 조회 : ====");
+//			return null;
+//}
+	
 	@RequestMapping(value="petPage", method=RequestMethod.GET)
 	public String petPage(@RequestParam("pno") int pno, Model model) {
 		logger.info("==== : 반려동물 정보 페이지로 이동합니다 : ====");
-		
 		PetDAO petdetail = memberService.petPage(pno);
 		model.addAttribute("petdetail", petdetail);
+		logger.info("Photo");
+		model.addAttribute("photo", memberService.findByPno(pno));
 		return "member/petPage";
 	}
 
@@ -283,14 +304,16 @@ public class MemberController {
 	public String petUpdate(@RequestParam("pno")int pno, Model model) {
 		PetDAO pet = memberService.petPage(pno);
 		model.addAttribute("pet", pet);
-		logger.info("==== : 반려 동불 정보 수정 페이지로 이동합니다 : ====");
+		logger.info("==== : 반려 동물 정보 수정 페이지로 이동합니다 : ====");
 		return "member/petUpdate";
 	}
 	
-	@RequestMapping(value="petUpdate",method=RequestMethod.POST )
-	public String petUpdate(PetDAO petDAO) {
+	@RequestMapping(value="petUpdate", method=RequestMethod.POST )
+	public String petUpdate(PetDAO petDAO, PhotoFileDAO photoDAO, Model model) {
 		logger.info("==== : 반려동물 정보를 수정합니다 : ====");
+		memberService.insertPic(photoDAO);
 		int r = memberService.petUpdate(petDAO);
+
 		if(r>0) {
 			return "redirect:petPage?pno="+petDAO.getPno();
 		}		

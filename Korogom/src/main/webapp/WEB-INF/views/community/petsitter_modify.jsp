@@ -82,6 +82,7 @@
 		</div>
 	</div>
 </div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script type="text/javascript">
 $(document).ready(function() {
 

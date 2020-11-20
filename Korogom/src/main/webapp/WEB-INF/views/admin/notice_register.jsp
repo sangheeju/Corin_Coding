@@ -10,21 +10,24 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-lg-2">
+		<div id='navi' class="cnav">
+      		<ul>
+        		<li><a href="/member/memberPage">회원 관리</a></li>
+        		<li><a href="/admin/reservation_list">예약 목록</a></li>
+        		<li><a href="/admin/notice_board">공지사항 등록</a></li>
+        		<li><a href="/admin/qna_board">Q&A 등록</a></li>
+        		<li><a href="/admin/room_register">객실 등록</a></li>
+      		</ul>
+    	</div>
+	</div>
+	<div class="col-lg-10">
 		<div class="panel panel-default">
 			<div class="panel-heading">Board Register</div>
 			<div class="panel-body">
 				<form role="form" action="/admin/notice_register" method="post">
 					<div class="form-group">
 						<label>제목</label><input class="form-control" name="btitle">
-						<label>별점</label>
-						<p class="star_rating">
-    						<a href="#" id='1'>★</a>
-    						<a href="#" id='2'>★</a>
-    						<a href="#" id='3'>★</a>
-    						<a href="#" id='4'>★</a>
-    						<a href="#" id='5'>★</a>
-    					</p>
     					<input type="hidden" name="bscore" value="0">
     				</div>
 					<div class="form-group">
@@ -62,6 +65,7 @@
 		</div>
 	</div>
 </div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 $(document).ready(function() {
 
@@ -188,18 +192,6 @@ $(document).ready(function() {
 				targetLi.remove();
 			}
 		});
-	});
-});
-</script>
-<script>
-$( document ).ready(function() {
-	$( ".star_rating a" ).click(function() {
-		var getId=$(this).attr("id");
-    	$(this).parent().children("a").removeClass("on");
-   		$(this).addClass("on").prevAll("a").addClass("on");
-    	console.log(getId);
-    	$("input[name=bscore]").val(getId);
-    	return false;
 	});
 });
 </script>

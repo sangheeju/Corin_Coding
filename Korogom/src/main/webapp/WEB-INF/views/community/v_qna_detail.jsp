@@ -133,6 +133,7 @@
 			</div>
 		</div>
 	</div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 $(document).ready(function(){
 	

@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 
 import kr.co.korogom.domain.AttachFileDTO;
+import kr.co.korogom.domain.PhotoFileDAO;
+import kr.co.korogom.service.MemberService;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,6 +40,10 @@ import net.coobird.thumbnailator.Thumbnailator;
 @Log4j
 public class UploadController {
 
+
+	@Autowired
+	private MemberService memberService;
+	
 	private String getFolder() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
@@ -253,5 +260,59 @@ public class UploadController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<String>("deleted",HttpStatus.OK);
+	}
+	@ResponseBody
+	@PostMapping("/upload/insertPic")
+	public int insertPic(PhotoFileDAO photoDAO, Model model) {
+		int done= memberService.insertPic(photoDAO);
+		if (done > 0 ) {
+			log.info("==== : 사진이 등록되었습니다 : ====");
+//			logger.info("==== :"+photoDAO.getUuid());
+//			PhotoFileDAO profilePic= memberService.findByPno(photoDAO.getPno());
+//			logger.info("profilePic 확인 : "+profilePic);
+//			model.addAttribute("profilePic", profilePic);
+//			logger.info("==== : 사진을 출력합니다. : ====");
+		}		
+		return done;
+	}
+	@GetMapping(value="/upload/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@ResponseBody
+	public ResponseEntity<Resource> downloadFile2(@RequestHeader("User-Agent") String userAgent, String fileName){
+		log.info("download file: "+fileName);
+		
+		Resource resource = new FileSystemResource("c:\\upload\\Korogom\\"+fileName); 
+		log.info("resource : "+resource);
+		
+		if(resource.exists() == false) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} 
+		String resourceName = resource.getFilename();
+		
+		// remove UUID
+		String resourceOriginalName = resourceName.substring(resourceName.indexOf("_")+1);
+		
+		HttpHeaders headers = new HttpHeaders();
+		
+		try {
+			String downloadName = null;
+			if(userAgent.contains("Trident")) {
+				log.info("IE browser");
+				downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8").replaceAll("\\+", "");				
+			} else if(userAgent.contains("Edge")) {
+				log.info("Edge browser");
+				downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8");
+			} else {
+				log.info("Chrome browser");
+				downloadName = new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1");				
+			}
+			log.info("downloadName: "+downloadName);
+			
+			headers.add("Content-Disposition", "attachment; filename=" + downloadName);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
 	}
 }

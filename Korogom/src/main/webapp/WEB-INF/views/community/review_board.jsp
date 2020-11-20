@@ -3,32 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
-<jsp:useBean id="toDay" class="java.util.Date" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 <jsp:include page="${contextPath}/WEB-INF/views/includes/header.jsp" />
 <script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
-<style>
-.s1{
-	width:10%;
-}
-.s2{
-	width:50%;
-}
-.s3{
-	width:15%;
-}
-.s4{
-	width:15%;
-}
-.s5{
-	width:10%;
-}
-th{
-	text-align:center;
-}
-</style>
 <div class="row">
 	<div class="col-lg-1">
-		Slide
 	</div>
 	<div class="col-lg-10">
 	<h2>Review Board</h2>
@@ -56,12 +36,7 @@ th{
                   </c:forEach>
 	</table>
 	<div>
-		<button type="button" class="btn btn-outline-secondary" onClick="location.href='../community/review_board'">후기</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../community/petsitter_board'">펫시터</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../community/v_qna_board'">Q&A</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../admin/qna_board'">관리자Q&A</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../admin/notice_board'">공지사항</button>     
-    	<a href='/community/review_register' onClick='fn_write()' class="btn btn-success pull-right">글쓰기</a><br>&nbsp;
+    	<a href='/community/review_register' class="btn btn-success pull-right">글쓰기</a><br>&nbsp;
     	<select name="searchType">
 			<option value="n"
 				<c:out value="${cri.searchType == null?'selected':''}"/>>---</option>
@@ -92,6 +67,7 @@ th{
     				<a class="pnum${pageMaker.cri.page == num ? '_active':''}" href="review_board${pageMaker.makeSearch(num)}">${num}</a>
     			</li>
     		</c:forEach>
+    		<li class="pbutton"><a class='pnum'></a></li>
     		<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
     			<li class="pbutton" ><a class='pnum' href="review_board${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
     		</c:if>
@@ -99,9 +75,9 @@ th{
     </div>
     </div>
     <div class="col-lg-1">
-		Slide
 	</div>
-</div>
+</div> 
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 	$(document).ready(function(){
 		$('#searchBtn').on("click",function(event){

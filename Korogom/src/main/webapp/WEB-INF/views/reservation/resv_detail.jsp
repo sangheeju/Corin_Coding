@@ -15,20 +15,21 @@
 			<div class="panel-body">
 				<form role="form" action="/reservation_register" method="post">
 					<div class="form-group">
-						<input class="form-control" name="roomno" value='<c:out value="${room.roomno}"/>' readonly="readonly">
+						<h2><c:out value="${room.roomno}"/>호</h2>
+						<input type="hidden" name="roomno" value='<c:out value="${room.roomno}"/>'>
 					</div>
 					<div class="form-group">
 						<img src="/image/<c:out value='${room.uploadPath}'/>/s_<c:out value='${room.uuid}'/>_<c:out value='${room.fileName}'/>">
 					</div>
 					<div class="form-group">
-						<label>타입</label>
-						<c:out value="${room.roomtype}"/></h5>
+						<label>타입 : <c:out value="${room.roomtype}"/>숙박가능</label>
 					</div>
 					<div class="form-group">
-						<input class="form-control" name="roomprice" value='<c:out value="${room.roomprice}"/>' readonly="readonly">
+						<label>1박 기준 : <c:out value="${room.roomprice}"/>원</label>
+						<input type="hidden" name="roomprice" value='<c:out value="${room.roomprice}"/>' >
 					</div>
 					<div class="form-group">
-						<textarea class="form-control" rows="3" name="roomcontent" readonly="readonly"><c:out value="${room.roomcontent }"/></textarea>
+						<label><c:out value="${room.roomcontent }"/></label>
 					</div>
 					<div class="form-group">
 						<label>비고</label>
@@ -44,6 +45,7 @@
 		Slide
 	</div>
 </div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 	$(document).ready(function(){
 		var formObj = $("form[role='form']");

@@ -1,5 +1,6 @@
 package kr.co.korogom.controller;
 
+import java.lang.System.Logger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,6 +8,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -36,6 +39,7 @@ public class IntroduceController {
 	
 	@Inject
 	private BoardService service;
+	
 	
 	private void deleteFiles(List<BoardAttachVO> attachList) {
 		if(attachList == null || attachList.size() == 0) {
@@ -77,11 +81,19 @@ public class IntroduceController {
 		
 		model.addAttribute("board",service.get(bno));
 	}
-	@GetMapping("intro_center")
-	public void intro_center(){
+
+	@RequestMapping(value="intro_center", method=RequestMethod.GET)
+	public String center_view() {
+		log.info("==== : 센터소개 페이지로 이동합니다. : ====");
+		
+		return "introduce/intro_center";
 	}
-	@GetMapping("intro_petsiter")
-	public void intro_petsiter(){
+	
+	@RequestMapping(value="intro_petsiter", method=RequestMethod.GET)
+	public String petsitter_view() {
+		log.info("==== : 펫시터 소개 페이지로 이동합니다. : ====");
+		
+		return "introduce/intro_petsiter";
 	}
 	@GetMapping(value = "/getAttachList",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody

@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -76,7 +77,13 @@ public class CommunityController {
 		model.addAttribute("pageMaker",pageMaker);
 	}
 	@GetMapping("/petsitter_register")
-	public void petsitter_register() {
+	public String petsitter_register(Model model, HttpSession session) {
+		if(session.getAttribute("user")==null) {
+			model.addAttribute("msg","로그인후 사용가능합니다..");
+            model.addAttribute("url","/member/login");
+            return "redirect";
+		}
+		return "community/petsitter_register";
 	}
 	@PostMapping("/petsitter_register")
 	public String petsitter_register(BoardDAO board,RedirectAttributes rttr) {
@@ -88,7 +95,7 @@ public class CommunityController {
 		service.petsinsert(board);
 		rttr.addFlashAttribute("result", board.getBno());
 		
-		return "redirect:/community/petsitter_board";
+		return "redirect:/community/petsitter_register";
 	}
 	@GetMapping({"petsitter_detail","/petsitter_modify"})
 	public void petsitter_detail(@RequestParam("bno") int bno,@ModelAttribute("cri") SearchCriteria cri,Model model) {
@@ -133,7 +140,13 @@ public class CommunityController {
 		model.addAttribute("pageMaker",pageMaker);
 	}
 	@GetMapping("/review_register")
-	public void resv_register() {
+	public String resv_register(Model model,HttpSession session) {
+		if(session.getAttribute("user")==null) {
+			model.addAttribute("msg","로그인후 사용가능합니다..");
+            model.addAttribute("url","/member/login");
+            return "redirect";
+		}
+		return "/community/review_register";
 	}
 	@PostMapping("/review_register")
 	public String resv_register(BoardDAO board,RedirectAttributes rttr) {

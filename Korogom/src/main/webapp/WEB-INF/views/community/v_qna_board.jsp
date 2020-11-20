@@ -10,7 +10,9 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-lg-1">
+	</div>
+	<div class="col-lg-10">
 	<table class="table table-striped table-hover">
                   <thead>
                     <tr>
@@ -31,12 +33,6 @@
                   	</tr>
                   </c:forEach>
 	</table>
-	<div>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../reservation/resv_board'">후기</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../community/petsitter_board'">펫시터</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../community/v_qna_board'">Q&A</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../admin/qna_board'">관리자Q&A</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../admin/notice_board'">공지사항</button>
     <div class='box-body'>
     	<select name="searchType">
 			<option value="n"
@@ -74,8 +70,10 @@
     	</ul>
     </div>
     </div>
+    <div class="col-lg-1">
+	</div>
 </div>
-</div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 	$(document).ready(function(){
 		$('#searchBtn').on("click",function(event){

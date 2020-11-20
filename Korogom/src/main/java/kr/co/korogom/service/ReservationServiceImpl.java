@@ -42,6 +42,18 @@ public class ReservationServiceImpl implements ReservationService{
 		log.info(ino);
 		return mapper.ibool_update(ino);
 	}
+
+	@Override
+	public boolean remove(int ino) {
+		log.info(ino);
+		return mapper.delete(ino)==1;
+	}
+
+	@Override
+	public List<ReservationDAO> resv_list(String mnick) {
+		int mno = mapper.find_mno(mnick);
+		return mapper.resv_list(mno);
+	}
 	
 	
 }

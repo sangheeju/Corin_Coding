@@ -62,6 +62,7 @@
 		</div>
 	</div>
 </div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 $(document).ready(function() {
 
@@ -200,13 +201,6 @@ $( document ).ready(function() {
     	console.log(getId);
     	$("input[name=bscore]").val(getId);
     	return false;
-	});
-});
-</script>
-<script>
-$(function(){
-	CKEDITOR.replace('bcon',{
-		filebrowserUploadUrl: '${pageContext.request.contextPath}/adm/fileupload.do'
 	});
 });
 </script>

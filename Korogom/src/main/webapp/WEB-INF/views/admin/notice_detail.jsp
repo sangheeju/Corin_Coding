@@ -9,7 +9,18 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-lg-2">
+		<div id='navi' class="cnav">
+      		<ul>
+        		<li><a href="/member/memberPage">회원 관리</a></li>
+        		<li><a href="/admin/reservation_list">예약 목록</a></li>
+        		<li><a href="/admin/notice_board">공지사항 등록</a></li>
+        		<li><a href="/admin/qna_board">Q&A 등록</a></li>
+        		<li><a href="/admin/room_register">객실 등록</a></li>
+      		</ul>
+    	</div>
+	</div>
+	<div class="col-lg-10">
 		<div class="panel panel-default">
 			<div class="panel-heading">Board Read Page</div>
 			<div class="panel-body">
@@ -133,6 +144,7 @@
 			</div>
 		</div>
 	</div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 $(document).ready(function(){
 	

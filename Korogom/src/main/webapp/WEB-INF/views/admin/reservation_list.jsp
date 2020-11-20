@@ -10,7 +10,18 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-lg-2">
+		<div id='navi' class="cnav">
+      		<ul>
+        		<li><a href="/member/memberPage">회원 관리</a></li>
+        		<li><a href="/admin/reservation_list">예약 목록</a></li>
+        		<li><a href="/admin/notice_board">공지사항 등록</a></li>
+        		<li><a href="/admin/qna_board">Q&A 등록</a></li>
+        		<li><a href="/admin/room_register">객실 등록</a></li>
+      		</ul>
+    	</div>
+	</div>
+	<div id="t1" class="col-lg-10">
 	<table class="table table-striped table-hover">
                   <thead>
                     <tr>
@@ -22,13 +33,14 @@
                       <th>맡길 동물 수</th>
                       <th>요청사료</th>
                       <th>송금인</th>
-                      <th>송금확인</th>
+                      <th>입금확인</th>
+                      <th>예약취소</th>
                     </tr>
                   </thead>
                   <c:forEach items="${resv}" var="resv">
                   	<tr>
                   		<td><c:out value="${resv.ino }"/></td>
-                  		<td><c:out value="${resv.roomno }"/></td>
+                  		<td><c:out value="${resv.roomno }"/>호</td>
                   		<td><c:out value="${resv.mno }"/></td>
                   		<td><c:out value="${resv.istart }"/></td>
                   		<td><c:out value="${resv.iend }"/></td>
@@ -37,8 +49,14 @@
                   		<td><c:out value="${resv.isend }"/></td>
                   		<td>
                   			<c:if test="${resv.ibool eq 0}">
-                  				<button id='addReplyBtn' class='btn btn-primary btn-xs'>입금확인</button>
+                  				<button type='button' name='check' class='btn btn-primary btn-sm' value='<c:out value="${resv.ino }"/>'>입금확인</button>
                   			</c:if>
+                  			<c:if test="${resv.ibool eq 1}">
+                  				<button type="button" class="btn btn-outline-secondary btn-sm">입금완료</button>
+                  			</c:if>
+                  		</td>
+                  		<td>
+                  			<button type='button' name='cancel'  class='btn btn-danger btn-sm' value='<c:out value="${resv.ino}"/>'>예약취소</button>
                   		</td>
                   	</tr>
                   </c:forEach>
@@ -61,5 +79,31 @@
     </div>
     </div>
 </div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
+<script>
+$(document).on("click",'[name="check"]',function(){
+	var ino = $(this).attr('value');
+	console.log(ino);
+	$.ajax({
+		url: '/admin/deposit_check',
+		data: {ino:ino},
+		dataType: 'text',
+		type: 'POST'
+	});
+	window.location.reload(true);
+});
+$(document).on("click",'[name="cancel"]',function(){
+	var ino = $(this).attr('value');
+	console.log(ino);
+	$.ajax({
+		url: '/admin/deposit_cancel',
+		data: {ino:ino},
+		dataType: 'json',
+		type: 'POST'
+	});
+	window.location.reload(true);
+});
+
+</script>
 </body>
 </html>

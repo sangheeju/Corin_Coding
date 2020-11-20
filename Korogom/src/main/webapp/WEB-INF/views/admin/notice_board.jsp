@@ -10,7 +10,18 @@
 	
 </div>
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-lg-2">
+		<div id='navi' class="cnav">
+      		<ul>
+        		<li><a href="/member/memberPage">회원 관리</a></li>
+        		<li><a href="/admin/reservation_list">예약 목록</a></li>
+        		<li><a href="/admin/notice_board">공지사항 등록</a></li>
+        		<li><a href="/admin/qna_board">Q&A 등록</a></li>
+        		<li><a href="/admin/room_register">객실 등록</a></li>
+      		</ul>
+    	</div>
+	</div>
+	<div class="col-lg-10">
 	<table class="table table-striped table-hover">
                   <thead>
                     <tr>
@@ -32,12 +43,7 @@
                   </c:forEach>
 	</table>
 	<div>            
-    	&nbsp;<a href='/admin/notice_register' onClick='fn_write()' class="btn btn-success">글쓰기</a><br>&nbsp;
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../reservation/resv_board'">후기</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../community/petsitter_board'">펫시터</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../community/v_qna_board'">Q&A</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../admin/qna_board'">관리자Q&A</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../admin/notice_board'">공지사항</button>
+    	&nbsp;<a href='/admin/notice_register' onClick='fn_write()' class="btn btn-success pull-right">글쓰기</a><br>&nbsp;
     </div>
     <div class='box-body'>
     	<select name="searchType">
@@ -78,6 +84,7 @@
     </div>
     </div>
 </div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 	$(document).ready(function(){
 		$('#searchBtn').on("click",function(event){

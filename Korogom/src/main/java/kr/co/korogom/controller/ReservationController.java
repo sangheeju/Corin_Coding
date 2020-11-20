@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -83,14 +84,33 @@ public class ReservationController {
 		model.addAttribute("room",Rservice.room_read(roomno));
 	}
 	@GetMapping("/resv_reservation")
-	public void resv_reservation(@RequestParam("roomno") int roomno, Model model) {
+	public String resv_reservation(@RequestParam("roomno") int roomno, Model model,HttpSession session) {
+		if(session.getAttribute("user")==null) {
+			model.addAttribute("msg","로그인후 사용가능합니다..");
+            model.addAttribute("url","/member/login");
+            return "redirect";
+		}
 		model.addAttribute("room",Rservice.room_read(roomno));
+		return "reservation/resv_reservation";
 	}
 	@PostMapping("/resv_reservation")
-	public String resv_reservation2(ReservationDAO resv,RedirectAttributes rttr) {
+	public String resv_reservation2(ReservationDAO resv,RedirectAttributes rttr,Model model) {
 		log.info(resv);
 		resv_service.reservation_register(resv);
-		return "redirect:/reservation/resv_list";
+		model.addAttribute("msg","예약이 완료 되었습니다.");
+        model.addAttribute("url","/reservation/resv_list");
+        return "redirect";
+	}
+	@GetMapping("/reservation_check")
+	public String reservation_check(Model model,HttpSession session) {
+		if(session.getAttribute("user")==null) {
+			model.addAttribute("msg","로그인후 사용가능합니다..");
+            model.addAttribute("url","/member/login");
+            return "redirect";
+		}
+		String mnick = (String) session.getAttribute("user");
+		model.addAttribute("list", resv_service.resv_list(mnick));
+		return "reservation/reservation_check";
 	}
 	@GetMapping(value = "/getAttachList",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody

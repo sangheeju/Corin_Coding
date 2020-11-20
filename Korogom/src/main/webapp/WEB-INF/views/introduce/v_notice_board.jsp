@@ -10,7 +10,9 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-lg-1">
+	</div>
+	<div class="col-lg-10">
 	<table class="table table-striped table-hover">
                   <thead>
                     <tr>
@@ -31,13 +33,6 @@
                   	</tr>
                   </c:forEach>
 	</table>
-	<div>            
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../reservation/resv_board'">후기</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../community/petsitter_board'">펫시터</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../community/v_qna_board'">Q&A</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../admin/qna_board'">관리자Q&A</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../admin/notice_board'">공지사항</button>
-    </div>
     <div class='box-body'>
     	<select name="searchType">
 			<option value="n"
@@ -59,24 +54,26 @@
 		<button id='searchBtn'>Search</button>
 	</div>
     <div class='text-center'>
-    	<ul class="pagination">
+    	<ul class="bpaging">
     		<c:if test="${pageMaker.prev }">
-    			<li class="paginate_button previous"><a href="v_notice_board${pageMaker.makeSearch(pageMaker.startPage -1)}">&laquo;</a>
+    			<li class='pbutton'><a class='pnum' href="petsitter_board${pageMaker.makeSearch(pageMaker.startPage -1)}">&laquo;</a>
     			</li>
     		</c:if>
     		<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage }">
-    			<li class="paginate_button" <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-    				<a href="v_notice_board${pageMaker.makeSearch(num)}">${num}</a>
+    			<li class="pbutton">
+    				<a class="pnum${pageMaker.cri.page == num ? '_active':''}" href="petsitter_board${pageMaker.makeSearch(num)}">${num}</a>
     			</li>
     		</c:forEach>
     		<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-    			<li class="paginate_button next" ><a href="v_notice_board${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
+    			<li class="pbutton" ><a class='pnum' href="petsitter_board${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
     		</c:if>
     	</ul>
-    	
     </div>
     </div>
+    <div class="col-lg-1">
+	</div>
 </div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 	$(document).ready(function(){
 		$('#searchBtn').on("click",function(event){

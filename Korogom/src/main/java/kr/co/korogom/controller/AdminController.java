@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -69,8 +70,16 @@ public class AdminController {
 	}
 //	Admin
 	@GetMapping("adminpage")
-	public void adminpage() {
-		
+	public String adminpage(Model model, HttpSession session) {
+		log.info(session.getAttribute("user"));
+		String user = "ADMIN";
+		String user2 = (String) session.getAttribute("user");
+		if(!user.equals(user2)) {
+			model.addAttribute("msg","관리자 아이디가 아닙니다.");
+            model.addAttribute("url","/main");
+            return "redirect";
+		}
+		return "admin/adminpage";
 	}
 	
 //	Q&A Board
@@ -84,7 +93,15 @@ public class AdminController {
 		model.addAttribute("pageMaker",pageMaker);
 	}
 	@GetMapping("/qna_register")
-	public void qna_register() {
+	public String qna_register(Model model, HttpSession session) {
+		String user = "ADMIN";
+		String user2 = (String) session.getAttribute("user");
+		if(!user.equals(user2)) {
+			model.addAttribute("msg","관리자 아이디가 아닙니다.");
+            model.addAttribute("url","/main");
+            return "redirect";
+		}
+		return "admin/qna_register";
 	}
 	@PostMapping("/qna_register")
 	public String qna_register(BoardDAO board,RedirectAttributes rttr) {
@@ -141,7 +158,15 @@ public class AdminController {
 		model.addAttribute("pageMaker",pageMaker);
 	}
 	@GetMapping("/notice_register")
-	public void register() {
+	public String register(Model model, HttpSession session) {
+		String user = "ADMIN";
+		String user2 = (String) session.getAttribute("user");
+		if(!user.equals(user2)) {
+			model.addAttribute("msg","관리자 아이디가 아닙니다.");
+            model.addAttribute("url","/main");
+            return "redirect";
+		}
+		return "admin/notice_register";
 	}
 	@PostMapping("/notice_register")
 	public String register(BoardDAO board,RedirectAttributes rttr) {
@@ -188,8 +213,15 @@ public class AdminController {
 	}
 //	Room
 	@GetMapping("/room_register")
-	public void room_register() {
-		
+	public String room_register(Model model, HttpSession session) {
+		String user = "ADMIN";
+		String user2 = (String) session.getAttribute("user");
+		if(!user.equals(user2)) {
+			model.addAttribute("msg","관리자 아이디가 아닙니다.");
+            model.addAttribute("url","/main");
+            return "redirect";
+		}
+		return "admin/room_register";
 	}
 	@PostMapping("/room_register")
 	public String room_register1(RoomDAO room,RedirectAttributes rttr) {
@@ -217,6 +249,12 @@ public class AdminController {
 	public void deposit_check(int ino) {
 		log.info("check:"+ino);
 		resv_service.ibool_update(ino);
+	}
+	@ResponseBody
+	@PostMapping("/deposit_cancel")
+	public void deposit_cancel(int ino) {
+		log.info("cancel:"+ino);
+		resv_service.remove(ino);
 	}
 //	Common Element
 	@GetMapping(value = "/getAttachList",produces= MediaType.APPLICATION_JSON_UTF8_VALUE)

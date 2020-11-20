@@ -10,7 +10,9 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-lg-1">
+	</div>
+	<div class="col-lg-10">
 	<table class="table table-striped table-hover">
                   <thead>
                     <tr>
@@ -32,12 +34,7 @@
                   </c:forEach>
 	</table>
 	<div>            
-    	&nbsp;<a href='/community/petsitter_register' onClick='fn_write()' class="btn btn-success">글쓰기</a><br>&nbsp;
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../community/review_board'">리뷰</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../community/petsitter_board'">펫시터</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../community/v_qna_board'">Q&A</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../admin/qna_board'">관리자Q&A</button>
-    	<button type="button" class="btn btn-outline-secondary" onClick="location.href='../admin/notice_board'">공지사항</button>
+    	&nbsp;<a href='/community/petsitter_register' onClick='fn_write()' class="btn btn-success pull-right">글쓰기</a><br>&nbsp;
     </div>
     <div class='box-body'>
     	<select name="searchType">
@@ -76,7 +73,10 @@
     	</ul>
     </div>
     </div>
+    <div class="col-lg-1">
+	</div>
 </div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 	$(document).ready(function(){
 		$('#searchBtn').on("click",function(event){

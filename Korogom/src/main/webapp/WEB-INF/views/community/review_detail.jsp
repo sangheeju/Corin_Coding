@@ -82,7 +82,6 @@
 		</div>
 	</div>
 </div>
-
 <div class="row">
 	<div class="col-lg-12">
 		<!--  panel -->
@@ -137,6 +136,7 @@
 			</div>
 		</div>
 	</div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 $(document).ready(function(){
 	

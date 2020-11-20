@@ -17,7 +17,7 @@
 	<div class="col-lg-10">
 	<div class="panel panel-default">
 		<div class="panel-heading">Resrvation Register</div>
-		<div clas="panel-body">
+		<div class="panel-body">
 		<form role="form" action="/reservation/resv_reservation" method="post">
             <div class="form-group">
             <label>예약숙소</label>
@@ -79,7 +79,7 @@
             <div class="form-group">
              <label for="ietc">비고</label>
               	<input type="text" name="ietc">
-              	<input type="hidden" name="mno" value="0">
+              	<input type="hidden" name="mno" value="<%= session.getAttribute("mno") %>">
             </div>
             <button type="submit" class="btn btn-primary">등록</button>
             <button type="reset" class="btn btn-danger">초기화</button>
@@ -92,6 +92,7 @@
 		Slide
 	</div>
 </div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 $(document).ready(function(){
 	var formObj = $("form[role='form']");

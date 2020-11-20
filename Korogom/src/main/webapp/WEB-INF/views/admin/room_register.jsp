@@ -9,10 +9,18 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-1">
-		Slide
+	<div class="col-lg-2">
+		<div id='navi' class="cnav">
+      		<ul>
+        		<li><a href="/member/memberPage">회원 관리</a></li>
+        		<li><a href="/admin/reservation_list">예약 목록</a></li>
+        		<li><a href="/admin/notice_board">공지사항 등록</a></li>
+        		<li><a href="/admin/qna_board">Q&A 등록</a></li>
+        		<li><a href="/admin/room_register">객실 등록</a></li>
+      		</ul>
+    	</div>
 	</div>
-	<div class="col-lg-10">
+	<div class="col-lg-9">
 		<form role="form" action="/admin/room_register" method="post">
             <div class="form-group">
               <label for="roomno">호수</label>
@@ -24,13 +32,13 @@
             </div>
             <div class="form-group">
             	<label for="roomtype">타입</label>
-              	<input type="radio" name="roomtype" value="1">동반
-              	<input type="radio" name="roomtype" value="2">개
-             	<input type="radio" name="roomtype" value="3">고양이
+              	<input type="radio" name="roomtype" value="동반">동반
+              	<input type="radio" name="roomtype" value="강아지">강아지
+             	<input type="radio" name="roomtype" value="고양이">고양이
             </div>
             <div class="form-group">
             	<label for="roomcontent">설명</label>
-            	<textarea rows="5" cols="30" name="roomcontent"></textarea>
+            	<textarea rows="5" cols="50" name="roomcontent"></textarea>
             </div>
             <div class="form-group">
             	<label for="roomcnt">숙박가능 동물 수</label>
@@ -57,6 +65,7 @@
 		Slide
 	</div>
 </div>
+<jsp:include page="${contextPath}/WEB-INF/views/includes/footer.jsp" />
 <script>
 $(document).ready(function(){
 	var formObj = $("form[role='form']");

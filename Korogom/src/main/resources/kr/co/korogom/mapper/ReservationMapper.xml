@@ -12,4 +12,13 @@
 	<update id="ibool_update">
 		update k_reservation set ibool = 1 where ino = #{ino}
 	</update>
+	<delete id="delete">
+		delete from k_reservation where ino = #{ino}
+	</delete>
+	<select id="find_mno" resultType="int">
+		select mno from k_member where mnick = #{mnick} 
+	</select>
+	<select id="resv_list" resultType="kr.co.korogom.domain.ReservationDAO">
+		select * from k_reservation where mno = #{mno}
+	</select>
 </mapper>
