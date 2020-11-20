@@ -100,7 +100,6 @@ public class MemberController {
             return "redirect";
 		}
 		logger.info("==== : 로그인 페이지로 이동합니다 : ====");
-		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
         if(session!=null) {
         	String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
             System.out.println("네이버:" + naverAuthUrl);
@@ -131,19 +130,13 @@ public class MemberController {
 		System.out.println("Naver Login success");
         OAuth2AccessToken oauthToken;
         oauthToken = naverLoginBO.getAccessToken(session, code, state);
-        //로그인 사용자 정보를 읽어온다.
         String apiResult = naverLoginBO.getUserProfile(oauthToken);
-        //String형식인 apiResult를 json형태로 바꿈
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(apiResult);
         JSONObject jsonObj = (JSONObject) obj;
-        //3. 데이터 파싱
-        //Top레벨 단계 _response 파싱
         JSONObject response_obj = (JSONObject)jsonObj.get("response");
-        //response의 nickname값 파싱
         String nickname = (String)response_obj.get("nickname");
         System.out.println(nickname);
-        //4.파싱 닉네임 세션으로 저장
         session.setAttribute("user",nickname); //세션 생성
         session.setAttribute("site", "naver");
         
@@ -270,24 +263,13 @@ public class MemberController {
 		logger.info("mno확인1"+mno);
 		List<PetDAO> pmlist = petService.petMine(mno);
 		logger.info("pmlist 확인"+pmlist);
-//		model.addAttribute("pmlist", pmlist);
 		model.addAttribute("mno",mno);
 		mav.addObject("pmlist", pmlist);
 		mav.setViewName("member/petMine");		
 		return mav;
 		
-//		return "member/petMine";
-		
 	}
 	
-//	@RequestMapping(value="petInfoRef", method= RequestMethod.POST)
-//	public ModelAndView petInfoRef(@RequestParam("pno") int pno, Model model) {
-//		memberService.petInfo();	
-//		List<PetDAO> pNameList = memberService.petInfo();
-//		model.addAttribute("pNameList", pNameList);
-//		logger.info("==== : 내 반려동물 조회 : ====");
-//			return null;
-//}
 	
 	@RequestMapping(value="petPage", method=RequestMethod.GET)
 	public String petPage(@RequestParam("pno") int pno, Model model) {
