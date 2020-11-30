@@ -1,5 +1,5 @@
 package kr.co.dal.Member;
 
-public interface MemberDAO {
+public class MemberSeviceImpl {
 
 }
