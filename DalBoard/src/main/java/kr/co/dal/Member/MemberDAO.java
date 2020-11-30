@@ -1,5 +1,8 @@
 package kr.co.dal.Member;
 
+import lombok.Data;
+
+@Data
 public class MemberDAO {
 
 	private int mno;
