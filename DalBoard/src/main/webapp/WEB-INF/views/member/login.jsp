@@ -10,7 +10,7 @@
 <%@ include file="../includes/Header.jsp"%>
 <!-- NavTop -->
 <%@ include file="../includes/NavTop.jsp"%>
-<div style="margin-top:50px">
+<div>
 <section class="content">
 	<Form method="post">
 	아이디 : <input type="text" name="mid" /><br>
@@ -20,6 +20,7 @@
 	</Form>
 	<hr>
 	admin/12345<br>
+	admin1/54321<br>
 	
 </section>
 </div>

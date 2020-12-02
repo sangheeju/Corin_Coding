@@ -26,7 +26,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="member/login", method =RequestMethod.POST)
-	public String login(@RequestParam Map<String,Object>map, HttpSession session ) {
+	public String login(@RequestParam Map<String,Object>map, HttpSession session) {
 		Map user = memberService.login(map);
 		if (user==null) {
 			log.info("==: 없는 사용자입니다 :==");
@@ -34,7 +34,20 @@ public class MemberController {
 		} else {			
 			session.setAttribute("user", user);
 			log.info("==: 로그인 되었습니다 :==");
+			return "/home";
+		}
+	}
+	
+	@RequestMapping(value="member/logout", method =RequestMethod.GET)
+	public String logout(HttpSession session) {
+		if(session != null) {
+		session.invalidate();
+		log.info("==: 로그아웃 되었습니다 :==");
+		return "redirect:/";
+		} else {
+		log.info("==: 로그인 상태가 아닙니다 :==");
 			return "redirect:/";
 		}
 	}
+	
 }

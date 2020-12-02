@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="kr.co.dal.Board">
+    	<!-- 전체 글 목록 -->
+	    <select id="boardList" resultType="BoardDTO">
+			SELECT *
+			FROM board
+			ORDER BY bno DESC
+		</select>
+    </mapper>

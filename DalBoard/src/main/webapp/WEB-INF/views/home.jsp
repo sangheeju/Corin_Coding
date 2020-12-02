@@ -7,7 +7,7 @@
 
 <!-- NavTop -->
 <%@ include file="./includes/NavTop.jsp"%>
-<div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top:50px">
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -57,7 +57,7 @@
 <!-- NavSide -->
 <%@ include file="./includes/NavSide.jsp"%>
 	    <div class="col-sm-8 text-left"> 
-	      <h1>Welcome</h1>
+	      <h1> Welcome!!<c:if test="${user!=null }"> ${user.mname }님이 접속 하셨습니다 :3 </c:if></h1>
 	      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 	      <hr>
 	      <h3>Test</h3>

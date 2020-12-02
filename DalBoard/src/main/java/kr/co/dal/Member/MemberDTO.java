@@ -11,6 +11,7 @@ public class MemberDTO {
 	private int mno;
 	private String mid;
 	private String mpass;
+	private String mname;	
 	private String mmail;
 	private String metc;
 	
