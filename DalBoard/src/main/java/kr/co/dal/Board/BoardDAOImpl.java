@@ -19,4 +19,16 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.selectList(namespace+".boardList");
 	}
 
+	@Override
+	public int readCnt(int bno) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".readCnt", bno);
+	}
+
+	@Override
+	public BoardDTO detail(int bno) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".detail", bno);
+	}
+
 }

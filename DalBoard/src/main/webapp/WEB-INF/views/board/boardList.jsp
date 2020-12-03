@@ -25,8 +25,7 @@ th, td {
 	<div class="row content">
 		<!-- NavSide -->
 		<%@ include file="../includes/NavSide.jsp"%>
-
-		
+  <div class="col-sm-9">		
 		<div class="table-responsive">
 			<table class="table">
 				<tr>
@@ -39,7 +38,7 @@ th, td {
 				<c:forEach var="board" items="${list }">
 					<tr>
 						<td>${board.bno}</td>
-						<td><a href="detail?bno=${board.bno}"> ${board.title} </a></td>
+						<td><a href='${pageContext.request.contextPath }/board/detail?bno=${board.bno}'> ${board.btitle} </a></td>
 						<td>${board.bdate}</td>
 						<td>${board.mno}</td>
 						<td><span class="badge">${board.bcnt }</span></td>
@@ -47,6 +46,8 @@ th, td {
 				</c:forEach>
 			</table>
 		</div>
+	</div>
+</div>
 	</div>
 </div>
 <%@ include file="../includes/Bottom.jsp"%>

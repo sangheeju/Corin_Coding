@@ -17,4 +17,16 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.boardList();
 	}
 
+	@Override
+	public int readCnt(int bno) {
+		// TODO Auto-generated method stub
+		return boardDAO.readCnt(bno);
+	}
+
+	@Override
+	public BoardDTO detail(int bno) {
+		// TODO Auto-generated method stub
+		return boardDAO.detail(bno);
+	}
+
 }
