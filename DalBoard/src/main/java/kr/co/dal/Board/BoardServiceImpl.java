@@ -1,6 +1,7 @@
 package kr.co.dal.Board;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -27,6 +28,24 @@ public class BoardServiceImpl implements BoardService {
 	public BoardDTO detail(int bno) {
 		// TODO Auto-generated method stub
 		return boardDAO.detail(bno);
+	}
+
+	@Override
+	public int register(BoardDTO boardDTO) {
+		// TODO Auto-generated method stub
+		return boardDAO.register(boardDTO);
+	}
+
+	@Override
+	public int update(BoardDTO boardDTO) {
+		// TODO Auto-generated method stub
+		return boardDAO.update(boardDTO);
+	}
+
+	@Override
+	public int delete(int bno) {
+		// TODO Auto-generated method stub
+		return boardDAO.delete(bno);
 	}
 
 }

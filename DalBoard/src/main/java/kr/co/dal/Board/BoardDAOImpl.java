@@ -31,4 +31,22 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.selectOne(namespace+".detail", bno);
 	}
 
+	@Override
+	public int register(BoardDTO boardDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(namespace+".register", boardDTO);
+	}
+
+	@Override
+	public int update(BoardDTO boardDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".update", boardDTO);
+	}
+
+	@Override
+	public int delete(int bno) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".delete", bno);
+	}
+
 }

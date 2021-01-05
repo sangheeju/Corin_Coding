@@ -13,7 +13,7 @@ public class MemberSeviceImpl implements MemberService {
 	private MemberDAO memberDAO;
 	
 	@Override
-	public Map login(Map<String, Object> map) {
+	public MemberDTO login(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return memberDAO.login(map);
 	}

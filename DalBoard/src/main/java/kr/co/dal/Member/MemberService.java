@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface MemberService {
 
-	public Map login(Map<String,Object>map);
+	public MemberDTO login(Map<String,Object>map);
 }

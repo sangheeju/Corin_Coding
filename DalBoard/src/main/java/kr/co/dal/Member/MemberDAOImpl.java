@@ -16,7 +16,7 @@ public class MemberDAOImpl implements MemberDAO{
 	private static final String namespace = "kr.co.dal.Member";
 	
 	@Override
-	public Map login(Map<String, Object>map) {
+	public MemberDTO login(Map<String, Object>map) {
 		return sqlSession.selectOne(namespace+".login", map);
 	}
 

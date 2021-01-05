@@ -28,9 +28,10 @@
       <c:if test="${user != null }">
 		<li><a href='#'><span class="glyphicon glyphicon-user"></span>${user.mname }'s Page</a></li>
      	<li><a href='${contextPath}/member/logout'><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-      </c:if>
+      </c:if>      
       </ul>
     </div>
   </div>
 </nav>
+
 <div style="margin-top:30px">&#8203;</div>

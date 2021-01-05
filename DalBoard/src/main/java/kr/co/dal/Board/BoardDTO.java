@@ -10,6 +10,7 @@ public class BoardDTO {
 
 	private int bno;
 	private int mno;
+	private String mid;
 	private String bdate;
 	private String btitle;
 	private String bcon;

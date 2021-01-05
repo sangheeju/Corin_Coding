@@ -7,6 +7,7 @@
 	<select id="boardList" resultType="BoardDTO">
 		SELECT *
 		FROM board
+		WHERE NOT bsort = 0
 		ORDER BY bno DESC
 	</select>
 
@@ -20,9 +21,33 @@
 	</update>
 	<!-- 상세 글 보기 -->
 	<select id="detail" parameterType="java.lang.Integer" resultType="BoardDTO">
-		SELECT *
-		FROM board
-		WHERE bno = #{bno}
+	SELECT* FROM board 
+	AS b, member AS m 
+	WHERE b.bno = #{bno} AND m.mno = b.mno 		
 	</select>
+	<!-- mname으로 mno찾기 
+	<select id="findmno" parameterType="String" resultType="java.lang.Integer">
+		SELECT mno FROM member WHERE mname= #{mname}
+	</select>-->
+	
+	<!-- 글 쓰기 -->
+	<insert id="register" parameterType="BoardDTO" >
+		INSERT INTO board(mno, bdate, btitle, bcon, bfile1, bfile2, bcnt, bsort, betc, mid)
+		VALUES(#{mno}, curdate(), #{btitle}, #{bcon}, #{bfile1}, #{bfile2}, 0, 1, #{betc} , #{mid})
+	</insert>
+	
+	<!-- 글 수정 -->
+	<update id="update" parameterType="BoardDTO">
+		UPDATE board
+		SET mno=#{mno}, bdate=curdate(), btitle=#{btitle}, bcon=#{bcon}, bfile1=#{bfile1}, bfile2=#{bfile2}, bsort=1, betc=#{betc}
+		WHERE bno = #{bno}
+	</update>
+	
+	<!-- 글 삭제 -->
+	<update id="delete" parameterType="java.lang.Integer">
+		UPDATE board 
+		SET bsort = 0
+		WHERE bno = #{bno}
+	</update>
 	
 </mapper>

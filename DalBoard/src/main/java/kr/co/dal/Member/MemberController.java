@@ -27,7 +27,7 @@ public class MemberController {
 	
 	@RequestMapping(value="member/login", method =RequestMethod.POST)
 	public String login(@RequestParam Map<String,Object>map, HttpSession session) {
-		Map user = memberService.login(map);
+		MemberDTO user = memberService.login(map);
 		if (user==null) {
 			log.info("==: 없는 사용자입니다 :==");
 			return "redirect:login";

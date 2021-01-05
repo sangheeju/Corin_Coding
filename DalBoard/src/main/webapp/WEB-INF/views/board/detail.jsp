@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <!-- Header -->
 <%@ include file="../includes/Header.jsp"%>
 <!-- NavTop -->
@@ -29,8 +30,9 @@
 
 				<div class="form-group">
 					<label>작성자</label> <input type="text" name="id"
-						class="form-control" value="${board.mno}" readonly="readonly" />
+						class="form-control" value="${board.mid}" readonly="readonly" />
 				</div>
+				<input type='hidden' name='mno' value='${board.mno}' />
 			</div>
 
 		</div>
@@ -43,6 +45,30 @@
 		</div>
 
 	</section>
+	<script>
+	$(function(){
+		//메인 버튼을 눌렀을 때 처리
+		$(".btn-success").click(function(){
+			location.href="../";
+		});
+		//목록 버튼을 눌렀을 때 처리
+		$(".btn-primary").click(function(){
+			location.href="${contextPath}/board/boardList";
+		});
+		//삭제 버튼을 눌렀을 때 처리
+		$(".btn-danger").click(function(){
+			location.href="${contextPath}/board/delete?bno=" + ${board.bno};
+		});
+		//수정 버튼을 눌렀을 때 처리
+		$(".btn-warning").click(function(){
+			location.href="${contextPath}/board/update?bno=" + ${board.bno};
+		});
+		//댓글작성 버튼을 눌렀을 때 처리
+		//$(".btn-info").click(function() {
+		//	location.href = "reply?bno=" + ${board.bno};
+		//});
+	})
+	</script>
 		</div>
 	</div>
 </div>

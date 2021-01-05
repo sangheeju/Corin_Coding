@@ -40,14 +40,25 @@ th, td {
 						<td>${board.bno}</td>
 						<td><a href='${pageContext.request.contextPath }/board/detail?bno=${board.bno}'> ${board.btitle} </a></td>
 						<td>${board.bdate}</td>
-						<td>${board.mno}</td>
+						<td>${board.mid}</td>
 						<td><span class="badge">${board.bcnt }</span></td>
 					</tr>
 				</c:forEach>
 			</table>
+			<input type='hidden' name='mno' value='${board.mno}' />
+			<div class="box-footer">
+				<button class="btn btn-success">글 쓰기</button>
 		</div>
 	</div>
 </div>
 	</div>
 </div>
+	<script>
+		$(function(){
+			//메인 버튼을 눌렀을 때 처리
+			$(".btn-success").click(function(){
+				location.href="${contextPath}/board/register";
+			});	
+		})
+	</script>
 <%@ include file="../includes/Bottom.jsp"%>
