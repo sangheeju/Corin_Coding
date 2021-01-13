@@ -19,4 +19,5 @@ public class BoardDTO {
 	private int bcnt;
 	private int bsort;
 	private String betc;
+	private String rewriter;
 }

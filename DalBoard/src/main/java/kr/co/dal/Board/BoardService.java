@@ -23,4 +23,13 @@ public interface BoardService {
 	//글 삭제
 	public int delete(int bno);
 	
+	// 댓글 쓰기 addreply
+	public int addreply(ReplyDTO replyDTO);
+	// 댓글 리스트 listreply
+	public List<ReplyDTO> listreply(int bno);
+	// 댓글 수정 editreply
+	public int editreply(ReplyDTO replyDTO);
+	// 댓글 삭제 delreply
+	public int delreply(int reno);
+	
 }

@@ -70,6 +70,7 @@
 	      </div>
 	    </div>
   </div>
+  <input type='hidden' name='mid' value=' ${user.mid }' />
 </div>
 <!-- Bottom -->
 <%@ include file="./includes/Bottom.jsp"%>

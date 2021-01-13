@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.log4j.Log4j;
@@ -53,7 +54,12 @@ public class BoardController {
 		boardService.readCnt(bno);
 		BoardDTO boardDTO = boardService.detail(bno);
 		model.addAttribute("board", boardDTO);
-		model.addAttribute("board", boardService.detail(bno));
+//		model.addAttribute("board", boardService.detail(bno));
+		
+		// 댓글 가져오기
+		List<ReplyDTO> replylist = boardService.listreply(bno);
+		model.addAttribute("list", replylist);
+		
 		
 		return "/board/detail";
 	}
@@ -86,4 +92,24 @@ public class BoardController {
 		}
 		return "redirect:/detail";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="board/addreply", method= RequestMethod.POST)
+	public int addreply(ReplyDTO replyDTO) {
+		log.info("댓글을 추가했습니다.");
+		return boardService.addreply(replyDTO);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="board/listreply", method= RequestMethod.POST)
+	public List<ReplyDTO> listreply(@RequestParam("bno")int bno){
+		return boardService.listreply(bno);
+	}
+	
+//		// 댓글 수정 editreply
+//		public int editreply(ReplyDTO replyDTO);
+//		// 댓글 삭제 delreply
+//		public int delreply(int reno);
+		
+	
 }

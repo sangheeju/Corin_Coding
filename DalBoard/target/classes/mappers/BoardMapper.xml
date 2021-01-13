@@ -19,27 +19,24 @@
 		= bcnt +1
 		WHERE bno = #{bno}
 	</update>
+	
 	<!-- 상세 글 보기 -->
 	<select id="detail" parameterType="java.lang.Integer" resultType="BoardDTO">
 	SELECT* FROM board 
 	AS b, member AS m 
 	WHERE b.bno = #{bno} AND m.mno = b.mno 		
 	</select>
-	<!-- mname으로 mno찾기 
-	<select id="findmno" parameterType="String" resultType="java.lang.Integer">
-		SELECT mno FROM member WHERE mname= #{mname}
-	</select>-->
-	
+
 	<!-- 글 쓰기 -->
 	<insert id="register" parameterType="BoardDTO" >
 		INSERT INTO board(mno, bdate, btitle, bcon, bfile1, bfile2, bcnt, bsort, betc, mid)
-		VALUES(#{mno}, curdate(), #{btitle}, #{bcon}, #{bfile1}, #{bfile2}, 0, 1, #{betc} , #{mid})
+		VALUES(#{mno}, now(), #{btitle}, #{bcon}, #{bfile1}, #{bfile2}, 0, 1, #{betc} , #{mid})
 	</insert>
 	
 	<!-- 글 수정 -->
 	<update id="update" parameterType="BoardDTO">
 		UPDATE board
-		SET mno=#{mno}, bdate=curdate(), btitle=#{btitle}, bcon=#{bcon}, bfile1=#{bfile1}, bfile2=#{bfile2}, bsort=1, betc=#{betc}
+		SET mno=#{mno}, bdate=now(), btitle=#{btitle}, bcon=#{bcon}, bfile1=#{bfile1}, bfile2=#{bfile2}, bsort=1, betc=#{betc}
 		WHERE bno = #{bno}
 	</update>
 	
@@ -49,5 +46,28 @@
 		SET bsort = 0
 		WHERE bno = #{bno}
 	</update>
+	
+	<!-- 댓글 쓰기 -->
+	<insert id="addreply" parameterType="ReplyDTO">
+		INSERT INTO reply(rewriter, rememo, redate, bno)
+		VALUES(#{rewriter}, #{rememo} ,now(), #{bno})
+	</insert>
+	<!-- 댓글 리스트 -->
+	<select id="listreply" parameterType="java.lang.Integer" resultType="ReplyDTO">
+		SELECT * FROM reply
+		WHERE bno = #{bno} 
+		ORDER BY reno DESC
+	</select>
+	<!-- 댓글 수정 -->
+	<update id="editreply" parameterType="ReplyDTO">
+		UPDATE reply
+		SET rememo = #{rememo} , redate = now()
+		WHERE bno = #{bno}
+	</update>
+	<!-- 댓글 삭제 -->
+	<delete id="delreply" parameterType="java.lang.Integer">
+		DELETE FROM reply
+		WHERE reno = #{reno}
+	</delete>
 	
 </mapper>

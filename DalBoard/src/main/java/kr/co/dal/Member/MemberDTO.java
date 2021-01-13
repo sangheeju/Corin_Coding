@@ -14,5 +14,6 @@ public class MemberDTO {
 	private String mname;	
 	private String mmail;
 	private String metc;
+	private int reno;
 	
 }
