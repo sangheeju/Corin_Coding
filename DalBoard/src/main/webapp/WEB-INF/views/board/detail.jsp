@@ -120,14 +120,33 @@ function fn_updateReply(reno, rewriter, rememo){
 		data : paramData,
 		dataType : 'json',
 		success : function(result){
-			console.log(result);
+			console.log("성공했습니다."+result);
 			replylist();
 		},
 		error : function(data){
 			alert("에러가 발생했습니다.")
 		}
 	});
+} //fn_updateReply end
+
+function fn_delReply(reno){
+	var url = "${contextPath}/board/delreply";	
+	var paramData = {
+			"reno" : reno
+	};
 	
+	$.ajax({
+		type: "POST",
+		url : url,
+		data : paramData,
+		dataType : 'json',
+		success : function(result){
+			replylist();
+		},
+		error : function(data){
+			alert("에러가 발생했습니다.")
+		}
+	});
 }
 
 </script>

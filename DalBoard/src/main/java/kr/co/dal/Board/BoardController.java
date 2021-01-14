@@ -120,8 +120,12 @@ public class BoardController {
 		}
 		return result;
 	}
-//		// 댓글 수정 editreply
-//		public int editreply(ReplyDTO replyDTO);
+	
+	@ResponseBody
+	@RequestMapping(value="board/delreply", method=RequestMethod.POST)
+	public int delreply(@RequestParam("reno")int reno) {
+		return boardService.delreply(reno);
+	}
 //		// 댓글 삭제 delreply
 //		public int delreply(int reno);
 		
