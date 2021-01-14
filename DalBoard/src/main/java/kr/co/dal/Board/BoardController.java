@@ -1,5 +1,6 @@
 package kr.co.dal.Board;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -106,6 +107,19 @@ public class BoardController {
 		return boardService.listreply(bno);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="board/editreply", method=RequestMethod.POST)
+	public Map<String, Object> editreply(ReplyDTO replyDTO){
+		Map<String,Object> result = new HashMap<String, Object>();
+		try {
+			boardService.editreply(replyDTO);
+			result.put("status", "OK");			
+		} catch(Exception e) {
+			e.printStackTrace();
+			result.put("status", "FAIL");
+		}
+		return result;
+	}
 //		// 댓글 수정 editreply
 //		public int editreply(ReplyDTO replyDTO);
 //		// 댓글 삭제 delreply

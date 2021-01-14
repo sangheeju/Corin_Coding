@@ -91,7 +91,7 @@ function fn_editReply(reno, rewriter, rememo){ // 수정할 내용 불러오기
 	htmls += reno + ' - ';
 	htmls += '<strong class"text-gray-dark">' + rewriter + '</strong>';
 	htmls += '<span style="padding-left: 7px; font-size: 9pt">';
-	htmls += '<a href="javascript:void(0)" onclick="fn_editReply('+reno+',\''+rewriter+'\')" style="padding-right:5px">저장</a>';
+	htmls += '<a href="javascript:void(0)" onclick="fn_updateReply('+reno+',\''+rewriter+'\')" style="padding-right:5px">저장</a>';
 	htmls += '<a href="javascript:void(0)" onclick="replylist()">취소</a>';
 	htmls += '</span>';
 	htmls += '</span><br />';
@@ -105,7 +105,30 @@ function fn_editReply(reno, rewriter, rememo){ // 수정할 내용 불러오기
 	$('#reno'+reno+'#editmemo').focus();
 } //fn_editReply end;
 
-function fn_updateReply(){}
+function fn_updateReply(reno, rewriter, rememo){
+	var editmemo = $("#editmemo").val();
+	var url = "${contextPath}/board/editreply";
+	var paramData = {
+			"reno" : reno,
+			"rewriter" : rewriter,
+			"rememo" : editmemo
+	};
+	console.log(reno);
+	$.ajax({
+		type : "POST",
+		url : url,
+		data : paramData,
+		dataType : 'json',
+		success : function(result){
+			console.log(result);
+			replylist();
+		},
+		error : function(data){
+			alert("에러가 발생했습니다.")
+		}
+	});
+	
+}
 
 </script>
 

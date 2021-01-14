@@ -61,9 +61,10 @@
 	<!-- 댓글 수정 -->
 	<update id="editreply" parameterType="ReplyDTO">
 		UPDATE reply
-		SET rememo = #{rememo} , redate = now()
-		WHERE bno = #{bno}
+		SET rewriter = #{rewriter}, rememo = #{rememo} , redate = now()
+		WHERE reno = #{reno}
 	</update>
+	
 	<!-- 댓글 삭제 -->
 	<delete id="delreply" parameterType="java.lang.Integer">
 		DELETE FROM reply
