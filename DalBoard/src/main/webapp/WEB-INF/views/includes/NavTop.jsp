@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href='${contextPath}/'>Home</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="${contextPath}/location">About</a></li>
         <li><a href="#">Projects</a></li>
         <li><a href="${contextPath}/board/boardList">Test Board</a></li>
         <li><a href="#">Contact</a></li>
