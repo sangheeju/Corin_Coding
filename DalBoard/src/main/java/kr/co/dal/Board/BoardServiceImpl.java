@@ -72,4 +72,22 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.delreply(reno);
 	}
 
+	@Override
+	public List<BoardDTO> fBoard() {
+		// TODO Auto-generated method stub
+		return boardDAO.fBoard();
+	}
+
+	@Override
+	public List<BoardDTO> nBoard() {
+		// TODO Auto-generated method stub
+		return boardDAO.nBoard();
+	}
+
+	@Override
+	public List<BoardDTO> qnaBoard() {
+		// TODO Auto-generated method stub
+		return boardDAO.qnaBoard();
+	}
+
 }

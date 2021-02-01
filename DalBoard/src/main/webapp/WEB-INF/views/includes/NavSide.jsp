@@ -4,7 +4,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
     
 		<div class="col-sm-2 sidenav">
-	      <p><a href="${contextPath}/board/boardList">Free Board</a></p>
-	      <p><a href="${contextPath}/board/nBoard">Q&A</a></p>
-	      <p><a href="${contextPath}/board/qnaBoard">Notice</a></p>
+	      <p><a href="${contextPath}/board/fBoard">Free Board</a></p>
+	      <p><a href="${contextPath}/board/nBoard">Notice</a></p>
+	      <p><a href="${contextPath}/board/qnaBoard">Q&A</a></p>
     	</div>

@@ -34,6 +34,40 @@ public class BoardController {
 		return mav;
 	}
 	
+	@RequestMapping(value="board/fBoard", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView fBoard() {
+		log.info("==: 자유 게시판으로 이동 :==");
+		ModelAndView mav = new ModelAndView();
+		boardService.fBoard();
+		List<BoardDTO> list = boardService.fBoard();
+		mav.addObject("list", list);
+		mav.setViewName("board/fBoard");
+		
+		return mav;
+	}
+	@RequestMapping(value="board/nBoard", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView nBoard() {
+		log.info("==: 공지 게시판으로 이동 :==");
+		ModelAndView mav = new ModelAndView();
+		boardService.nBoard();
+		List<BoardDTO> list = boardService.nBoard();
+		mav.addObject("list", list);
+		mav.setViewName("board/nBoard");
+		
+		return mav;
+	}
+	@RequestMapping(value="board/qnaBoard", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView qnaBoard() {
+		log.info("==: QnA 게시판으로 이동 :==");
+		ModelAndView mav = new ModelAndView();
+		boardService.qnaBoard();
+		List<BoardDTO> list = boardService.qnaBoard();
+		mav.addObject("list", list);
+		mav.setViewName("board/qnaBoard");
+		
+		return mav;
+	}
+	
 	@RequestMapping(value="board/register", method=RequestMethod.GET)
 	public String register() {
 		log.info("==: 글 쓰기 페이지로 이동 :==");

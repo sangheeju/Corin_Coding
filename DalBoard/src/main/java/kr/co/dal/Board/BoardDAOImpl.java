@@ -73,4 +73,22 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.delete(namespace+".delreply", reno);
 	}
 
+	@Override
+	public List<BoardDTO> fBoard() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".fBoard");
+	}
+
+	@Override
+	public List<BoardDTO> nBoard() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".nBoard");
+	}
+
+	@Override
+	public List<BoardDTO> qnaBoard() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".qnaBoard");
+	}
+
 }

@@ -7,6 +7,9 @@ public interface BoardDAO {
 	
 	//전체 보기
 	public List<BoardDTO> boardList();	
+	public List<BoardDTO> fBoard(); // 자유게시판
+	public List<BoardDTO> nBoard(); // 공지게시판
+	public List<BoardDTO> qnaBoard(); // QnA게시판
 	
 	//조회수 증가
 	public int readCnt(int bno);

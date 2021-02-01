@@ -71,4 +71,28 @@
 		WHERE reno = #{reno}
 	</delete>
 	
+		<!-- 자유게시판 목록 -->
+	<select id="fBoard" resultType="BoardDTO">
+		SELECT *
+		FROM board
+		WHERE bsort = 1
+		ORDER BY bno DESC
+	</select>
+	
+		<!-- 공지 게시판 목록 -->
+	<select id="nBoard" resultType="BoardDTO">
+		SELECT *
+		FROM board
+		WHERE bsort = 2
+		ORDER BY bno DESC
+	</select>
+	
+		<!-- QnA게시판 목록 -->
+	<select id="qnaBoard" resultType="BoardDTO">
+		SELECT *
+		FROM board
+		WHERE bsort = 3
+		ORDER BY bno DESC
+	</select>
+	
 </mapper>

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <footer class="container-fluid text-center">
-  <p>Footer Text</p>
+  <p>Copyright 2020. Corogom Co. all rights reserved </p>
 </footer>
 
 </body>
