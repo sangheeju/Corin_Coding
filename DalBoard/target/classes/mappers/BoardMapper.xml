@@ -94,5 +94,50 @@
 		WHERE bsort = 3
 		ORDER BY bno DESC
 	</select>
+
+	<!-- 총 자유 게시판 글 수 계산 SQL  -->
+	<select id="countfBoard" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM board 
+		WHERE bsort = 1
+	</select>
 	
+	<!-- 총 공지 게시판 글 수 계산 SQL  -->
+	<select id="countnBoard" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM board 
+		WHERE bsort = 2
+	</select>
+	
+	<!-- 총 QnA 게시판 글 수 계산 SQL  -->
+	<select id="countqnaBoard" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM board 
+		WHERE bsort = 3
+	</select>
+	
+	<!-- 페이징 처리 SQL -->
+	<select id = "selectfBoard" parameterType="java.lang.Integer" resultType="BoardDTO">
+	SELECT * 
+	FROM (SELECT @rownum:=@rownum+1 as RN, A.* 
+		FROM (SELECT * FROM board WHERE bsort = 1 ORDER BY bno DESC) as A, 
+	      	 (SELECT @rownum:=0) as TMP) as D
+	   WHERE RN BETWEEN #{start} AND #{end}
+	</select>	
+	<!-- 페이징 처리 SQL -->
+	<select id = "selectnBoard" parameterType="java.lang.Integer" resultType="BoardDTO">
+	SELECT * 
+	FROM (SELECT @rownum:=@rownum+1 as RN, A.* 
+		FROM (SELECT * FROM board WHERE bsort = 2 ORDER BY bno DESC) as A, 
+	      	 (SELECT @rownum:=0) as TMP) as D
+	   WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 페이징 처리 SQL -->
+	<select id = "selectqnaBoard" parameterType="java.lang.Integer" resultType="BoardDTO">
+	SELECT * 
+	FROM (SELECT @rownum:=@rownum+1 as RN, A.* 
+		FROM (SELECT * FROM board WHERE bsort = 3 ORDER BY bno DESC) as A, 
+	      	 (SELECT @rownum:=0) as TMP) as D
+	   WHERE RN BETWEEN #{start} AND #{end}
+	</select>
 </mapper>

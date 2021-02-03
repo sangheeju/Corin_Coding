@@ -27,6 +27,7 @@ th, td {
 		<%@ include file="../includes/NavSide.jsp"%>
 		<div class="col-sm-9">
 			<div class="table-responsive">
+				<h2><br />공지 게시판</h2>
 				<table class="table">
 					<tr>
 						<th>글번호</th>

@@ -34,16 +34,32 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping(value="board/fBoard", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView fBoard() {
+	@RequestMapping(value="board/fBoard", method = RequestMethod.GET)
+	public String fBoard(PagingDTO pagingDTO, Model model, 
+			@RequestParam(value="nowPage", required=false)String nowPage,
+			@RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		log.info("==: 자유 게시판으로 이동 :==");
-		ModelAndView mav = new ModelAndView();
-		boardService.fBoard();
-		List<BoardDTO> list = boardService.fBoard();
-		mav.addObject("list", list);
-		mav.setViewName("board/fBoard");
+		int total = boardService.countfBoard();
+		if(nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "10";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) {
+			cntPerPage = "10";
+		}
+		pagingDTO = new PagingDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("pageMaker", pagingDTO);
+		model.addAttribute("list", boardService.selectfBoard(pagingDTO));
+		return "board/fBoard"; //값을 받을 페이지
 		
-		return mav;
+//		ModelAndView mav = new ModelAndView();
+//		boardService.fBoard();
+//		List<BoardDTO> list = boardService.fBoard();
+//		mav.addObject("list", list);
+//		mav.setViewName("board/fBoard");
+//		
+//		return mav;
 	}
 	@RequestMapping(value="board/nBoard", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView nBoard() {

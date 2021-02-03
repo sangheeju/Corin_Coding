@@ -35,4 +35,14 @@ public interface BoardService {
 	// 댓글 삭제 delreply
 	public int delreply(int reno);
 	
+	//게시글 총 수 계산 method
+	public int countfBoard();
+	public int countnBoard();
+	public int countqnaBoard();
+		
+	//페이징 처리한 게시글 보기 method
+	public List<BoardDTO> selectfBoard(PagingDTO pagingDTO);
+	public List<BoardDTO> selectnBoard(PagingDTO pagingDTO);
+	public List<BoardDTO> selectqnaBoard(PagingDTO pagingDTO);
+	
 }

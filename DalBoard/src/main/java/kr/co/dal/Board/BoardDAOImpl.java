@@ -91,4 +91,40 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.selectList(namespace+".qnaBoard");
 	}
 
+	@Override
+	public int countfBoard() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".countfBoard");
+	}
+
+	@Override
+	public int countnBoard() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".countnBoard");
+	}
+
+	@Override
+	public int countqnaBoard() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"countqnaBoard");
+	}
+
+	@Override
+	public List<BoardDTO> selectfBoard(PagingDTO pagingDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".selectfBoard", pagingDTO);
+	}
+
+	@Override
+	public List<BoardDTO> selectnBoard(PagingDTO pagingDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".selectnBoard", pagingDTO);
+	}
+
+	@Override
+	public List<BoardDTO> selectqnaBoard(PagingDTO pagingDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".selectqnaBoard", pagingDTO);
+	}
+
 }

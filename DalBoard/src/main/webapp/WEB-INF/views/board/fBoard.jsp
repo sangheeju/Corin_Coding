@@ -27,6 +27,7 @@ th, td {
 		<%@ include file="../includes/NavSide.jsp"%>
 		<div class="col-sm-9">
 			<div class="table-responsive">
+			<h2><br />자유 게시판</h2>
 				<table class="table">
 					<tr>
 						<th>글번호</th>
@@ -52,6 +53,27 @@ th, td {
 				</div>
 			</div>
 			<div><br/></div>
+			  <div align="center">  
+				  <ul class="pagination">
+				  	<c:if test="${pageMaker.startPage != 1 }">
+				    <li class="paginate_button previous"><a href="${pageContext.request.contextPath }/board/fBoard?nowPage=${pageMaker.startPage - 1 }&cntPerPage=${pageMaker.cntPerPage}">Previous</a></li>
+				    </c:if>
+				    <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+						<c:choose>
+							<c:when test="${num == pageMaker.nowPage }">
+								<li><a href="#">${num }</a></li>
+							</c:when>
+							<c:when test="${num != pageMaker.nowPage }">
+								<li><a href="${pageContext.request.contextPath }/board/fBoard?nowPage=${num }&cntPerPage=${pageMaker.cntPerPage}">${num }</a></li>
+							</c:when>
+						</c:choose>			
+					</c:forEach>
+					<c:if test="${pageMaker.endPage != pageMaker.lastPage}">
+				    <li class="paginate_button next"><a href="${pageMaker.endPage +1}">Next</a></li>
+				    </c:if>
+				  </ul>
+
+				</div>	<!--  End Of Paging -->
 		</div>
 	</div>
 </div>

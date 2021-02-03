@@ -90,4 +90,40 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.qnaBoard();
 	}
 
+	@Override
+	public int countfBoard() {
+		// TODO Auto-generated method stub
+		return boardDAO.countfBoard();
+	}
+
+	@Override
+	public int countnBoard() {
+		// TODO Auto-generated method stub
+		return boardDAO.countnBoard();
+	}
+
+	@Override
+	public int countqnaBoard() {
+		// TODO Auto-generated method stub
+		return boardDAO.countqnaBoard();
+	}
+
+	@Override
+	public List<BoardDTO> selectfBoard(PagingDTO pagingDTO) {
+		// TODO Auto-generated method stub
+		return boardDAO.selectfBoard(pagingDTO);
+	}
+
+	@Override
+	public List<BoardDTO> selectnBoard(PagingDTO pagingDTO) {
+		// TODO Auto-generated method stub
+		return boardDAO.selectnBoard(pagingDTO);
+	}
+
+	@Override
+	public List<BoardDTO> selectqnaBoard(PagingDTO pagingDTO) {
+		// TODO Auto-generated method stub
+		return boardDAO.selectqnaBoard(pagingDTO);
+	}
+
 }
